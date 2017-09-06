@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>mui初级入门教程（二）— html5+ webview 底部栏用法详解 | 小青年博客 | 看似寻常最奇崛，成如容易却艰辛。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="mui,html5plus,webview">
+    <meta name="description" content="写在前面本系列文章我们将利用mui基于网易云音乐API实现一个音乐播放器APP，同时基于环形或者融云实现聊天功能。作为本系列文章的第一篇，本文会详细讲解html5+中管理应用窗口界面的Webview模块的用法，因为是初级教程篇不过多讲解原理部分，初级用户只需要知道基本用法就可以，并使用mui.js中的组件进行页面效果展示。 webview基本知识 Webview模块管理应用窗口界面，实现多窗口的逻">
+<meta name="keywords" content="mui,html5plus,webview">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mui初级入门教程（二）— html5+ webview 底部栏用法详解">
+<meta property="og:url" content="https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/index.html">
+<meta property="og:site_name" content="小青年博客">
+<meta property="og:description" content="写在前面本系列文章我们将利用mui基于网易云音乐API实现一个音乐播放器APP，同时基于环形或者融云实现聊天功能。作为本系列文章的第一篇，本文会详细讲解html5+中管理应用窗口界面的Webview模块的用法，因为是初级教程篇不过多讲解原理部分，初级用户只需要知道基本用法就可以，并使用mui.js中的组件进行页面效果展示。 webview基本知识 Webview模块管理应用窗口界面，实现多窗口的逻">
+<meta property="og:updated_time" content="2017-05-03T16:15:28.095Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mui初级入门教程（二）— html5+ webview 底部栏用法详解">
+<meta name="twitter:description" content="写在前面本系列文章我们将利用mui基于网易云音乐API实现一个音乐播放器APP，同时基于环形或者融云实现聊天功能。作为本系列文章的第一篇，本文会详细讲解html5+中管理应用窗口界面的Webview模块的用法，因为是初级教程篇不过多讲解原理部分，初级用户只需要知道基本用法就可以，并使用mui.js中的组件进行页面效果展示。 webview基本知识 Webview模块管理应用窗口界面，实现多窗口的逻">
+    
+        <link rel="alternate" type="application/atom+xml" title="小青年博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵梦欢</h5>
+          <a href="mailto:zhaomenghuan@foxmail.com" title="zhaomenghuan@foxmail.com" class="mail">zhaomenghuan@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                首页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://zhaomenghuan.github.io/content.json" target="_blank" >
+                <i class="icon icon-lg icon-th-large"></i>
+                API
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://segmentfault.com/u/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                Segmentfault
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.jianshu.com/u/de1f0b8eaf18" target="_blank" >
+                <i class="icon icon-lg icon-book"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">mui初级入门教程（二）— html5+ webview 底部栏用法详解</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">mui初级入门教程（二）— html5+ webview 底部栏用法详解</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-05-18T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2016-05-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MUI从入门到精通/">MUI从入门到精通</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在前面"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#webview基本知识"><span class="post-toc-number">2.</span> <span class="post-toc-text">webview基本知识</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#什么是窗口？什么是webview"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">什么是窗口？什么是webview?</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建新的Webview窗口"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">创建新的Webview窗口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#显示Webview窗口"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">显示Webview窗口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#隐藏Webview窗口"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">隐藏Webview窗口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取当前窗口的WebviewObject对象"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">获取当前窗口的WebviewObject对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查找指定标识的WebviewObject窗口"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">查找指定标识的WebviewObject窗口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建并打开Webview窗口"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">创建并打开Webview窗口</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mui双webview模式"><span class="post-toc-number">3.</span> <span class="post-toc-text">mui双webview模式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#页面初始化"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">页面初始化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建子页面"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">创建子页面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#打开新页面"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">打开新页面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关闭页面"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">关闭页面</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#兼容浏览器的处理办法"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">兼容浏览器的处理办法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#双首页配置的优化方案"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">双首页配置的优化方案</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">4.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-mui初级入门教程（二）—html5+ webview 底部栏用法详解"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">mui初级入门教程（二）— html5+ webview 底部栏用法详解</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-05-19 00:00:00" datetime="2016-05-18T16:00:00.000Z"  itemprop="datePublished">2016-05-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MUI从入门到精通/">MUI从入门到精通</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>本系列文章我们将利用mui基于网易云音乐API实现一个音乐播放器APP，同时基于环形或者融云实现聊天功能。作为本系列文章的第一篇，本文会详细讲解html5+中管理应用窗口界面的Webview模块的用法，因为是初级教程篇不过多讲解原理部分，初级用户只需要知道基本用法就可以，并使用mui.js中的组件进行页面效果展示。</p>
+<h2 id="webview基本知识"><a href="#webview基本知识" class="headerlink" title="webview基本知识"></a>webview基本知识</h2><blockquote>
+<p>Webview模块管理应用窗口界面，实现多窗口的逻辑控制管理操作。通过plus.webview可获取应用界面管理对象。</p>
+</blockquote>
+<h3 id="什么是窗口？什么是webview"><a href="#什么是窗口？什么是webview" class="headerlink" title="什么是窗口？什么是webview?"></a>什么是窗口？什么是webview?</h3><p>这里我们首先来举个例子，大家都用过浏览器，常用的浏览器可以打开多个网页。电脑屏幕就是一个窗口，不同的页面我们可以什么是不同的webview，我们可以通过控制webview的切换从而控制浏览不同的页面。</p>
+<p>对于我们这里就是一个html页面就是一个窗口，一个html页面可以创建多个webview。这个webview是原生APP中浏览网页的组件，android和iOS都有，html5plus中的webview是对原生webview的封装，可以用js进行调用，所以它的运行环境是APP环境，普通浏览器不支持。</p>
+<p>首先我们现在html5plus官网看一下<strong><a href="http://www.html5plus.org/doc/zh_cn/webview.html" target="_blank" rel="external">webview API文档</a></strong>,这里我们重点看一下下面几个方法:</p>
+<h3 id="创建新的Webview窗口"><a href="#创建新的Webview窗口" class="headerlink" title="创建新的Webview窗口"></a>创建新的Webview窗口</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WebviewObject plus.webview.create( url, id, styles, extras );</div></pre></td></tr></table></figure>
+<p><strong>说明:</strong><br>创建Webview窗口，用于加载新的HTML页面，可通过styles设置Webview窗口的样式，创建完成后需要调用show方法才能将Webview窗口显示出来。</p>
+<h3 id="显示Webview窗口"><a href="#显示Webview窗口" class="headerlink" title="显示Webview窗口"></a>显示Webview窗口</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> plus.webview.show( id_wvobj, aniShow, duration, showedCB, extras );</div></pre></td></tr></table></figure>
+<p><strong>说明：</strong><br>显示已创建或隐藏的Webview窗口，需先获取窗口对象或窗口id，并可指定显示窗口的动画及动画持续时间。</p>
+<h3 id="隐藏Webview窗口"><a href="#隐藏Webview窗口" class="headerlink" title="隐藏Webview窗口"></a>隐藏Webview窗口</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> plus.webview.hide( id_wvobj, aniHide, duration, extras );</div></pre></td></tr></table></figure>
+<p><strong>说明：</strong><br>根据指定的WebviewObject对象或id隐藏Webview窗口，使得窗口不可见。</p>
+<h3 id="获取当前窗口的WebviewObject对象"><a href="#获取当前窗口的WebviewObject对象" class="headerlink" title="获取当前窗口的WebviewObject对象"></a>获取当前窗口的WebviewObject对象</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WebviewObject plus.webview.currentWebview();</div></pre></td></tr></table></figure>
+<p><strong>说明：</strong><br>获取当前页面所属的Webview窗口对象。</p>
+<h3 id="查找指定标识的WebviewObject窗口"><a href="#查找指定标识的WebviewObject窗口" class="headerlink" title="查找指定标识的WebviewObject窗口"></a>查找指定标识的WebviewObject窗口</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WebviewObject plus.webview.getWebviewById( id );</div></pre></td></tr></table></figure>
+<p><strong>说明：</strong><br>在已创建的窗口列表中查找指定标识的Webview窗口并返回。 若没有查找到指定标识的窗口则返回null，若存在多个相同标识的Webview窗口，则返回第一个创建的Webview窗口。 如果要获取应用入口页面所属的Webview窗口，其标识为应用的%APPID%，可通过plus.runtime.appid获取。</p>
+<h3 id="创建并打开Webview窗口"><a href="#创建并打开Webview窗口" class="headerlink" title="创建并打开Webview窗口"></a>创建并打开Webview窗口</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WebviewObject plus.webview.open( url, id, styles, aniShow, duration, showedCB );</div></pre></td></tr></table></figure>
+<p><strong>说明：</strong><br>创建并显示Webview窗口，用于加载新的HTML页面，可通过styles设置Webview窗口的样式，创建完成后自动将Webview窗口显示出来。</p>
+<blockquote>
+<p>以上来源于html5plus文档，只列举了部分最常用的方法，旨在为后文做铺垫，由于不是文档，所以也得也不清楚，如果想详细了解请看这里<a href="http://www.html5plus.org/doc/zh_cn/webview.html" target="_blank" rel="external">html5plus webview API</a>。</p>
+</blockquote>
+<h2 id="mui双webview模式"><a href="#mui双webview模式" class="headerlink" title="mui双webview模式"></a>mui双webview模式</h2><p>首先我们要了解mui为了解决窗体切换白屏和区域滚动提出的双webview模式。</p>
+<h3 id="页面初始化"><a href="#页面初始化" class="headerlink" title="页面初始化"></a>页面初始化</h3><blockquote>
+<p>mui框架将很多功能配置都集中在<code>mui.init</code>方法中，要使用某项功能，只需要在<code>mui.init</code>方法中完成对应参数配置即可，目前支持在<code>mui.init</code>方法中配置的功能包括：创建子页面、关闭页面、手势事件配置、预加载、下拉刷新、上拉加载、设置系统状态栏背景颜色。mui需要在页面加载时初始化很多基础控件,如监听返回键,因此务必在每个页面中调用.</p>
+</blockquote>
+<p><strong>以下是可以配置的参数：</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">mui.init(&#123;</div><div class="line">	<span class="comment">//子页面</span></div><div class="line">	subpages: [&#123;</div><div class="line">		<span class="comment">//...</span></div><div class="line">	&#125;],</div><div class="line">	<span class="comment">//预加载</span></div><div class="line">	preloadPages:[</div><div class="line">	    <span class="comment">//...</span></div><div class="line"> 	],</div><div class="line">	<span class="comment">//下拉刷新、上拉加载</span></div><div class="line"> 	pullRefresh : &#123;</div><div class="line">	   <span class="comment">//...</span></div><div class="line">    &#125;,</div><div class="line">	<span class="comment">//手势配置</span></div><div class="line"> 	 gestureConfig:&#123;</div><div class="line">	   <span class="comment">//...</span></div><div class="line">	&#125;,</div><div class="line">	<span class="comment">//侧滑关闭</span></div><div class="line">	swipeBack:<span class="literal">true</span>, <span class="comment">//Boolean(默认false)启用右滑关闭功能</span></div><div class="line"></div><div class="line">	<span class="comment">//监听Android手机的back、menu按键</span></div><div class="line">	keyEventBind: &#123;</div><div class="line">		<span class="attr">backbutton</span>: <span class="literal">false</span>,  <span class="comment">//Boolean(默认truee)关闭back按键监听</span></div><div class="line">		menubutton: <span class="literal">false</span>   <span class="comment">//Boolean(默认true)关闭menu按键监听</span></div><div class="line">	&#125;,</div><div class="line">	<span class="comment">//处理窗口关闭前的业务</span></div><div class="line">	beforeback: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="comment">//... //窗口关闭前处理其他业务详情点击 ↑ "关闭页面"链接查看</span></div><div class="line">	&#125;,</div><div class="line">	<span class="comment">//设置状态栏颜色</span></div><div class="line">	statusBarBackground: <span class="string">'#9defbcg'</span>, <span class="comment">//设置状态栏颜色,仅iOS可用</span></div><div class="line">	preloadLimit:<span class="number">5</span><span class="comment">//预加载窗口数量限制(一旦超出,先进先出)默认不限制</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>在<code>app</code>开发中，若要使用<code>HTML5+</code>扩展<code>api</code>，必须等<code>plusready</code>事件发生后才能正常使用，mui将该事件封装成了<code>mui.plusReady()</code>方法，涉及到<code>HTML5+</code>的<code>api</code>，建议都写在<code>mui.plusReady</code>方法中。</p>
+<p>如下为打印当前页面URL的示例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mui.plusReady(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">     <span class="built_in">console</span>.log(<span class="string">"当前页面URL："</span>+plus.webview.currentWebview().getURL());</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="创建子页面"><a href="#创建子页面" class="headerlink" title="创建子页面"></a>创建子页面</h3><p>在mobile app开发过程中，经常遇到卡头卡尾的页面，此时若使用局部滚动，在android手机上会出现滚动不流畅的问题； mui的解决思路是：将需要滚动的区域通过单独的webview实现，完全使用原生滚动。具体做法则是：将目标页面分解为主页面和内容页面，主页面显示卡头卡尾区域，比如顶部导航、底部选项卡等；内容页面显示具体需要滚动的内容，然后在主页面中调用mui.init方法初始化内容页面。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">mui.init(&#123;</div><div class="line">    <span class="attr">subpages</span>:[&#123;</div><div class="line">      <span class="attr">url</span>:your-subpage-url,<span class="comment">//子页面HTML地址，支持本地地址和网络地址</span></div><div class="line">      id:your-subpage-id,<span class="comment">//子页面标志</span></div><div class="line">      styles:&#123;</div><div class="line">        <span class="attr">top</span>:subpage-top-position,<span class="comment">//子页面顶部位置</span></div><div class="line">        bottom:subpage-bottom-position,<span class="comment">//子页面底部位置</span></div><div class="line">        width:subpage-width,<span class="comment">//子页面宽度，默认为100%</span></div><div class="line">        height:subpage-height,<span class="comment">//子页面高度，默认为100%</span></div><div class="line">        ......</div><div class="line">      &#125;,</div><div class="line">      <span class="attr">extras</span>:&#123;&#125;<span class="comment">//额外扩展参数</span></div><div class="line">    &#125;]</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><strong>参数说明：</strong><br><strong>styles:</strong>表示窗口属性，参考5+规范中的WebviewStyle；特别注意，height和width两个属性,即使不设置，也默认按100%计算；因此若设置了top值为非”0px”的情况，建议同时设置bottom值，否则5+ runtime根据高度100%计算，可能会造成页面真实底部位置超出屏幕范围的情况；left、right同理。</p>
+<p><strong>示例：Hello mui的首页其实就是index.html加list.html合并而成的，如下：</strong></p>
+{% image https://segmentfault.com/img/remote/1460000005340870 '' '' %}
+<p>index.html的作用就是显示固定导航，list.html显示具体列表内容，列表项的滚动是在list.html所在webview中使用原生滚动，既保证了滚动条不会穿透顶部导航，符合app的体验，也保证了列表流畅滚动，解决了区域滚动卡顿的问题。 list.html就是index.html的子页面，创建代码比较简单，如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mui.init(&#123;</div><div class="line">    <span class="attr">subpages</span>:[&#123;</div><div class="line">      <span class="attr">url</span>:<span class="string">'list.html'</span>,</div><div class="line">      <span class="attr">id</span>:<span class="string">'list.html'</span>,</div><div class="line">      <span class="attr">styles</span>:&#123;</div><div class="line">        <span class="attr">top</span>:<span class="string">'45px'</span>,<span class="comment">//mui标题栏默认高度为45px；</span></div><div class="line">        bottom:<span class="string">'0px'</span><span class="comment">//默认为0px，可不定义；</span></div><div class="line">      &#125;</div><div class="line">    &#125;]</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="打开新页面"><a href="#打开新页面" class="headerlink" title="打开新页面"></a>打开新页面</h3><p>做<code>web app</code>，一个无法避开的问题就是转场动画；<code>web</code>是基于链接构建的，从一个页面点击链接跳转到另一个页面，如果通过有刷新的打开方式，用户要面对一个空白的页面等待；如果通过无刷新的方式，用<code>Javascript</code>移入DOM节点（常见的<code>SPA</code>解决方案），会碰到很高的性能挑战：DOM节点繁多，页面太大，转场动画不流畅甚至导致浏览器崩溃； mui的解决思路是：单<code>webview</code>只承载单个页面的dom，减少dom层级及页面大小；页面切换使用原生动画，将最耗性能的部分交给原生实现。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">mui.openWindow(&#123;</div><div class="line">    <span class="attr">url</span>:<span class="keyword">new</span>-page-url,</div><div class="line">    <span class="attr">id</span>:<span class="keyword">new</span>-page-id,</div><div class="line">    <span class="attr">styles</span>:&#123;</div><div class="line">      <span class="attr">top</span>:newpage-top-position,<span class="comment">//新页面顶部位置</span></div><div class="line">      bottom:newage-bottom-position,<span class="comment">//新页面底部位置</span></div><div class="line">      width:newpage-width,<span class="comment">//新页面宽度，默认为100%</span></div><div class="line">      height:newpage-height,<span class="comment">//新页面高度，默认为100%</span></div><div class="line">      ......</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">extras</span>:&#123;</div><div class="line">      .....<span class="comment">//自定义扩展参数，可以用来处理页面间传值</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">createNew</span>:<span class="literal">false</span>,<span class="comment">//是否重复创建同样id的webview，默认为false:不重复创建，直接显示</span></div><div class="line">    show:&#123;</div><div class="line">      <span class="attr">autoShow</span>:<span class="literal">true</span>,<span class="comment">//页面loaded事件发生后自动显示，默认为true</span></div><div class="line">      aniShow:animationType,<span class="comment">//页面显示动画，默认为”slide-in-right“；</span></div><div class="line">      duration:animationTime<span class="comment">//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">waiting</span>:&#123;</div><div class="line">      <span class="attr">autoShow</span>:<span class="literal">true</span>,<span class="comment">//自动显示等待框，默认为true</span></div><div class="line">      title:<span class="string">'正在加载...'</span>,<span class="comment">//等待对话框上显示的提示内容</span></div><div class="line">      options:&#123;</div><div class="line">        <span class="attr">width</span>:waiting-dialog-widht,<span class="comment">//等待框背景区域宽度，默认根据内容自动计算合适宽度</span></div><div class="line">        height:waiting-dialog-height,<span class="comment">//等待框背景区域高度，默认根据内容自动计算合适高度</span></div><div class="line">        ......</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><strong>参数说明：</strong></p>
+<ul>
+<li><strong>styles:</strong>表示窗口参数，<a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewStyles" target="_blank" rel="external">参考5+规范中的WebviewStyle</a>；特别注意，<figure class="highlight plain"><figcaption><span>runtime```根据高度```100%```计算，可能会造成页面真实底部位置超出屏幕范围的情况,```left```、```right```同理。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- **extras:**新窗口的额外扩展参数，可用来处理页面间传值；例如：</div><div class="line"></div><div class="line">```js</div><div class="line">var webview = mui.openWindow(&#123;</div><div class="line">	url:&apos;info.html&apos;,</div><div class="line">	extras:&#123;</div><div class="line">		name:&apos;mui&apos;</div><div class="line">	&#125;</div><div class="line">&#125;);</div><div class="line">console.log(webview.name);</div></pre></td></tr></table></figure></li>
+</ul>
+<p>控制台会输出”mui”字符串；<br>注意：扩展参数仅在打开新窗口时有效，若目标窗口为预加载页面，则通过mui.openWindow方法打开时传递的extras参数无效。</p>
+<ul>
+<li><strong>createNew:</strong>是否重复创建相同id的<figure class="highlight plain"><figcaption><span>v1.7.0开始增加```createNew```参数，默认为false；判断逻辑如下：若createNew为true，则不判断重复，每次都新建```webview```；若为fasle，则先计算当前App中是否已存在同样id的webview，若存在则直接显示；否则新创建并根据show参数执行显示逻辑；该参数可能导致的影响：若业务写在```plusReady```事件中，而```plusReady```事件仅首次创建时会触发，则下次再次通过```mui.openWindow```方法打开同样webview时，是不会再次触发```plusReady```事件的，此时可通过自定义事件触发；案例参考：```http://ask.dcloud.net.cn/question/6514```;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- **show:**表示窗口显示控制。autoShow：目标窗口loaded事件发生后，是否自动显示；若目标页面为预加载页面，则该参数无效；aniShow表示页面显示动画，比如从右侧划入、从下侧划入等，具体可参考[5+规范中的AnimationTypeShow](http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.AnimationTypeShow)。</div><div class="line">- **waiting:**表示系统等待框；mui框架在打开新页面时等待框的处理逻辑为：显示等待框--&gt;创建目标页面webview--&gt;目标页面loaded事件发生--&gt;关闭等待框；因此，只有当新页面为新创建页面（webview）时，会显示等待框，否则若为预加载好的页面，则直接显示目标页面，不会显示等待框。waiting中的参数：autoShow表示自动显示等待框，默认为true，若为false，则不显示等待框；注意：若显示了等待框，但目标页面不自动显示，则需在目标页面中通过如下代码关闭等待框```plus.nativeUI.closeWaiting()```;。title表示等待框上的提示文字，options表示等待框显示参数，比如宽高、背景色、提示文字颜色等，具体可参考[5+规范中的WaitingOption](http://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.WaitingOptions)。</div><div class="line"></div><div class="line">**示例1：Hello mui中，点击首页右上角的图标，会打开关于页面，实现代码如下：**</div><div class="line">```js</div><div class="line">//tap为mui封装的单击事件，可参考手势事件章节</div><div class="line">document.getElementById(&apos;info&apos;).addEventListener(&apos;tap&apos;, function() &#123;</div><div class="line">  //打开关于页面</div><div class="line">  mui.openWindow(&#123;</div><div class="line">    url: &apos;examples/info.html&apos;,</div><div class="line">    id:&apos;info&apos;</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></li>
+</ul>
+<p>因没有传入styles参数，故默认全屏显示；也没有传入show参数，故使用<code>slide-in-right</code>动画，新页面从右侧滑入。</p>
+<p><strong>示例2：从A页面打开B页面，B页面为一个需要从服务端加载的列表页面，若在B页面loaded事件发生时就将其显示出来，因服务器数据尚未加载完毕，列表页面为空，用户体验不好；可通过如下方式改善用户体验（最好的用户体验应该是通过预加载的方式）</strong></p>
+<p>第一步，B页面loaded事件发生后，不自动显示<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//A页面中打开B页面，设置show的autoShow为false，则B页面在其loaded事件发生后，不会自动显示；</span></div><div class="line">mui.openWindow(&#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">'B.html'</span>,</div><div class="line">    <span class="attr">show</span>:&#123;</div><div class="line">      <span class="attr">autoShow</span>:<span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>第二步，在B页面获取列表数据后，再关闭等待框、显示B页面<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//B页面onload从服务器获取列表数据；</span></div><div class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="comment">//从服务器获取数据</span></div><div class="line">  ....</div><div class="line">  <span class="comment">//业务数据获取完毕，并已插入当前页面DOM；</span></div><div class="line">  <span class="comment">//注意：若为ajax请求，则需将如下代码放在处理完ajax响应数据之后；</span></div><div class="line">  mui.plusReady(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">//关闭等待框</span></div><div class="line">    plus.nativeUI.closeWaiting();</div><div class="line">    <span class="comment">//显示当前页面</span></div><div class="line">    mui.currentWebview.show();</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="关闭页面"><a href="#关闭页面" class="headerlink" title="关闭页面"></a>关闭页面</h3><p>mui框架将窗口关闭功能封装在mui.back方法中，具体执行逻辑是：<br>若当前webview为预加载页面，则hide当前webview；否则，close当前webview。</p>
+<p>在mui框架中，有三种操作会触发页面关闭（执行mui.back方法）。</p>
+<ul>
+<li>点击包含.mui-action-back类的控件</li>
+<li>在页面上，向右快速滑动</li>
+<li>Android手机按下back按键</li>
+</ul>
+<p>hbuilder中敲mheader生成的代码块，会自动生成带有返回导航箭头的标题栏，点击返回箭头可关闭当前页面，原因就是因为该返回箭头包含.mui-action-back类，代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"mui-bar mui-bar-nav"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-action-back mui-icon mui-icon-left-nav mui-pull-left"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"mui-title"</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>若希望在顶部导航栏之外的其它区域添加关闭页面的控件，只需要在对应控件上添加.mui-action-back类即可，如下为一个关闭按钮示例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">'mui-btn mui-btn-danger mui-action-back'</span>&gt;</span>关闭<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>mui框架封装的页面右滑关闭功能，默认未启用，若要使用右滑关闭功能，需要在<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">```js</div><div class="line">mui.init(&#123;</div><div class="line">	swipeBack:true //启用右滑关闭功能</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>mui框架默认会监听Android手机的back按键，然后执行页面关闭逻辑； 若不希望mui自动处理back按键，可通过如下方式关闭mui的back按键监听；<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mui.init(&#123;</div><div class="line">	<span class="attr">keyEventBind</span>: &#123;</div><div class="line">		<span class="attr">backbutton</span>: <span class="literal">false</span>  <span class="comment">//关闭back按键监听</span></div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>除了如上三种操作外，也可以直接调用<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">执行```beforeback```参数对应的函数若返回false，则不再执行mui.back()方法；否则（返回true或无返回值），继续执行mui.back()方法；</div><div class="line"></div><div class="line">示例：从列表打开详情页面，从详情页面再返回后希望刷新列表界面，此时可注册beforeback参数，然后通过自定义事件通知列表页面刷新数据，示例代码如下：</div><div class="line">```js</div><div class="line">mui.init(&#123;</div><div class="line">	beforeback: function()&#123;</div><div class="line">		//获得列表界面的webview</div><div class="line">		var list = plus.webview.getWebviewById(&apos;list&apos;);</div><div class="line">		//触发列表界面的自定义事件（refresh）,从而进行数据刷新</div><div class="line">		mui.fire(list,&apos;refresh&apos;);</div><div class="line">		//返回true，继续页面关闭逻辑</div><div class="line">		return true;</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>注意：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```js</div><div class="line">//备份mui.back，mui.back已将窗口关闭逻辑封装的比较完善（预加载及父子窗口），因此最好复用mui.back</div><div class="line">var old_back = mui.back;</div><div class="line">mui.back = function()&#123;</div><div class="line">  var btn = [&quot;确定&quot;,&quot;取消&quot;];</div><div class="line">  mui.confirm(&apos;确认关闭当前窗口？&apos;,&apos;Hello MUI&apos;,btn,function(e)&#123;</div><div class="line">    if(e.index==0)&#123;</div><div class="line">    	//执行mui封装好的窗口关闭逻辑；</div><div class="line">    	old_back();</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意：自定义关闭逻辑时，一定要重写<figure class="highlight plain"><figcaption><span>因为```addEventListener```只会增加新的执行逻辑，老的监听逻辑依然会执行；</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 项目实战</div><div class="line"></div><div class="line">这个系列的教程我准备带大家一起实现音乐播放器和即时通讯的功能,先上图不多说：</div><div class="line">![](http://i.imgur.com/ZUU01cb.jpg)</div><div class="line"></div><div class="line">开始的页面效果很简单，就是一个tab bar页面切换组件，我们重点讲解实现方法，至于美化是后面的事。在开始项目之前我先抄了文档的内容，不是为了凑内容，只是想让新手在开始项目之前还是多看看基本概念，俗话说磨刀不误砍柴工，我们对mui的设计思路有一定了解之后写起来才能得心应手。</div><div class="line"></div><div class="line">相信大家对于```mui```的双```webview```模式有初步认识，我们可以分析一下我们接下来要做的这个的实际例子，首先我们的入口文件```index.html```是一个包括头部和底部的导航栏的```webview```,中间是一个动态的```webview```，我们通过点击底部导航栏进行页面切换，并且动态的改变顶部导航栏的内容。</div><div class="line"></div><div class="line">下面我们新建一个mui项目，这里我命名为M-BOX：</div><div class="line">- 点击【文件】=》【新建】=》【移动APP】</div><div class="line">- 设置应用名称、文件存储路径、选择模板</div><div class="line">![](http://i.imgur.com/1YeZtIP.png)</div><div class="line">- js,css,fonts文件的详细介绍请戳这里[手把手教你开发HelloWord](https://zhaomenghuan.gitbooks.io/mui/content/1-1.html)</div><div class="line">- **[HBuilder对前端代码的调试方式](http://ask.dcloud.net.cn/docs/#http://ask.dcloud.net.cn/article/483)**这个是很重要的一个部分，限于篇幅，这里不能讲解，请自己看教程。</div><div class="line"></div><div class="line">### 开始写布局文件</div><div class="line"></div><div class="line">相信很多人看了前面那么多文档介绍内心肯定是崩溃的，其实我也是，毕竟写了那么多还没有开始写代码我也是拒绝的，只是考虑到很多新手对于找文档这事不一定有经验，那还是先贴一下，大不了回过头再去看咯。</div><div class="line">![](http://i.imgur.com/RbeJl2R.gif)</div><div class="line"></div><div class="line">好，那我们开始写布局文件：</div><div class="line"></div><div class="line">在[MUI开发注意事项](http://ask.dcloud.net.cn/article/122)这篇文章中提到了几个重要的注意事项，我们在一个就注意一下会比较好，这里不再一一详细列举了，读者自己去看。</div><div class="line"></div><div class="line">文章中DOM结构提到：</div><div class="line"></div><div class="line">- 固定栏靠前</div><div class="line"></div><div class="line">所谓的固定栏，也就是带有.mui-bar属性的节点，都是基于fixed定位的元素；常见组件包括：顶部导航栏（.mui-bar-nav）、底部工具条(.mui-bar-footer)、底部选项卡（.mui-bar-tab）;这些元素使用时需遵循一个规则：放在.mui-content元素之前，即使是底部工具条和底部选项卡，也要放在.mui-content之前，否则固定栏会遮住部分主内容；</div><div class="line"></div><div class="line">- 一切内容都要包裹在mui-content中</div><div class="line"></div><div class="line">除了固定栏之外，其它内容都要包裹在.mui-content中，否则就有可能被固定栏遮罩，原因：固定栏基于Fixed定位，不受流式布局限制，普通内容依然会从top:0的位置开始布局，这样就会被固定栏遮罩，mui为了解决这个问题，定义了如下css代码：</div><div class="line">```css</div><div class="line">.mui-bar-nav ~ .mui-content &#123;</div><div class="line">    padding-top: 44px;</div><div class="line">&#125;</div><div class="line">.mui-bar-footer ~ .mui-content &#123;</div><div class="line">    padding-bottom: 44px;</div><div class="line">&#125;</div><div class="line">.mui-bar-tab ~ .mui-content &#123;</div><div class="line">    padding-bottom: 50px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们这里重点看这两条规则，因为这个对于我们正确布局是至关重要的。</p>
+<p>下面我们体验一下<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">哈哈，页面头部出来了，不错，这里我们然后删除下面的：</div><div class="line">```html</div><div class="line">&lt;a class=&quot;mui-action-back mui-icon mui-icon-left-nav mui-pull-left&quot;&gt;&lt;/a&gt;</div></pre></td></tr></table></figure></p>
+<p>先去掉返回箭头。</p>
+<p>然后继续输入<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">整体代码如下：</div><div class="line">```html</div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">		&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">		&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no&quot; /&gt;</div><div class="line">		&lt;title&gt;M-BOX&lt;/title&gt;</div><div class="line">		&lt;link href=&quot;css/mui.min.css&quot; rel=&quot;stylesheet&quot;/&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">	&lt;header class=&quot;mui-bar mui-bar-nav&quot;&gt;</div><div class="line">			&lt;h1 class=&quot;mui-title&quot;&gt;标题&lt;/h1&gt;</div><div class="line">	&lt;/header&gt;</div><div class="line">	&lt;nav class=&quot;mui-bar mui-bar-tab&quot;&gt;</div><div class="line">			&lt;a class=&quot;mui-tab-item mui-active&quot; href=&quot;html/home.html&quot;&gt;</div><div class="line">					&lt;span class=&quot;mui-icon mui-icon-home&quot;&gt;&lt;/span&gt;</div><div class="line">					&lt;span class=&quot;mui-tab-label&quot;&gt;首页&lt;/span&gt;</div><div class="line">			&lt;/a&gt;</div><div class="line">			&lt;a class=&quot;mui-tab-item&quot; href=&quot;html/message.html&quot;&gt;</div><div class="line">					&lt;span class=&quot;mui-icon mui-icon-chatboxes&quot;&gt;&lt;/span&gt;</div><div class="line">					&lt;span class=&quot;mui-tab-label&quot;&gt;消息&lt;/span&gt;</div><div class="line">			&lt;/a&gt;</div><div class="line">			&lt;a class=&quot;mui-tab-item&quot; href=&quot;html/setting.html&quot;&gt;</div><div class="line">					&lt;span class=&quot;mui-icon mui-icon-gear&quot;&gt;&lt;/span&gt;</div><div class="line">					&lt;span class=&quot;mui-tab-label&quot;&gt;设置&lt;/span&gt;</div><div class="line">			&lt;/a&gt;</div><div class="line">	&lt;/nav&gt;</div><div class="line">	&lt;script src=&quot;js/mui.min.js&quot;&gt;&lt;/script&gt;;</div><div class="line">	&lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;</div><div class="line">     // 初始化mui.init()写在这里</div><div class="line">	&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>首页的静态布局我们写完了，我们接下来新建三个含mui的html文件：</p>
+<ul>
+<li>选择工程名，邮件就可以看到【新建】，然后就是选择【目录】新建文件夹和【html文件】新建含mui的html文件。我们新建一个文件夹<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- 在三个页面`body`之间分别输入`mbody`,就可以开始分别写页面了，比如可以先在页面上写上文件名，我们先来完善首页的子页切换逻辑。</div><div class="line"></div><div class="line">### 动态页面切换</div><div class="line"></div><div class="line">#### 1.创建子页面，首个选项卡页面显示，其它均隐藏</div><div class="line"></div><div class="line">主要方法就是用```plus.webview.create```和```plus.webview.hide();</div></pre></td></tr></table></figure></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//设置默认打开首页显示的子页序号；</span></div><div class="line"><span class="keyword">var</span> Index=<span class="number">0</span>;</div><div class="line"><span class="comment">//把子页的路径写在数组里面</span></div><div class="line"><span class="keyword">var</span> subpages = [<span class="string">'html/home.html'</span>,<span class="string">'html/message.html'</span>,<span class="string">'html/setting.html'</span>];</div><div class="line"></div><div class="line"><span class="comment">//所有的plus-*方法写在mui.plusReady中或者后面。</span></div><div class="line">mui.plusReady(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="comment">//获取当前页面所属的Webview窗口对象</span></div><div class="line">	<span class="keyword">var</span> self = plus.webview.currentWebview();</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</div><div class="line">		<span class="comment">//创建webview子页</span></div><div class="line">		<span class="keyword">var</span> sub = plus.webview.create(</div><div class="line">			subpages[i], <span class="comment">//子页url</span></div><div class="line">			subpages[i], <span class="comment">//子页id</span></div><div class="line">			&#123;</div><div class="line">				<span class="attr">top</span>: <span class="string">'45px'</span>,<span class="comment">//设置距离顶部的距离</span></div><div class="line">				bottom: <span class="string">'50px'</span><span class="comment">//设置距离底部的距离</span></div><div class="line">			&#125;</div><div class="line">		);</div><div class="line">		<span class="comment">//如不是我们设置的默认的子页则隐藏，否则添加到窗口中</span></div><div class="line">		<span class="keyword">if</span> (i != Index) &#123;</div><div class="line">			sub.hide();</div><div class="line">		&#125;</div><div class="line">    <span class="comment">//将webview对象填充到窗口</span></div><div class="line">		self.append(sub);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>注：如果Index不是0，需要将nav下的a标签中的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">执行完我们会发现home.html的内容显示出来了，但是底部切换还不能，因为这里我们还没有监听底部的点击事件。在进行下一步之前，我们可以先做一个小实验，将上面的代码中的top或者bottom改为0,我们会发现，底部栏或者底部栏会被覆盖，这是因为mui一个重要的**潜规则**，**父子结构的页面子页面会比父页面层级高**，说白了就是子页面可以盖住父页面。这会导致开发者常犯的一个错误：将弹出层或者弹出菜单写在父页面被子页面盖住的bug。</div><div class="line"></div><div class="line">&gt; 这里的apend()方法在html5plus文档中没有提到，这里的这个方法是将webview对象填充到窗口的方法。</div><div class="line"></div><div class="line">#### 2.选项卡点击事件</div><div class="line">mui 内部封装了一些常用的方法，其中DOM选择器、事件绑定等事件管理。具体可以参考文档：[选择器](http://dev.dcloud.net.cn/mui/util/#selector)、[事件管理](http://dev.dcloud.net.cn/mui/event/)。</div><div class="line"></div><div class="line">&gt; mui()</div><div class="line"></div><div class="line">mui使用css选择器获取HTML元素，返回mui对象数组。</div><div class="line">- `mui(&quot;p&quot;)`：选取所有`p`元素</div><div class="line">- `mui(&quot;p.title&quot;)`：选取所有包含`.title`类的`&lt;p&gt;`元素</div><div class="line"></div><div class="line">若要将mui对象转化成dom对象，可使用如下方法（类似jquery对象转成dom对象）：</div><div class="line">```js</div><div class="line">//obj1是mui对象</div><div class="line">var obj1 = mui(&quot;#title&quot;);</div><div class="line">//obj2是dom对象</div><div class="line">var obj2 = obj1[0];</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>.on( event , selector , handler )</p>
+</blockquote>
+<ul>
+<li>event<ul>
+<li>Type: String</li>
+<li>需监听的事件名称，例如：’tap’</li>
+</ul>
+</li>
+<li>selector<ul>
+<li>Type: String<br>-选择器</li>
+</ul>
+</li>
+<li>handler<ul>
+<li>Type: Function( Event event )</li>
+<li>事件触发时的回调函数，通过回调中的event参数可以获得事件详情</li>
+</ul>
+</li>
+</ul>
+<p>除了可以使用addEventListener()方法监听某个特定元素上的事件外， 也可以使用.on()方法实现批量元素的事件绑定。</p>
+<p>这里我们将为底部导航按钮添加事件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//选项卡点击事件</span></div><div class="line">mui(<span class="string">'.mui-bar-tab'</span>).on(<span class="string">'tap'</span>, <span class="string">'a'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">	alert(<span class="literal">true</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>当我们点击底部选项卡的时候会弹出<code>true</code>，这不够，我们要能够分辨当前对象具体是哪一个，有两种思路:</p>
+<ul>
+<li>第一我们能够知道当前点击的a标签所在序号就好了，就是找到<code>index</code>,然后根据上面那个<code>subpages</code>数组，利用<code>plus.webview.show(subpages[index])</code>方法显示。</li>
+<li>我们给当前点击的a标签添加一个可以识别的属性，然后根据那个属性获取当前a的特征，然后就可以显示点击的子页，隐藏当前子页。</li>
+</ul>
+<p>第一种方法需要遍历此案获取<code>index</code>，第二种方法添加一个<code>href</code>很容易拿到子页<code>id</code>，我们采用第二种方案。</p>
+<blockquote>
+<p>getAttribute()</p>
+</blockquote>
+<p>getAttribute() 方法返回指定属性名的属性值。<br>提示：如果您希望以<code>Attr</code>对象返回属性，请使用<code>getAttributeNode</code>。</p>
+<p>于是我们可以这样写：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//当前激活选项</span></div><div class="line"><span class="keyword">var</span> activeTab = subpages[Index],title=<span class="built_in">document</span>.querySelector(<span class="string">".mui-title"</span>);</div><div class="line"><span class="comment">//选项卡点击事件</span></div><div class="line">mui(<span class="string">'.mui-bar-tab'</span>).on(<span class="string">'tap'</span>, <span class="string">'a'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">	<span class="comment">//获取目标子页的id</span></div><div class="line">	<span class="keyword">var</span> targetTab = <span class="keyword">this</span>.getAttribute(<span class="string">'href'</span>);</div><div class="line">	<span class="keyword">if</span> (targetTab == activeTab) &#123;</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//更换标题</span></div><div class="line">	title.innerHTML = <span class="keyword">this</span>.querySelector(<span class="string">'.mui-tab-label'</span>).innerHTML;</div><div class="line">	<span class="comment">//显示目标选项卡</span></div><div class="line">	plus.webview.show(targetTab);</div><div class="line">	<span class="comment">//隐藏当前选项卡</span></div><div class="line">	plus.webview.hide(activeTab);</div><div class="line">	<span class="comment">//更改当前活跃的选项卡</span></div><div class="line">	activeTab = targetTab;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="兼容浏览器的处理办法"><a href="#兼容浏览器的处理办法" class="headerlink" title="兼容浏览器的处理办法"></a>兼容浏览器的处理办法</h3><p>这是后面补充的内容，最开始写的时候没有这个内容，在这里加上吧。为啥要加这个内容呢，因为很多人思维还是比较局限，用mui依然还是用原来的方法，有很多人依然使用href,之所以这么用就是大家改不了习惯，这就是被很多人说的坑。。。但是真的是坑吗？与其说是坑，我觉得是大家思维上没有转变过来，不明白mui为啥要禁用href这种方式，也不明白自己该怎么做。</p>
+<p>下面贴出一个用iframe代替多子webview形式的tabbar在浏览器的兼容处理方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> createIframe = <span class="function"><span class="keyword">function</span> (<span class="params">el, opt</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> elContainer = <span class="built_in">document</span>.querySelector(el);</div><div class="line">	<span class="keyword">var</span> wrapper = <span class="built_in">document</span>.querySelector(<span class="string">".mui-iframe-wrapper"</span>);</div><div class="line">	<span class="keyword">if</span>(!wrapper)&#123;</div><div class="line">		<span class="comment">// 创建wrapper 和 iframe</span></div><div class="line">		wrapper = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</div><div class="line">		wrapper.className = <span class="string">'mui-iframe-wrapper'</span>;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> opt.style)&#123;</div><div class="line">			wrapper.style[i] = opt.style[i];</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>);</div><div class="line">		iframe.src = opt.url;</div><div class="line">		iframe.id = opt.id || opt.url;</div><div class="line">		iframe.name = opt.id;</div><div class="line">		wrapper.appendChild(iframe);</div><div class="line">		elContainer.appendChild(wrapper);</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		<span class="keyword">var</span> iframe = wrapper.querySelector(<span class="string">'iframe'</span>);</div><div class="line">		iframe.src = opt.url;</div><div class="line">		iframe.id = opt.id || opt.url;</div><div class="line">		iframe.name = iframe.id;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用也很简单：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//当前激活选项</span></div><div class="line"><span class="keyword">var</span> activeTab = subpages[Index],title=<span class="built_in">document</span>.querySelector(<span class="string">".mui-title"</span>);</div><div class="line">mui(<span class="string">'.mui-bar-tab'</span>).on(<span class="string">'tap'</span>, <span class="string">'a'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">    <span class="comment">// 获取目标子页的id</span></div><div class="line">    <span class="keyword">var</span> targetTab = <span class="keyword">this</span>.getAttribute(<span class="string">'href'</span>);</div><div class="line">    <span class="keyword">if</span> (targetTab == activeTab) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;		</div><div class="line">    <span class="comment">// 更换标题</span></div><div class="line">    title.innerHTML = <span class="keyword">this</span>.querySelector(<span class="string">'.mui-tab-label'</span>).innerHTML;	</div><div class="line">	<span class="comment">// 子页内容切换</span></div><div class="line">	<span class="keyword">if</span>(mui.os.plus)&#123;</div><div class="line">		<span class="comment">// 显示目标webview</span></div><div class="line">		plus.webview.show(targetTab);</div><div class="line">		<span class="comment">// 隐藏当前webview</span></div><div class="line">		plus.webview.hide(activeTab);</div><div class="line">		<span class="comment">// 更改当前活跃的选项卡</span></div><div class="line">		activeTab = targetTab;</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">	    <span class="comment">// 创建iframe代替子页面</span></div><div class="line">	    createIframe(<span class="string">'.mui-content'</span>,&#123;</div><div class="line">			<span class="attr">url</span>: targetTab,</div><div class="line">			<span class="attr">style</span>: &#123;</div><div class="line">                <span class="attr">top</span>: <span class="string">'45px'</span>,<span class="comment">//设置距离顶部的距离</span></div><div class="line">                bottom: <span class="string">'50px'</span><span class="comment">//设置距离底部的距离</span></div><div class="line">            &#125;</div><div class="line">		&#125;);</div><div class="line">	&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>这样你就可以一套代码实现在多平台的利用啦，是不是很棒。完整代码可以看这里：<br><a href="https://rawgit.com/zhaomenghuan/mui-demo/master/example/tabbar-with-iframe/tab-webview-main.html" target="_blank" rel="external">iframe兼容处理tababr的方法</a></p>
+<h3 id="双首页配置的优化方案"><a href="#双首页配置的优化方案" class="headerlink" title="双首页配置的优化方案"></a>双首页配置的优化方案</h3><p>HBuilder8.0.1版更新说明App中有一条：<br><strong>【重要】新增双首页配置（manifest-&gt;plus-&gt;secondwebview），加速首页为双webview模式时的应用启动速度。</strong><br>这对于我们优化app很有帮助，以前的方案中父子页面都在启动页，首页显示会过慢，8.0后的这次大更新可以很好的处理这个问题，官方配置说明见：<a href="http://ask.dcloud.net.cn/article/1196" target="_blank" rel="external">【示例】双首页secondwebview配置的使用</a>,但是官方文档中没有说明父子页的配置方法，这里给出一种方案：</p>
+<p>1.按照文档配置manifest.json文件中的secondwebview节点<br>2.将动态创建子页面放在点击事件中，例如：</p>
+<p>manifest.json文件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"><span class="string">"secondwebview"</span>: &#123;</div><div class="line">    <span class="string">"launch_path"</span>: <span class="string">"_www/html/home.html"</span>,</div><div class="line">    <span class="string">"id"</span>: <span class="string">"html/home.html"</span>,</div><div class="line">    <span class="string">"top"</span>: <span class="string">"0px"</span>,</div><div class="line">    <span class="string">"bottom"</span>: <span class="string">"51px"</span></div><div class="line">&#125;</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>首页的逻辑：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> subpages = [<span class="string">'html/home.html'</span>, <span class="string">'html/message.html'</span>, <span class="string">'html/person.html'</span>];</div><div class="line"><span class="keyword">var</span> subpage_style = &#123;</div><div class="line">	<span class="attr">top</span>: <span class="string">'0px'</span>,</div><div class="line">	<span class="attr">bottom</span>: <span class="string">'51px'</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">// 当前激活选项</span></div><div class="line"><span class="keyword">var</span> activeTab = subpages[<span class="number">0</span>];</div><div class="line"></div><div class="line"><span class="comment">// 创建子页面，首个选项卡页面显示，其它均隐藏；</span></div><div class="line"><span class="keyword">var</span> currentWebview;</div><div class="line">mui.plusReady(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	currentWebview = plus.webview.currentWebview();</div><div class="line">	<span class="keyword">var</span> secondWebview = plus.webview.getSecondWebview();</div><div class="line">	currentWebview.append(secondWebview);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 选项卡点击事件</span></div><div class="line">mui(<span class="string">'.mui-bar-tab'</span>).on(<span class="string">'tap'</span>, <span class="string">'a'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> targetTab = <span class="keyword">this</span>.getAttribute(<span class="string">'href'</span>);</div><div class="line">	<span class="keyword">if</span> (targetTab == activeTab) &#123;</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="keyword">var</span> targetWebview = plus.webview.getWebviewById(targetTab);</div><div class="line">	<span class="keyword">if</span>(!targetWebview)&#123;</div><div class="line">		targetWebview = plus.webview.create(targetTab, targetTab, subpage_style);</div><div class="line">		currentWebview.append(targetWebview );</div><div class="line">	&#125;</div><div class="line">	targetWebview.show(<span class="string">"fade-in"</span>,<span class="number">300</span>);</div><div class="line">	<span class="comment">// 隐藏当前;</span></div><div class="line">	plus.webview.hide(activeTab);</div><div class="line">	<span class="comment">// 更改当前活跃的选项卡</span></div><div class="line">	activeTab = targetTab;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>虽然最后实现的效果很简单，好像直接看demo就可以写出来，但是新手甚至写了一段时间的同学也不见得对<code>webview</code>掌握得很好，这篇文章花了很长的篇幅去讲解<code>webview</code>的用法，旨在为新手建立一种学习mui这边的思路，那就是先看html5plus里面的模块，然后看mui对应的文档，最后看<code>hello mui</code>的<code>demo</code>,把握这种学习路线个人觉得是一种最佳的方案。本文作为系列文章第一篇讲代码的，所以做了很多铺垫，所以有一定基础的同学可能会觉得写得并没有什么看点，后面的肯定会有所不一样的。下一篇讲解的是网络请求<code>XMLHttpRequest</code>模块，下一讲会结合<code>mui.ajax</code>和网易云音乐<code>API</code>一起讲解。</p>
+<p>mui-demo仓库地址：</p>
+<blockquote>
+<p><a href="https://github.com/zhaomenghuan/mui-demo" target="_blank" rel="external">https://github.com/zhaomenghuan/mui-demo</a></p>
+</blockquote>
+<p>写文章不容易，也许写这些代码就几分钟的事，写一篇大家好接受的文章或许需要几天的酝酿，然后加上几天的码字，累并快乐着。如果文章对您有帮助请我喝杯咖啡吧！</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-05-03T16:15:28.095Z" itemprop="dateUpdated">2017-05-04 00:15:28</time>
+</span><br>
+
+
+        
+        转载需标注本文原始地址：<a href="/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/" target="_blank" rel="external">https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/</a>
+        
+    </div>
+    <footer>
+        <a href="https://zhaomenghuan.github.io">
+            <img src="/img/avatar.png" alt="赵梦欢">
+            赵梦欢
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5plus/">html5plus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mui/">mui</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/&title=《mui初级入门教程（二）— html5+ webview 底部栏用法详解》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/&title=《mui初级入门教程（二）— html5+ webview 底部栏用法详解》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mui初级入门教程（二）— html5+ webview 底部栏用法详解》 — 小青年博客&url=https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/05/29/mui初级入门教程（三）—html5+ XMLHttpRequest 与mui ajax用法详解/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">mui初级入门教程（三）— html5+ XMLHttpRequest 与mui ajax用法详解</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/05/15/mui初级入门教程（一）—小白入手mui的学习路线/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">mui初级入门教程（一）— 小白入手mui的学习路线</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢老铁~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.png" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.png" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>赵梦欢 &copy; 2015 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/&title=《mui初级入门教程（二）— html5+ webview 底部栏用法详解》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/&title=《mui初级入门教程（二）— html5+ webview 底部栏用法详解》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mui初级入门教程（二）— html5+ webview 底部栏用法详解》 — 小青年博客&url=https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2016/05/19/mui初级入门教程（二）—html5+ webview 底部栏用法详解/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD9UlEQVR42u3aS27bQBAFQN3/0gqQXWCTeq97JBtIcWVY4nCmtGj25/GIr+ff6+vfV59+vZLVrr75dZ37b15959iFAwcOHDiCo94f4/5g9w++3+j9UzZYyY/0zc5x4MCBA8chjjy4JgEsWXMWMu8P2QZdHDhw4MDxsxxtMGs5Nljtyjhw4MCB4/dwzB6fJHt5vW7zooADBw4cOD7DkRQHZ02jnDhvNbWFv7fUSnHgwIEDxzzSPTY0v+HvD8134MCBA8d/z/FcXHkJr20abX6Gzblw4MCBA8eeo91imyDlx76Penn7qh34e1ErxYEDBw4cC462JDdjaptb+/G4ugGGAwcOHDiOcrR1s9kK7TjC7CUg+RleBFocOHDgwFFy5AMHm6C4/34envO22WWtFAcOHDhwLDg2IWoTkvOAum9ltT8JDhw4cODYc2wOk6PkQTEJlrPBhXqcDgcOHDhwlBz55mYNp3zorS0aJsG1Hr/AgQMHDhyHONpRs7PDCvuVNyN3/6yGAwcOHDjewNGmdklJMS877o+X7CEaaMCBAwcOHCOOfZmvTdiSUYkk5dscfoWCAwcOHDhuOWajALPmUFtkbMcaNqfAgQMHDhzv42jbPG0wnmG1QXq4Kxw4cODAsebYXG2xr31k/gNsnrK5CwcOHDhwXN2Vj5TN/v8+0M1gxOUTceDAgQPHIY4k1O3DXt64av+/Tw5x4MCBA8dnODZFvVlJcRZKN/vHgQMHDhxnOdoGTNv42RcfN0ldwvTNXThw4MCBY8GRpGqzcLVJ2PJd3dMkV5254sCBAweO25jSjlwnm5gVHzcjCwd2iwMHDhw4DnHMaO4D26lG1547eXW4nEnHgQMHDhyHODZxp8gd41Jju888kXtsHoMDBw4cOMqy4KwYl6dkbemwbSDV6R8OHDhw4FhznCqrPctr1rjaFDSL0I4DBw4cOE7Otg1vnoFu/p+nbe3rAg4cOHDg2HBshgZm6V8SdNtPZ42ob1bAgQMHDhxrjjZNShKt/N7k0/ZNIR+JiJpPOHDgwIGj5MjbNm3ITLhnrPvcNHrvwIEDBw4cC478tjaAJRAJen5v+81h5MeBAwcOHLcxaFMizDnaQJiMKWz6aS8yWhw4cODAMeLYjLjlh5kNGcxQZk0sHDhw4MBxiqMNS+1yySHbkYhZg2p4bBw4cODAMeJIguu+NTULhO2eD6yPAwcOHDgOcZwt0rXpVhs4k+A9pMSBAwcOHB/nyMuIScBuk7e82Jc/dxVoceDAgQPHgmNWQEyGCTZjcLMk83I1HDhw4MBxiKMNmS1o277at5HaFwUcOHDgwHGKox1o2CdgM5r2qG30xIEDBw4ca44/OWdOODhvVaQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261860158&web_id=1261860158')
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '小青年博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '看似寻常最奇崛，成如容易却艰辛。';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/javascript">
+    (function(p,u,s,h){
+        p._pcq=p._pcq||[];
+        p._pcq.push(['_currentTime',Date.now()]);
+        s=u.createElement('script');
+        s.type='text/javascript';
+        s.async=true;
+        s.src='https://cdn.pushcrew.com/js/84781173feeb9c46759523538d7dbfe0.js';
+        h=u.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s,h);
+    })(window,document);
+</script>
+
+</body>
+</html>

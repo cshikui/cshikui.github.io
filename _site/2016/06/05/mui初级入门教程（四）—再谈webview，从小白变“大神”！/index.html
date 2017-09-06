@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>mui初级入门教程（四）—  再谈webview，从小白变“大神”！ | 小青年博客 | 看似寻常最奇崛，成如容易却艰辛。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="mui,html5plus,webview">
+    <meta name="description" content="写在前面前段时间群里某网友的问题，弹出菜单被子页面挡住了这个老生常谈的问题，其实只要明白webview常见的层级问题，这个问题很容易解释，那么解决方案自然很容易想到，如果没有理解错，html5+里面webview的创建规则是后来居上原则，所以如果想解决那个问题，有两种解决办法：  将弹出菜单放在子页面里面，然后父子页面之间传值，这种方法实用于单个子页面的情况，对于多页面可能并不方便。 第二个方法是">
+<meta name="keywords" content="mui,html5plus,webview">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mui初级入门教程（四）—  再谈webview，从小白变“大神”！">
+<meta property="og:url" content="https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/index.html">
+<meta property="og:site_name" content="小青年博客">
+<meta property="og:description" content="写在前面前段时间群里某网友的问题，弹出菜单被子页面挡住了这个老生常谈的问题，其实只要明白webview常见的层级问题，这个问题很容易解释，那么解决方案自然很容易想到，如果没有理解错，html5+里面webview的创建规则是后来居上原则，所以如果想解决那个问题，有两种解决办法：  将弹出菜单放在子页面里面，然后父子页面之间传值，这种方法实用于单个子页面的情况，对于多页面可能并不方便。 第二个方法是">
+<meta property="og:updated_time" content="2017-05-03T16:15:41.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mui初级入门教程（四）—  再谈webview，从小白变“大神”！">
+<meta name="twitter:description" content="写在前面前段时间群里某网友的问题，弹出菜单被子页面挡住了这个老生常谈的问题，其实只要明白webview常见的层级问题，这个问题很容易解释，那么解决方案自然很容易想到，如果没有理解错，html5+里面webview的创建规则是后来居上原则，所以如果想解决那个问题，有两种解决办法：  将弹出菜单放在子页面里面，然后父子页面之间传值，这种方法实用于单个子页面的情况，对于多页面可能并不方便。 第二个方法是">
+    
+        <link rel="alternate" type="application/atom+xml" title="小青年博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵梦欢</h5>
+          <a href="mailto:zhaomenghuan@foxmail.com" title="zhaomenghuan@foxmail.com" class="mail">zhaomenghuan@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                首页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://zhaomenghuan.github.io/content.json" target="_blank" >
+                <i class="icon icon-lg icon-th-large"></i>
+                API
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://segmentfault.com/u/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                Segmentfault
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.jianshu.com/u/de1f0b8eaf18" target="_blank" >
+                <i class="icon icon-lg icon-book"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">mui初级入门教程（四）—  再谈webview，从小白变“大神”！</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">mui初级入门教程（四）—  再谈webview，从小白变“大神”！</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-06-04T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2016-06-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MUI从入门到精通/">MUI从入门到精通</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在前面"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WebviewObject-对象详解"><span class="post-toc-number">2.</span> <span class="post-toc-text">WebviewObject 对象详解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#id属性"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">id属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#窗口层叠关系"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">窗口层叠关系</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#页面历史记录操作"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">页面历史记录操作</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WebviewStyles对象举例"><span class="post-toc-number">3.</span> <span class="post-toc-text">WebviewStyles对象举例</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#WebviewStyles常用属性"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">WebviewStyles常用属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#mui-fire-触发自定义事件"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">mui.fire()触发自定义事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#mui对象和DOM对象的区别"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">mui对象和DOM对象的区别</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#HTML-DOM-基础"><span class="post-toc-number">3.3.0.1.</span> <span class="post-toc-text">HTML DOM 基础</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#mui对象和dom对象的具体区别"><span class="post-toc-number">3.3.0.2.</span> <span class="post-toc-text">mui对象和dom对象的具体区别</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#项目实战之父子页面弹出层"><span class="post-toc-number">4.</span> <span class="post-toc-text">项目实战之父子页面弹出层</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在后面"><span class="post-toc-number">5.</span> <span class="post-toc-text">写在后面</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-mui初级入门教程（四）—再谈webview，从小白变“大神”！"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">mui初级入门教程（四）—  再谈webview，从小白变“大神”！</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-06-05 00:00:00" datetime="2016-06-04T16:00:00.000Z"  itemprop="datePublished">2016-06-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MUI从入门到精通/">MUI从入门到精通</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>前段时间群里某网友的问题，弹出菜单被子页面挡住了这个老生常谈的问题，其实只要明白webview常见的层级问题，这个问题很容易解释，那么解决方案自然很容易想到，如果没有理解错，<code>html5+</code>里面<code>webview</code>的创建规则是后来居上原则，所以如果想解决那个问题，有两种解决办法：</p>
+<ul>
+<li>将弹出菜单放在子页面里面，然后父子页面之间传值，这种方法实用于单个子页面的情况，对于多页面可能并不方便。</li>
+<li>第二个方法是将弹出菜单放在一个<code>webview</code>里面，设置为透明背景，这样就可以在保证在最上面同时可以盖住底部的内容，在<code>android</code>上创建菜单<code>webview</code>的时候设置<code>background</code>为<code>&quot;transparent&quot;</code>可以实现，但是<a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewStyles" target="_blank" rel="external">html5+ webview .WebviewStyles</a>中说<strong>iOS平台不支持“transparent”背景透明样式，默认背景使用白色背景</strong>。由于没有用苹果测试过，我真的信了，昨天在群里有人再次问这个问题时，我以为苹果不支持所以说这种方法存在兼容性，然而有人说可以，囧。。。被人呵呵了，实话说有点小受伤，不过也是因为自己没有测就下了结论，这样确实也不好。</li>
+</ul>
+<p>可是这个问题还是会有人去问，所以想想也没什么，就把<code>webview</code>的其他内容再补充一下，这篇文章不会再贴文档，纯粹做实验，我们重新认识一下<code>5+</code>中的<code>webview</code>，如果对于文章中提到的一些方法不熟悉的可以看看<a href="http://www.html5plus.org/doc/zh_cn/webview.html" target="_blank" rel="external">html5+ webview 文档</a>。</p>
+<h2 id="WebviewObject-对象详解"><a href="#WebviewObject-对象详解" class="headerlink" title="WebviewObject 对象详解"></a>WebviewObject 对象详解</h2><p>今天我们先来重新认识一下<code>webview</code>,实践是检验真理的唯一标准，我们通过做实验来试试，其中<code>WebviewObject</code>对象是很特别的一个对象，我相信对于这个对象的理解，可以帮助我们理解<code>webview</code>的一些细节，我们就详细看看这个对象。</p>
+<h3 id="id属性"><a href="#id属性" class="headerlink" title="id属性"></a>id属性</h3><p>首先谈谈<code>WebviewObject</code>对象的<code>id</code>属性，相信大家一定熟悉<code>id</code>选择器，<code>id</code>选择器是最常用的选择器之一，我们通过<code>document.getElementById(id)</code>就可以可返回对拥有指定 ID 的第一个对象的引用，做过<code>android</code>开发的一定知道<code>findViewById</code>通过这个方法可以得到控件对象的引用，相信<code>5+</code>中的<code>plus.webview.getWebviewById(id)</code>应该是将原生中的方法进行了封装以便于使用<code>JavaScript</code>调用。在打开或创建Webview窗口时设置，如果没有设置窗口标识，此属性值为当前应用的APPID，字符串类型。注意，如果是在HBuilder真机运行获取的是固定值“HBuilder”，需要提交App云端打包后运行才能获取真实的APPID值。</p>
+<p>获取当前窗口id：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ws=plus.webview.currentWebview();</div><div class="line"><span class="built_in">console</span>.log( <span class="string">"窗口标识: "</span>+ws.id );</div></pre></td></tr></table></figure></p>
+<p>我们首先由<code>id</code>这个概念才能更加灵活管理<code>webview</code>，比如通过<code>id</code>获取对象关闭窗口:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ws = plus.webview.getWebviewById(id);</div><div class="line">plus.webview.close(ws);</div></pre></td></tr></table></figure></p>
+<p>等效于：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plus.webview.getWebviewById(id).close();</div></pre></td></tr></table></figure></p>
+<p>其他的方法类似，具体的可以参考文档 → <a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview" target="_blank" rel="external">5+ webview</a></p>
+<h3 id="窗口层叠关系"><a href="#窗口层叠关系" class="headerlink" title="窗口层叠关系"></a>窗口层叠关系</h3><p>我们应该注意到每创建一个<code>webview</code>相当于在当前屏幕创建多个重叠的页面层，所以这里的层叠关系是怎么样的呢？我们不妨做一个实验：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span><span class="javascript"></span></div><div class="line">      	<span class="comment">// H5 plus事件处理</span></div><div class="line">		<span class="function"><span class="keyword">function</span> <span class="title">plusReady</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="keyword">var</span> ws1=<span class="literal">null</span>,ws2=<span class="literal">null</span>,ws3=<span class="literal">null</span>;</div><div class="line">			</div><div class="line">			<span class="comment">// 获取当前所有Webview窗口</span></div><div class="line">			<span class="keyword">var</span> ws1=plus.webview.currentWebview();</div><div class="line">			<span class="built_in">console</span>.log(<span class="string">"webview"</span>+plus.webview.all().length+<span class="string">":"</span>+ws1.id);</div><div class="line">	</div><div class="line">			setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				ws2=plus.webview.create(<span class="string">"http://weibo.com/dhnetwork"</span>);</div><div class="line">				ws2.show();</div><div class="line">				<span class="built_in">console</span>.log(<span class="string">"webview"</span>+plus.webview.all().length+<span class="string">":"</span>+ws2.id);</div><div class="line">			&#125;,<span class="number">100</span>);</div><div class="line">			</div><div class="line">			setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				ws3=plus.webview.create(<span class="string">"http://zhaomenghuan.github.io/"</span>);</div><div class="line">				ws3.show();</div><div class="line">				<span class="built_in">console</span>.log(<span class="string">"webview"</span>+plus.webview.all().length+<span class="string">":"</span>+ws3.id);</div><div class="line">			&#125;,<span class="number">3000</span>);</div><div class="line">			</div><div class="line">			setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				ws3.close();</div><div class="line">				<span class="built_in">console</span>.log(<span class="string">"剩余窗口数量："</span>+plus.webview.all().length)</div><div class="line">			&#125;,<span class="number">6000</span>);</div><div class="line">			</div><div class="line">			setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				ws2.close();</div><div class="line">				<span class="built_in">console</span>.log(<span class="string">"剩余窗口数量："</span>+plus.webview.all().length)</div><div class="line">			&#125;,<span class="number">9000</span>);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		<span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</div><div class="line">			plusReady();</div><div class="line">		&#125;<span class="keyword">else</span>&#123;</div><div class="line">			<span class="built_in">document</span>.addEventListener(<span class="string">"plusready"</span>,plusReady,<span class="literal">false</span>);</div><div class="line">		&#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>在控制台会打印这个：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">webview1:HBuilder at index.html:<span class="number">16</span></div><div class="line">webview2:http:<span class="comment">//weibo.com/dhnetwork at index.html:21</span></div><div class="line">webview3:http:<span class="comment">//zhaomenghuan.github.io/ at index.html:27</span></div><div class="line">剩余窗口数量：<span class="number">2</span> at index.html:<span class="number">32</span></div><div class="line">剩余窗口数量：<span class="number">1</span> at index.html:<span class="number">37</span></div></pre></td></tr></table></figure></p>
+<p>其实执行完这个大家就明显可以看出点结论，在层级关系上你可以认为<code>webview</code>是<strong>后来居上原则</strong>，我们可以通过控制<code>webview</code>创建销毁、显示隐藏实现页面切换。我们创建的多个<code>webview</code>其实是在原生<code>android</code>中的一个<code>activity</code>上，<code>webview</code>之间的页面切换有别于原生<code>android</code>中的<code>activity</code>间的跳转。很多人没有搞清楚<code>webview</code>这个<strong>后来居上原则</strong>就会乱用一些方法也会有一些搞不清楚的问题：比如：</p>
+<ul>
+<li>如果父<code>webview</code>上的弹出菜单被子<code>webview</code>挡住了怎么解决？</li>
+<li>把<code>mui</code>中的<code>openWindow()当成</code>href`跳转使用，造成多次重复创建页面出现闪屏。</li>
+<li>如何实现按下返回键不会退到上一个页面（常用于注册登录这一个场景的）</li>
+</ul>
+<p>。。。</p>
+<p>这里我无法一一列举，但是可以说说通用的一些东西，当我们对于<code>html5+ webview</code>的基本方法很熟悉了,我们可以再看看<code>mui</code>中的<code>back()</code>和<code>openWindow()</code>方法的实现思路，自然对于这些问题就会理解了。</p>
+<p>那我们现在再做一个系列实验，刚刚我们是通过一层层的注销对象，而且是用的网络地址，现在我们在本地创建两个页面。</p>
+<p>我们新建一个项目，创建一个<code>index.html</code>文件：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span><span class="javascript"></span></div><div class="line">      	<span class="comment">// H5 plus事件处理</span></div><div class="line">		<span class="function"><span class="keyword">function</span> <span class="title">plusReady</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="keyword">var</span> ws = plus.webview.create(<span class="string">"ws1.html"</span>);</div><div class="line">			ws.show();</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</div><div class="line">			plusReady();</div><div class="line">		&#125;<span class="keyword">else</span>&#123;</div><div class="line">			<span class="built_in">document</span>.addEventListener(<span class="string">"plusready"</span>,plusReady,<span class="literal">false</span>);</div><div class="line">		&#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>再新建<code>ws1.html</code>文件：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	这是第二个webview</div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">		<span class="comment">// H5 plus事件处理</span></div><div class="line">		<span class="function"><span class="keyword">function</span> <span class="title">plusReady</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				<span class="keyword">var</span> ws = plus.webview.create(<span class="string">"ws2.html"</span>);</div><div class="line">				ws.show();</div><div class="line">			&#125;,<span class="number">3000</span>)</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</div><div class="line">			plusReady();</div><div class="line">		&#125;<span class="keyword">else</span>&#123;</div><div class="line">			<span class="built_in">document</span>.addEventListener(<span class="string">"plusready"</span>,plusReady,<span class="literal">false</span>);</div><div class="line">		&#125;</div><div class="line">	<span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>再新建<code>ws2.html</code>文件：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	这是第三个webview</div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">		<span class="function"><span class="keyword">function</span> <span class="title">plusReady</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			plus.webview.getWebviewById(<span class="string">"ws1.html"</span>).close();</div><div class="line">			</div><div class="line">			<span class="comment">// 获取所有Webview窗口</span></div><div class="line">			<span class="keyword">var</span> wvs=plus.webview.all();</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;wvs.length;i++)&#123;</div><div class="line">				<span class="built_in">console</span>.log(<span class="string">"webview"</span>+i+<span class="string">": "</span>+wvs[i].id);</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;wvs.length;i++)&#123;</div><div class="line">				<span class="built_in">console</span>.log(<span class="string">"webview"</span>+i+<span class="string">": "</span>+wvs[i].opener());</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</div><div class="line">			plusReady();</div><div class="line">		&#125;<span class="keyword">else</span>&#123;</div><div class="line">			<span class="built_in">document</span>.addEventListener(<span class="string">"plusready"</span>,plusReady,<span class="literal">false</span>);</div><div class="line">		&#125;</div><div class="line">	<span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">webview0: HBuilder at ws2.html:<span class="number">16</span></div><div class="line">webview1: ws2.html at ws2.html:<span class="number">16</span></div><div class="line">webview0: <span class="literal">undefined</span> at ws2.html:<span class="number">19</span></div><div class="line">webview1: <span class="literal">null</span> at ws2.html:<span class="number">19</span></div></pre></td></tr></table></figure></p>
+<p>我们在第三个<code>webview</code>里面通过<code>id</code>把第二个<code>webview</code>正常关闭了，这说明我们的<code>webview</code>是可以控制的，通过<code>plus.webview.all()</code>方法可以获取当前所有的<code>webview</code>对象，发现被关闭的<code>webview</code>被销毁了。</p>
+<p>这里我们需要说明的是被我们关闭的<code>webview</code>，我们无法通过<code>opener()</code>获取当前Webview窗口的创建者，返回值为<code>null</code>，这有别于<code>undefined</code>。</p>
+<p>有个问题我们一直都没有去探索，就是这些<code>webview</code>对象之间有没有什么关系呢？我们在第二篇说到了父子<code>webview</code>，那么这里的几个<code>webview</code>之间是不是父子结构呢，我们不妨试试看，我们通过<code>WebviewObject</code>的<code>parent()</code>获取父窗口，这里我们把<code>ws2.html</code>中修改如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;wvs.length;i++)&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"webview"</span>+i+<span class="string">": "</span>+wvs[i].parent());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>结果如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">webview0: <span class="literal">undefined</span> at ws2.html:<span class="number">16</span></div><div class="line">webview1: <span class="literal">undefined</span> at ws2.html:<span class="number">16</span></div></pre></td></tr></table></figure></p>
+<p>这说明我们创建的这几个对象是平行关系，不存在父子关系，文档中提到：<strong>Webview窗口作为子窗口添加（Webview.append）到其它Webview窗口中时有效，这时其它Webview窗口为父窗口。</strong></p>
+<p>那我们将第三个<code>webview</code>填充到第二个<code>webview</code>中试试，我们将<code>ws1.html</code>修改如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">plusReady</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> ws = plus.webview.create(<span class="string">"ws2.html"</span>,<span class="string">""</span>,&#123;<span class="attr">top</span>:<span class="string">"46px"</span>,<span class="attr">bottom</span>:<span class="string">"0px"</span>&#125;);</div><div class="line">	plus.webview.currentWebview().append(ws);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>ws2.html修改如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">plusReady</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">// 获取所有Webview窗口</span></div><div class="line">	<span class="keyword">var</span> wvs=plus.webview.all();</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;wvs.length;i++)&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"webview"</span>+i+<span class="string">": "</span>+wvs[i].parent());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输入如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">webview0: <span class="literal">undefined</span> at ws2.html:<span class="number">16</span></div><div class="line">webview1: <span class="literal">undefined</span> at ws2.html:<span class="number">16</span></div><div class="line">webview2: [object <span class="built_in">Object</span>] at ws2.html:<span class="number">16</span></div></pre></td></tr></table></figure></p>
+<p>很明显我们发现第三个<code>webview</code>具有父对象，这里也说明了父子对象的应用场景，将另一个Webview窗口作为子窗口添加到当前Webview窗口中，添加后其所有权归父Webview窗口，父窗口显示时子窗口会自动显示，父窗口隐藏时子窗口自动隐藏，当父窗口关闭时子窗口也自动关闭。</p>
+<p>我们不妨在子<code>webview</code>关闭父<code>webview</code>试试，结果发现子<code>webview</code>也被关闭了，如果不对子<code>webview</code>进行<code>close()</code>方法操作，可知子<code>webview</code>的生命周期是由父<code>webview</code>决定的。我们可以通过对子<code>webview</code>进行<code>show()</code>、<code>hide()</code>操作，甚至可以使用<code>remove</code>移除子Webview窗口，从而实现动态子<code>webview</code>。这种场景最常用的是<code>webview</code>选项卡。</p>
+<h3 id="页面历史记录操作"><a href="#页面历史记录操作" class="headerlink" title="页面历史记录操作"></a>页面历史记录操作</h3><p>很多人有将<code>wap</code>站点打包成<code>APP</code>需求，官方也提供了一些教程，只是很多人没有搞清楚思路，没有明白改造的基本方法，其中有个最常见的问题是如何通过返回键控制网页内容的回退，论坛上有些回答说通过<code>setJsFile</code>引入<code>mui.js</code>，然后重写<code>mui.back()</code>，其实这个回答本来没有错，但是这个答案依然会有很多细节问题，说直接就是<code>mui.back()</code>怎么去重写的问题，在搞懂这些问题之前我们不妨看看我们<code>html5+</code>有什么解决办法，由于<code>mui</code>并没有给出前端路由的相关解决方法，使用前端技术写<code>app</code>，总觉得在页面管理上会有点混乱，前几天一直在构思基于<code>html5+</code>和<code>mui</code>的前端路由解决方案。感觉这个问题如果深入探究需要另开篇再谈，这里先给出一个最简单的将一个网址打包成<code>app</code>的方案，这个在应用商店估计是通不过的，只是一个基本思路，大家需要的可以拿去看看。</p>
+<p>可以通过<code>plus.key.addEventListener</code>来注册监听返回按键<code>backbutton</code>事件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">plus.key.addEventListener(<span class="string">"backbutton"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	alert( <span class="string">"BackButton Key pressed!"</span> );</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>通过<code>WebviewObject</code>对象的<code>canBack</code>和<code>canForward</code>方法可以查询<code>Webview</code>窗口的状态，通过<code>back</code>和<code>forward</code>控制页面加载。</p>
+<ul>
+<li><a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewObject.canBack" target="_blank" rel="external">canBack</a>: 查询Webview窗口是否可后退</li>
+<li><a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewObject.canForward" target="_blank" rel="external">canForward</a>: 查询Webview窗口是否可前进</li>
+<li><a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewObject.back" target="_blank" rel="external">back</a>: 后退到上次加载的页面</li>
+<li><a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewObject.forward" target="_blank" rel="external">forward</a>: 前进到上次加载的页面</li>
+<li><a href="http://www.html5plus.org/doc/zh_cn/webview.html#plus.webview.WebviewObject.clear" target="_blank" rel="external">clear</a>清除原生窗口的内容，用于重置原生窗口加载的内容，清除其加载的历史记录等内容</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span><span class="javascript"></span></div><div class="line">		<span class="keyword">var</span> ws=<span class="literal">null</span>,nw=<span class="literal">null</span>;</div><div class="line">		<span class="function"><span class="keyword">function</span> <span class="title">plusReady</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			ws=plus.webview.currentWebview();</div><div class="line">			nw=plus.webview.create(<span class="string">"http://weibo.com/dhnetwork"</span>);</div><div class="line">			ws.append(nw);</div><div class="line">			plus.key.addEventListener(<span class="string">"backbutton"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				<span class="comment">//查询Webview窗口是否可后退</span></div><div class="line">				nw.canBack( <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">					<span class="keyword">var</span> canback=e.canBack;</div><div class="line">    				<span class="keyword">if</span>(canback)&#123;</div><div class="line">    					nw.back();</div><div class="line">    				&#125;<span class="keyword">else</span>&#123;</div><div class="line">    					back();</div><div class="line">    				&#125;</div><div class="line">				&#125;);</div><div class="line">			&#125;);</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		<span class="keyword">var</span> first = <span class="literal">null</span>;</div><div class="line">        <span class="keyword">var</span> back = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">if</span> (!first) &#123;</div><div class="line">                first = (<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime();</div><div class="line">                plus.nativeUI.toast(<span class="string">'再按一次退出应用'</span>);</div><div class="line">                setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                    first = <span class="literal">null</span>;</div><div class="line">                &#125;, <span class="number">1000</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">if</span> ((<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime() - first &lt; <span class="number">1000</span>) &#123;</div><div class="line">                    plus.runtime.quit();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">		</div><div class="line">		<span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</div><div class="line">			plusReady();</div><div class="line">		&#125;<span class="keyword">else</span>&#123;</div><div class="line">			<span class="built_in">document</span>.addEventListener(<span class="string">"plusready"</span>,plusReady,<span class="literal">false</span>);</div><div class="line">		&#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果是使用mui,我们可以这样写：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/mui.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span><span class="javascript"></span></div><div class="line">      	mui.init();</div><div class="line">      	</div><div class="line">      	<span class="keyword">var</span> ws=<span class="literal">null</span>,nw=<span class="literal">null</span>;</div><div class="line">      	mui.plusReady(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      	    ws=plus.webview.currentWebview();</div><div class="line">            nw=plus.webview.create(<span class="string">"https://www.baidu.com/"</span>);</div><div class="line">            ws.append(nw);</div><div class="line">      	&#125;);</div><div class="line">      	</div><div class="line">      	<span class="keyword">var</span> _back = mui.back;</div><div class="line">      	mui.back = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      		<span class="comment">//查询Webview窗口是否可后退</span></div><div class="line">            nw.canBack( <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</div><div class="line">                <span class="keyword">var</span> canback=e.canBack;</div><div class="line">                <span class="keyword">if</span>(canback)&#123;</div><div class="line">                    nw.back();</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    _back();</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">      	&#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>当然<code>WebviewObject</code>对象的内容不止这些，这里我只列举了其中大家容易出问题的一些内容，详细的讲解再后面的其他模块的讲解中会再做补充，大家也可以自己学习。</p>
+<h2 id="WebviewStyles对象举例"><a href="#WebviewStyles对象举例" class="headerlink" title="WebviewStyles对象举例"></a>WebviewStyles对象举例</h2><p><code>WebviewStyles</code>是<code>JSON</code>对象，原生窗口设置参数的对象，设置方法有两种：</p>
+<ul>
+<li><p>在<code>plus.webview.create()</code>或者<code>plus.webview.open()</code>中作为参数设置，如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">plus.webview.create(url,id,&#123;</div><div class="line">	<span class="attr">top</span>: <span class="string">'0px'</span>,</div><div class="line">	<span class="attr">bottom</span>: <span class="string">'0px'</span>,</div><div class="line">	<span class="attr">mask</span>: <span class="string">'rgba(0,0,0,0.5)'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>setStyle()</code>动态设置，如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ws=plus.webview.currentWebview();</div><div class="line"><span class="comment">// 显示遮罩层</span></div><div class="line">ws.setStyle(&#123;<span class="attr">mask</span>:<span class="string">"rgba(0,0,0,0.5)"</span>&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="WebviewStyles常用属性"><a href="#WebviewStyles常用属性" class="headerlink" title="WebviewStyles常用属性"></a>WebviewStyles常用属性</h3><blockquote>
+<p><strong>zindex: (Number 类型 )窗口的堆叠顺序值</strong><br>拥有更高堆叠顺序的窗口总是会处于堆叠顺序较低的窗口的上面，拥有相同堆叠顺序的窗口后调用show方法则在前面。</p>
+</blockquote>
+<p>设置方法如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	zindex: 999</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>前面我们讲到了<code>webview</code>的层叠关系是<strong>后来居上原则</strong>，有一个前提是默认层级，没有使用<code>zindex</code>改变默认的层级关系值，大家知道在<code>web</code>中我们使用<code>z-index</code>可以改变控件的层叠关系，说直观点就好是可以定义有重叠的两个部分，谁在上面谁在下面的问题。</p>
+<p>那么在必要的时候我们可以使用这个<code>WebviewStyles</code>的<code>zindex</code>属性去改变层叠关系。</p>
+{% image https://segmentfault.com/img/bVxSjN 'clipboard.png' '' %}
+<p>如上图这种情况，我们的底部菜单中间有个突出的部分，如果直接用我们之前将到的那个方法，我们知道要么是那个突起的一小块被挡住了，要么是中间的内容与底部非得保持一定的距离，这就尴尬了，而且目前官方的<code>demo</code>没有给这种特殊的需求，那么是不是不能自己做呢？</p>
+<p>肯定不是的，不然<code>html5plus</code>也不至于要做为一个标准去提，肯定是有通用方法解决不同的个性化需求的。</p>
+<p>我们很好想到的就是在上次的基础上进行改进就可以满足这个需求：我们首先思考一个问题，我们是将父<code>webview</code>的堆叠顺序改成比子页高还是说将<code>tabbar</code>作为一个层独立出来呢？</p>
+<p>首先我们思考一下简单粗暴的提高父<code>webview</code>会怎么样？首先我们会发现子<code>webview</code>会被父<code>webview</code>盖住，有人可能会说把父<code>webview</code>搞成透明的，OK，那么问题来了怎么设置透明呢？</p>
+<blockquote>
+<p><strong>background: (String 类型 )窗口的背景颜色</strong><br>窗口空白区域的背景模式，设置background为颜色值(参考CSS Color Names，可取值/十六进制值/rgb值/rgba值)，窗口为独占模式显示（占整个屏幕区域）； 设置background为“transparent”，则表示窗口背景透明，为非独占模式。</p>
+</blockquote>
+<p>设置方法如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	background: 'transparent'</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个就是我开篇说到的那个问题，当时犯了错误，误以为<code>ios</code>不支持，后来得到果汁的确认后来支持了，文档没有更新而已。</p>
+<p>虽然我们可以通过设置父<code>webview</code>透明不至于看不到子页面，但是有个更严重的问题就是子<code>webview</code>被盖住了我们不能操作，这是多么的坑，所以这个方法走不通。我们想一下把<code>tabbar</code>抽离出来作为一个子<code>webview</code>,只要设置<code>tabbar</code>的范围，也就是说不全屏幕铺开，设置高度属性限制高度，设置<code>bottom</code>将<code>tabbar</code>固定在底部，然后设置<code>tabbar</code>的<code>zindex</code>属性比其他子<code>webview</code>高就ok了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 子页参数</span></div><div class="line"><span class="keyword">var</span> Index = <span class="number">0</span>;</div><div class="line"><span class="keyword">var</span> subpages = [<span class="string">'html/home.html'</span>,<span class="string">'html/message.html'</span>,<span class="string">'html/find.html'</span>,<span class="string">'html/setting.html'</span>];</div><div class="line"><span class="keyword">var</span> subpage_style = &#123;</div><div class="line">	<span class="attr">top</span>: <span class="string">'45px'</span>,</div><div class="line">	<span class="attr">bottom</span>: <span class="string">'50px'</span>,</div><div class="line">	<span class="attr">zindex</span>:<span class="number">99</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 底部导航栏</span></div><div class="line"><span class="keyword">var</span> tabbar = <span class="string">"html/tabbar.html"</span>;</div><div class="line"><span class="keyword">var</span> tabbar_style = &#123;</div><div class="line">	<span class="attr">height</span>:<span class="string">"60px"</span>,</div><div class="line">	<span class="attr">bottom</span>:<span class="string">"0px"</span>,</div><div class="line">	<span class="attr">background</span>: <span class="string">"transparent"</span>,</div><div class="line">	<span class="attr">zindex</span>:<span class="number">999</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们只需要给<code>tabbar</code>设置<code>background</code>和<code>zindex</code>就可以实现上面那个图那种效果，但是也因此带了一个问题就是，我们之前点击底部栏直接就可以获取相关的参数进行切换，但是我们现在把<code>tabbar</code>单独拿出来了，那么久涉及一个父子<code>webview</code>通信的问题，我们前面一篇文章讲到页面初始化时候通过扩展参数extras传值，这里我们需要用到<strong>自定义事件</strong>，通过自定义事件，用户可以轻松实现多webview间数据传递。</p>
+<p>我们这里先贴出<code>tabbar</code>的局部代码便于讲解，大家可以在<a href="https://github.com/zhaomenghuan/mui-demo" target="_blank" rel="external">【mui demo】</a>仓库下载完整代码，或者在这里c查看<a href="https://rawgit.com/zhaomenghuan/mui-demo/master/tabbar-with-popover/html/tabbar.html" target="_blank" rel="external">【预览效果】</a>。</p>
+<blockquote>
+<p>在此感谢群友们提出demo中的bug，就是在苹果手机中切换tabbar，tabbar依然会被挡住的问题，开篇讲到由于本人没有苹果手机，所以demo难免在苹果手机上有一些小问题，但是问题还是可以解决的，其实看了文章多思考一下自己没啥问题的，不建议新手直接一上来来demo，不然出现小问题自己都不知道什么原因，那么这篇文章也没啥意义。再来说说群友提的问题，我觉得有两种可能性，没有用苹果做实验测试，只是猜想：1.zindex在ios无效；2.优先级的问题，可能是选项卡切换过程执行show方法，我们前面说到后来居上原则，这个时候zindx的层级关系优先级低于后来居上原则。大家可以去实验验证，这里无法给出肯定答案。不过解决思路，我觉得可以试试两种：1.在子页面show后马上用setStyle设置zindex；2.直接在子页面show后重新执行tabbar show方法。</p>
+</blockquote>
+<p><strong>tabbar.html</strong><br>html部分：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"mui-bar mui-bar-tab mui-botton-bar"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-tab-item mui-active"</span> <span class="attr">href</span>=<span class="string">"html/home.html"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"mui-icon"</span> <span class="attr">src</span>=<span class="string">"../img/i-home-active.png"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-tab-label"</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-tab-item"</span> <span class="attr">href</span>=<span class="string">"html/message.html"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"mui-icon"</span> <span class="attr">src</span>=<span class="string">"../img/i-star.png"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-tab-label"</span>&gt;</span>消息<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-tabbar-center"</span> <span class="attr">href</span>=<span class="string">"popover.html"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"../img/i-pop-active.png"</span>/&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-tab-item"</span> <span class="attr">href</span>=<span class="string">"html/find.html"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">img</span>  <span class="attr">class</span>=<span class="string">"mui-icon"</span> <span class="attr">src</span>=<span class="string">"../img/i-find.png"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-tab-label"</span>&gt;</span>发现<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-tab-item"</span> <span class="attr">href</span>=<span class="string">"html/setting.html"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"mui-icon"</span> <span class="attr">src</span>=<span class="string">"../img/i-person.png"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-tab-label"</span>&gt;</span>个人<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>js部分：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//选项卡点击事件</span></div><div class="line">mui(<span class="string">'.mui-bar-tab'</span>).on(<span class="string">'tap'</span>, <span class="string">'a'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">	<span class="comment">// 获取当前点击的选项</span></div><div class="line">	<span class="keyword">var</span> targetTab = <span class="keyword">this</span>.getAttribute(<span class="string">'href'</span>);	</div><div class="line">	<span class="comment">// 如果点击中间的菜单栏弹出菜单</span></div><div class="line">	<span class="keyword">if</span>(targetTab == popTab)&#123;</div><div class="line">		<span class="comment">// 创建mask遮罩</span></div><div class="line">		plus.webview.create(<span class="string">""</span>,<span class="string">"mask"</span>,&#123;</div><div class="line">			<span class="attr">mask</span>:<span class="string">"rgba(0,0,0,0.4)"</span>,</div><div class="line">			<span class="attr">background</span>: <span class="string">"transparent"</span></div><div class="line">		&#125;).show();</div><div class="line">		<span class="comment">// 打开弹出层</span></div><div class="line">		plus.webview.show(popWebview,<span class="string">"slide-in-bottom"</span>,<span class="number">300</span>);</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="comment">//当前选项值传到父webview</span></div><div class="line">	<span class="keyword">var</span> currWs = plus.webview.currentWebview();	</div><div class="line">	<span class="keyword">var</span> targetTitle = <span class="keyword">this</span>.querySelector(<span class="string">'.mui-tab-label'</span>).innerHTML;</div><div class="line">	<span class="comment">//触发详情页面的newsId事件</span></div><div class="line">	mui.fire(currWs.parent(),<span class="string">'targetTab'</span>,&#123;</div><div class="line">		<span class="attr">targetTitle</span>:targetTitle,</div><div class="line">	    <span class="attr">targetTab</span>:targetTab</div><div class="line">	&#125;);</div><div class="line">	</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 下面这部分非每个项目必须的，因为这里为了给</div><div class="line">	 * 大家演示怎么用图片作为图标而不用字体图标。</div><div class="line">	 */	</div><div class="line">	<span class="comment">// 获取图标对象</span></div><div class="line">	<span class="keyword">var</span> targetIcon=mui(<span class="keyword">this</span>.children[<span class="number">0</span>])[<span class="number">0</span>];</div><div class="line">	<span class="comment">//初始化</span></div><div class="line">	mui(<span class="string">'.mui-bar-tab .mui-tab-item img'</span>).each(<span class="function"><span class="keyword">function</span> (<span class="params">index,item</span>) </span>&#123;</div><div class="line">		<span class="keyword">var</span> itemSrc = item.getAttribute(<span class="string">'src'</span>);</div><div class="line">		<span class="keyword">if</span>(itemSrc.indexOf(<span class="string">'active'</span>))&#123;</div><div class="line">			item.src = itemSrc.replace(<span class="string">'-active.png'</span>,<span class="string">'.png'</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;);</div><div class="line">	<span class="comment">//设置当前的图标</span></div><div class="line">	targetIcon.src = targetIcon.getAttribute(<span class="string">'src'</span>).replace(<span class="string">'.png'</span>,<span class="string">'-active.png'</span>);	</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>这里我们使用了图片而不是图标，因为考虑有些项目可能设计比较个性化，我们不一定可以在<a href="http://www.iconfont.cn/" target="_blank" rel="external">Iconfont-阿里巴巴矢量图标库</a>上找到合适的图，有时候用字体文件有局限性，所以这个例子里面我们使用了图片演示。</p>
+<p>这个地方需要对几个细节特别说说：</p>
+<h3 id="mui-fire-触发自定义事件"><a href="#mui-fire-触发自定义事件" class="headerlink" title="mui.fire()触发自定义事件"></a>mui.fire()触发自定义事件</h3><p>按照文档的说明我们知道有三个参数：（不知道文档在哪里的请戳这里<a href="http://dev.dcloud.net.cn/mui/event/#customevent" target="_blank" rel="external">【文档】</a>）</p>
+<blockquote>
+<p>mui.fire( target , event , data )</p>
+</blockquote>
+<p><strong>target</strong>为你要传入数据的那个<code>webview</code>，我们这里是要出入到父<code>webview</code>，由于我们没有给父<code>webview</code>指定<code>id</code>，我们前面知道这样就不方便拿到父<code>webview</code>对象，这里就使用当前<code>webview</code>的<code>parent()</code>间接获取。<br><strong>event</strong>是你可以指定的自定义事件名称。<br><strong>data</strong>是你要传入的数据，为<code>json</code>格式 (不知道json为何物的同学请戳我上一篇文章<a href="https://segmentfault.com/a/1190000005589813#articleHeader8" target="_blank" rel="external">mui初级入门教程（三）— html5+ XMLHttpRequest 与mui ajax用法详解</a>) 。</p>
+<p>我们获取数据也很简单：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 添加targetTab自定义事件监听</span></div><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'targetTab'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">  	<span class="comment">// 获得选项卡点击事件参数</span></div><div class="line">  	<span class="keyword">var</span> targetTitle = event.detail.targetTitle;</div><div class="line">  	<span class="keyword">var</span> targetTab = event.detail.targetTab;</div><div class="line">  	<span class="comment">//接下来这里拿到数据后写逻辑代码了...</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>不过这里有一个特别需要注意的问题，由于我还没有遇到，但是看官网文档有说明，贴出来方便后来遇到这个问题的同学：</p>
+<blockquote>
+<p><strong>目标webview必须触发loaded事件后才能使用自定义事件</strong><br>若新创建一个webview，不等该webview的loaded事件发生，就立即使用webview.evalJS()或mui.fire(webview,’eventName’,{})，则可能无效；案例参考：<a href="http://ask.dcloud.net.cn/question/11022" target="_blank" rel="external">这里</a></p>
+</blockquote>
+<h3 id="mui对象和DOM对象的区别"><a href="#mui对象和DOM对象的区别" class="headerlink" title="mui对象和DOM对象的区别"></a>mui对象和DOM对象的区别</h3><p>之所以说说这个是因为在写那个用图片代码字体图标的时候出现一个问题就是选中当前选项，选项卡图片要换成对应激活状态的图片。那么问题来了，怎么拿到<code>a</code>标签下的<code>img</code>标签对象,如果用过<code>jQuery</code>,我们知道直接用下面的代码就可以实现：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">'.mui-bar-tab a'</span>).children(<span class="string">"img"</span>).css(<span class="string">"src"</span>,<span class="string">"xxx-active.png"</span>);</div></pre></td></tr></table></figure></p>
+<p>然而<code>mui</code>本着极简的原则没有<code>children</code>和<code>css</code>方法，那么我们只考虑用原生<code>js</code>操作<code>DOM</code>。这里推荐大家用<code>mui</code>和原生<code>js</code>实现，毕竟就那么一点代码引入一个库不值得，也不利于提高自身的水平。那么我们这里就补一下基础知识，考虑到每个人基础不同，这里尽可能精简的说一下。</p>
+<h5 id="HTML-DOM-基础"><a href="#HTML-DOM-基础" class="headerlink" title="HTML DOM 基础"></a>HTML DOM 基础</h5><p><strong>什么是 DOM?</strong><br>DOM ，全称Document Object Model（文档对象模型），是 W3C（万维网联盟）的标准。DOM 定义了访问 HTML 和 XML 文档的标准：</p>
+<blockquote>
+<p>“W3C 文档对象模型 （DOM） 是中立于平台和语言的接口，它允许程序和脚本动态地访问和更新文档的内容、结构和样式。”</p>
+</blockquote>
+<p>W3C DOM 标准被分为 3 个不同的部分：</p>
+<ul>
+<li>核心 DOM - 针对任何结构化文档的标准模型</li>
+<li>XML DOM - 针对 XML 文档的标准模型</li>
+<li>HTML DOM - 针对 HTML 文档的标准模型</li>
+</ul>
+<p><strong>什么是 HTML DOM？</strong><br>HTML DOM 是HTML 的标准对象模型和标准编程接口，W3C 标准。HTML DOM 定义了所有 HTML 元素的对象和属性，以及访问它们的方法。换言之，HTML DOM 是关于如何获取、修改、添加或删除 HTML 元素的标准。</p>
+<p><strong>HTML DOM 节点树</strong><br>HTML DOM 将 HTML 文档视作树结构。这种结构被称为节点树：<br>{% image http://www.w3school.com.cn/i/ct_htmltree.gif '' '' %}<br>节点父、子和同胞：<br>节点树中的节点彼此拥有层级关系。<br>父（parent）、子（child）和同胞（sibling）等术语用于描述这些关系。父节点拥有子节点。同级的子节点被称为同胞（兄弟或姐妹）。</p>
+<p><strong>HTML DOM 属性</strong><br>属性是节点（HTML 元素）的值，您能够获取或设置。可通过 JavaScript （以及其他编程语言）对 HTML DOM 进行访问。</p>
+<p>1.innerHTML 属性：获取元素内容的最简单方法是使用 innerHTML 属性。<br>innerHTML 属性对于获取或替换 HTML 元素的内容很有用。</p>
+<p>2.nodeName 属性：nodeName 属性规定节点的名称，是只读的，nodeName 始终包含 HTML 元素的大写字母标签名。</p>
+<ul>
+<li>元素节点的 nodeName 与标签名相同</li>
+<li>属性节点的 nodeName 与属性名相同</li>
+<li>文本节点的 nodeName 始终是 #text</li>
+<li>文档节点的 nodeName 始终是 #document</li>
+</ul>
+<p>3.nodeValue 属性：nodeValue 属性规定节点的值。</p>
+<ul>
+<li>元素节点的 nodeValue 是 undefined 或 null</li>
+<li>文本节点的 nodeValue 是文本本身</li>
+<li>属性节点的 nodeValue 是属性值</li>
+</ul>
+<p>4.nodeType 属性：nodeType 属性返回节点的类型， 是只读的。<br>比较重要的节点类型有：<br>| 元素类型    | NodeType  |<br>| :——–: | :——–:|<br>| 元素         |    1      |<br>| 属性         |    2      |<br>| 文本         |    3      |<br>| 注释         |    8      |<br>| 文档         |    9      |</p>
+<p>5.childNodes属性与children属性<br>childNodes 属性返回包含被选节点的子节点的 NodeList。如果选定的节点没有子节点，则该属性返回不包含节点的 NodeList。childNodes包含的不仅仅只有html节点，所有属性，文本、注释等节点都包含在childNodes里面。children只返回元素如input, span, script, div等，不会返回TextNode，注释。</p>
+<p><strong>HTML DOM方法</strong><br>通常使用的最多的就是 Document和 window 对象。简单的说, window 对象表示浏览器中的内容，而 document 对象是文档本身的根节点。Element 继承了通用的 Node 接口,  将这两个接口结合后就提供了许多方法和属性可以供单个元素使用。在处理这些元素所对应的不同类型的数据时，这些元素可能会有专用的接口。下面是在web和XML页面脚本中使用DOM时，一些常用的方法:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">getElementById()</td>
+<td style="text-align:left">返回带有指定 ID 的元素。</td>
+</tr>
+<tr>
+<td style="text-align:left">getElementsByTagName()</td>
+<td style="text-align:left">返回包含带有指定标签名称的所有元素的节点列表（集合/节点数组）。</td>
+</tr>
+<tr>
+<td style="text-align:left">getElementsByClassName()</td>
+<td style="text-align:left">返回包含带有指定类名的所有元素的节点列表。</td>
+</tr>
+<tr>
+<td style="text-align:left">appendChild()</td>
+<td style="text-align:left">把新的子节点添加到指定节点。</td>
+</tr>
+<tr>
+<td style="text-align:left">removeChild()</td>
+<td style="text-align:left">删除子节点。</td>
+</tr>
+<tr>
+<td style="text-align:left">replaceChild()</td>
+<td style="text-align:left">替换子节点。</td>
+</tr>
+<tr>
+<td style="text-align:left">insertBefore()</td>
+<td style="text-align:left">在指定的子节点前面插入新的子节点。</td>
+</tr>
+<tr>
+<td style="text-align:left">createAttribute()</td>
+<td style="text-align:left">创建属性节点。</td>
+</tr>
+<tr>
+<td style="text-align:left">createElement()</td>
+<td style="text-align:left">创建元素节点。</td>
+</tr>
+<tr>
+<td style="text-align:left">createTextNode()</td>
+<td style="text-align:left">创建文本节点。</td>
+</tr>
+<tr>
+<td style="text-align:left">getAttribute()</td>
+<td style="text-align:left">返回指定的属性值。</td>
+</tr>
+<tr>
+<td style="text-align:left">setAttribute()</td>
+<td style="text-align:left">把指定属性设置或修改为指定的值。</td>
+</tr>
+</tbody>
+</table>
+<p>具体更详细的大家可以参考这篇文章<a href="https://segmentfault.com/a/1190000004130998" target="_blank" rel="external">JavaScript DOM——“节点层次”的注意要点</a></p>
+<h5 id="mui对象和dom对象的具体区别"><a href="#mui对象和dom对象的具体区别" class="headerlink" title="mui对象和dom对象的具体区别"></a>mui对象和dom对象的具体区别</h5><p>我们上面讲了一下<code>DOM</code>对象的基本属性和方法，限于篇幅，只是简单说了说，如果说连上面的都不知道的就需要查一下咯，当然<code>DOM</code>历史悠久，肯定不止这么多内容，对于新手来说熟悉常用的<code>DOM</code>是很有必要的，我自己在这方面目前就做得不够好，后期还会继续深入学习。</p>
+<p>首先我们得说<code>mui</code>对象和<code>dom</code>对象都我们是两个对象，都有自己的独有的属性和方法，如果一个对象调用了一个自己没有另外一个对象有的属性和方法，肯定会报错的。这里我们先举个小例子：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"../js/mui.js"</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">			<span class="comment">// dom对象实现</span></div><div class="line">			<span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>);</div><div class="line">			btn.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				<span class="built_in">console</span>.log(<span class="string">"用dom对象获取button元素点击了按钮"</span>)</div><div class="line">			&#125;);</div><div class="line">			<span class="comment">// mui对象实现</span></div><div class="line">			mui(<span class="string">"#btn"</span>)[<span class="number">0</span>].addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				<span class="built_in">console</span>.log(<span class="string">"用mui对象获取button元素点击了按钮"</span>)</div><div class="line">			&#125;);</div><div class="line">			<span class="comment">//判断这两个方法是否等同</span></div><div class="line">			<span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>)===mui(<span class="string">"#btn"</span>)[<span class="number">0</span>])</div><div class="line">		<span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>经常容易犯错的一个就是下面的使用方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mui(<span class="string">"#btn"</span>).addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"用mui对象获取button元素点击了按钮"</span>)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>我们通过<code>mui(&quot;#btn&quot;)</code>获取的是一个<code>mui</code>对象实例，然而<code>mui</code>对象没有<code>addEventListener</code>，就会报错，我们用<code>jQuery</code>也会出现这种问题，然而<code>jQuery</code>中<code>on</code>方法很常用，不会想那么多，但是<code>mui</code>中的<code>on</code>方法实现批量元素的事件绑定，非得传入第二个参数，和我们的需求有时候不相符合，<code>mui</code>推荐我们直接使用<code>addEventListener</code>方法，然而这个是<code>dom</code>对象的方法，我们又不想用<code>document.getElementById(&quot;btn&quot;)</code>这种一长串的方法怎么办呢？我们可以考虑将<code>mui</code>对象转成<code>dom</code>对象，方法是：<code>mui</code>对象<code>mui(&quot;#btn&quot;)</code>转成<code>dom</code>对象为mui(“#btn”)[0]，我们后面也会陆续讲到怎么自己封装一些常用的<code>dom</code>对象操作方法。</p>
+<p>我们接下来说说<code>mui</code>对象中的<code>on()</code>中的<code>this</code>指向和父子节点问题：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mui(<span class="string">'.mui-bar-tab'</span>).on(<span class="string">'tap'</span>, <span class="string">'a'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.innerHTML)</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>我们这里执行这个会发现这里的<code>this</code>指向的是当前点击的<code>a</code>标签。</p>
+<p>我们如果想获取子节点，我们前面提到了有两个方法：<code>childNodes</code>和<code>children</code>,我们可以用下面的方面遍历：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mui(<span class="string">'.mui-bar-tab'</span>).on(<span class="string">'tap'</span>, <span class="string">'a'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="keyword">this</span>.childNodes.length;i++)&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"childNodes:"</span>+<span class="keyword">this</span>.childNodes[i]);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="keyword">this</span>.children.length;i++)&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"children:"</span>+<span class="keyword">this</span>.children[i])</div><div class="line">	&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>结果：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">childNodes:[object Text] at html/tabbar.html:<span class="number">85</span></div><div class="line">childNodes:[object HTMLImageElement] at html/tabbar.html:<span class="number">85</span></div><div class="line">childNodes:[object Text] at html/tabbar.html:<span class="number">85</span></div><div class="line">childNodes:[object HTMLSpanElement] at html/tabbar.html:<span class="number">85</span></div><div class="line">childNodes:[object Text] at html/tabbar.html:<span class="number">85</span></div><div class="line">children:[object HTMLImageElement] at html/tabbar.html:<span class="number">89</span></div><div class="line">children:[object HTMLSpanElement] at html/tabbar.html:<span class="number">89</span></div></pre></td></tr></table></figure></p>
+<p>我们会发现使用<code>childNodes</code>会有[object Text]，我们这里的其实是因为我们上面的<code>HTML</code>结构中有回车和空格的原因，去掉后会发现和<code>children</code>结果一致。</p>
+<blockquote>
+<p>注：Internet Explorer 下使用<code>childNodes</code>会忽略节点之间生成的空白文本节点（比如换行字符）。</p>
+</blockquote>
+<p>为了简单我们通常使用<code>children</code>，比如上面的例子我们用到了<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> targetIcon=mui(<span class="keyword">this</span>.children[<span class="number">0</span>])[<span class="number">0</span>];</div></pre></td></tr></table></figure></p>
+<p>这样我们就拿到了HTMLImageElement对象，我们通过<code>getAttribute(&#39;src&#39;)</code>方法就可以拿到<code>src</code>属性。</p>
+<p>其实写到这里我们发现只要掌握了原生js操作<code>DOM</code>的方法，我们其实可以不过度依赖<code>jQuery</code>这种库，当然<code>jQuery</code>也不仅仅只是这么多内容，很多封装的思路值得我们去学习，小白学习前端的路很长，但是一定要脚踏实地去落实，不要急于求成。</p>
+<h2 id="项目实战之父子页面弹出层"><a href="#项目实战之父子页面弹出层" class="headerlink" title="项目实战之父子页面弹出层"></a>项目实战之父子页面弹出层</h2><p>这一篇文章本来上次就应该完成的，但是一直拖了很久，一来是因为时间久了，这么问题感觉也不想继续写，毕竟写文章要花时间，但是又有强迫症，想想还是完善一下，详不详细都不要紧，<br>但是要把主要的内容写出来就可以。</p>
+<p>先看效果图：</p>
+{% image https://segmentfault.com/img/bVysZ7 'clipboard.png' '' %}
+<p>就是前面我们点击中间那个选项弹出的一个菜单，很显然这个问题具有一定的代表性。做过类似需求的朋友肯定知道问题所在，我们把弹出菜单如果放在父<code>webview</code>，那么在这种情况下会被子<code>webview</code>盖住，当然我们可以考虑在点击弹出层时候动态设置父页面的层级比子页面高，然后关闭再设置恢复，但是这个过程很麻烦，不是最佳实战方法，在子<code>webview</code>的话，那么设计父子<code>webview</code>通信的问题，对于这种多子<code>webview</code>页面的情况是不是过于麻烦呢，这种时候我们用新建一个<code>webview</code>装弹出层我觉得是一种最合适的方案。</p>
+<p>知道思路了，方案实施很简单的，其实就是当我们点击那个弹出层的时候，然后显示<code>webview</code>，当关闭的时候隐藏或者关闭<code>webview</code>。打开时候的关键代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//弹出菜单</span></div><div class="line"><span class="keyword">var</span> menuWebview;</div><div class="line"><span class="keyword">var</span> menuTab = <span class="string">'menu.html'</span>;</div><div class="line">mui.plusReady(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;	</div><div class="line">    <span class="comment">//预加载弹出菜单子页面</span></div><div class="line">    menuWebview = mui.preload(&#123;</div><div class="line">        <span class="attr">url</span>:menuTab,</div><div class="line">	    <span class="attr">id</span>:menuTab,</div><div class="line">	    <span class="attr">styles</span>:&#123;</div><div class="line">	        <span class="attr">top</span>: <span class="string">'0px'</span>,</div><div class="line">		    <span class="attr">bottom</span>: <span class="string">'0px'</span>,</div><div class="line">		    <span class="attr">background</span>: <span class="string">'transparent'</span></div><div class="line">	    &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">//...此处略去若干代码</span></div><div class="line"></div><div class="line"><span class="comment">// 如果点击中间的菜单栏弹出菜单</span></div><div class="line"><span class="keyword">if</span>(targetTab == menuTab)&#123;</div><div class="line">    <span class="keyword">if</span>(<span class="built_in">window</span>.plus)&#123;</div><div class="line">        <span class="comment">// 创建mask遮罩</span></div><div class="line">		plus.webview.create(<span class="string">""</span>,<span class="string">"mask"</span>,&#123;</div><div class="line">			<span class="attr">mask</span>:<span class="string">"rgba(0,0,0,0.4)"</span>,</div><div class="line">			<span class="attr">background</span>: <span class="string">"transparent"</span></div><div class="line">		&#125;).show();</div><div class="line">		<span class="comment">// 打开弹出层</span></div><div class="line">		plus.webview.show(menuWebview,<span class="string">"slide-in-bottom"</span>,<span class="number">300</span>);	</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		mui.alert(<span class="string">"请在html5+引擎环境使用"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们这里做了一些特别的处理，我们设置弹出层<code>webview</code>中的<code>background: &#39;transparent&#39;</code>，以及弹出层页面的<code>body{background: transparent;}</code>是为了得到一个透明的弹出层，如果不需要可以忽略，同时可以可以通过设置<code>top</code>和<code>bottom</code>设置弹出层的范围，这些具体配置参数在上面的内容中都有讲解，具体的大家可以详细看看。另外考虑到有人需要遮罩这种布局，我们专门新建了一个<code>webview</code>创建mask遮罩，具体的参数类似。</p>
+<p>至于关闭弹出层也很简单，我们在弹出层的页面重写<code>mui.back()</code>方法。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * 这里重写mui.back()方法，在需要执行关闭命令的地方</div><div class="line"> * 加上 mui-action-back 类，可以绑定back()方法。</div><div class="line">*/</div><div class="line">mui.back = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// 隐藏弹出层</span></div><div class="line">    plus.webview.currentWebview().hide();</div><div class="line">	<span class="comment">// 关闭遮罩</span></div><div class="line">	plus.webview.getWebviewById(<span class="string">'mask'</span>).close();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>至此我们这个弹出层是算完美解决了。</p>
+<p>另外很多人总是尝试去关闭<code>webview</code>，其实<code>webview</code>开着的时候真正的占多少内存呢，你打开浏览器就知道，不会说你开了几页面就被卡死了，当然暴力操作和页面内面阻塞错误除外，不过一般浏览器也好像限制了页面打开的数量，我手机自带的浏览器是最多可以打开15个窗口。所以我们尽量不要开启过多的<code>webview</code>，能够使用单页去代替的可以考虑单页。这里有个div模式的tabbar切换动画：<a href="[https://github.com/zhaomenghuan/mui-demo/tree/master/tabbar-div-animation">【demo传送门】</a>。另外<code>webview</code>不建议都关闭，如果后面会用到的<code>webview</code>可以用<code>hide()</code>代替，同时即使要关闭，也不适宜一次性关闭，经常看到有人用<code>all</code>查找当前的<code>webview</code>，用循环一次性关闭，造成内存溢出。我首先不想说底层的原理实现，就想用常识想想，你打开<code>webview</code>的时候需要执行操作，那么关闭的时候就不执行操作吗？你同时一下子做那么多事，手机浏览器是不是都被你占用了执行关闭操作，那么这个过程难道不需要内存消耗吗？你根据<code>id</code>分时去<code>close</code>自然会好得多，有时候我们出现问题先考虑一下是不是自己的方式不对。</p>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>其实回过头来再看看其实内容并不算多，也不是很复杂，为啥依然有那么多抱怨呢，说来说去不按套路出牌，很多人用<code>mui</code>完全但是不按<code>mui</code>的思路，想当然的去做，开发前文档都不看，出问题了也不懂原因，其实有时候再喷的时候能不能把那个时间拿来看看文档再说。我一向主张是做事前先花时间去搞清楚一些基本规则，花时间去学习，然后再去做事就不会花很多冤枉时间；但是我常常看到的是很多人花很少的时间学习，然后花很多时间去填坑。这种情况通常时间也花了不少，但是没有什么长进，更谈不上深刻理解。（完全个人意见，不满可以忽略）</p>
+<blockquote>
+<ul>
+<li>【MUI从入门到精通】专栏地址：<a href="https://segmentfault.com/blog/mui" target="_blank" rel="external">https://segmentfault.com/blog/mui</a></li>
+<li>mui demo地址：<a href="https://github.com/zhaomenghuan/mui-demo" target="_blank" rel="external">https://github.com/zhaomenghuan/mui-demo</a></li>
+</ul>
+</blockquote>
+<hr>
+<p>写文章不容易，也许写这些代码就几分钟的事，写一篇大家好接受的文章或许需要几天的酝酿，然后加上几天的码字，累并快乐着。如果文章对您有帮助请我喝杯咖啡吧！</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-05-03T16:15:41.336Z" itemprop="dateUpdated">2017-05-04 00:15:41</time>
+</span><br>
+
+
+        
+        转载需标注本文原始地址：<a href="/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/" target="_blank" rel="external">https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/</a>
+        
+    </div>
+    <footer>
+        <a href="https://zhaomenghuan.github.io">
+            <img src="/img/avatar.png" alt="赵梦欢">
+            赵梦欢
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5plus/">html5plus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mui/">mui</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/&title=《mui初级入门教程（四）—  再谈webview，从小白变“大神”！》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/&title=《mui初级入门教程（四）—  再谈webview，从小白变“大神”！》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mui初级入门教程（四）—  再谈webview，从小白变“大神”！》 — 小青年博客&url=https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/06/15/mui初级入门教程（五）—聊聊即时通讯（IM），基于环信 web im SDK/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">mui初级入门教程（五）—  聊聊即时通讯（IM），基于环信 web im SDK</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/05/29/mui初级入门教程（三）—html5+ XMLHttpRequest 与mui ajax用法详解/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">mui初级入门教程（三）— html5+ XMLHttpRequest 与mui ajax用法详解</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢老铁~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.png" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.png" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>赵梦欢 &copy; 2015 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/&title=《mui初级入门教程（四）—  再谈webview，从小白变“大神”！》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/&title=《mui初级入门教程（四）—  再谈webview，从小白变“大神”！》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mui初级入门教程（四）—  再谈webview，从小白变“大神”！》 — 小青年博客&url=https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2016/06/05/mui初级入门教程（四）—再谈webview，从小白变“大神”！/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAEAklEQVR42u3aS47iQBAFQO5/6R5pdiPG5r3McqtbCq8Q4KIqvEjy83rF19ff6/2d9+v906vVrr6frJPf+3riwoEDBw4cwVFnx8t/Plkhp8mB8jPiwIEDB46zHPfB9T6M5YfMX7er5bv9cHYcOHDgwPGNHEn6lDO1QTRJC9s/AThw4MCB4+dwbD5tq3P5sXHgwIEDx8/hyENmWyhMmk/3wTXZZ17cPFYrxYEDBw4cdxlQMdDwG18/ON+BAwcOHDjiEJsPN7RBLi/5JetvwvA/q+HAgQMHjjVHst02HiVp2Ca0zwqI+egeDhw4cODYcLRjCm1x7dQx8oGGdlf/+d+BAwcOHDgWHHmC1A7JzYYVkjDZNsPaoI4DBw4cOPYcyVE3I3HtAERegtxTfshrceDAgQPHiCMPkO1Gk3SrbS9t9hM9DBw4cODAseA4VeA726A6NTCx6r/hwIEDB44RRxKoklC6GVzYrLN5MB/Kgjhw4MCBY80xaywlJb/NEMNsn8X4wqyvhQMHDhw44mxlFibzRtQsncvfT459uU8cOHDgwHGUY0/zNbraoybDEAdyWRw4cODAsa6DzYYG2nRr9v022A93ggMHDhw4DnHsr7zYN0vwZoMO+UP9kMLhwIEDB46ybjYbPkgOuSk4Jh2zWcL5Yc84cODAgWPBsRkva1tHeUHw/qiz0B6Ffxw4cODAseZoU6xN2ykJ2DlT0kxKyoI4cODAgeNpjvyGTYkwD4T5UMJ+SAIHDhw4cOw5ZmMEm03sS5Az0IgYBw4cOHCsOZKNtoMIeap2KuRvRiLqLhwOHDhw4IgzrDxczTLFp4t6s7E5HDhw4MDxBEdy26wU2K65aUSdGoPAgQMHDhwbjiR5y5OrWchsBx3yR5j8Sp3L4sCBAweOOEdr20Wbb+btq1OpY13WxIEDBw4cI45ZSW4zNNDytWMWmxIhDhw4cODYc8zaS/kAwSxVa9fPi5h1IocDBw4cOBYceSI0K+Hl7Z9NG6lNOKPiIA4cOHDgWHC0MTkfU0hCYL7pzcNLvo8DBw4cOGYcberVluraMuLmd9vRusv5Dhw4cODAsebIC2ezdk470NAON2yaVcUzxIEDBw4co7GDZLvtgQ9ssWxNbU6NAwcOHDg2HLNyXp5i5YG8DcP79YviIA4cOHDg6LpFw+Jd0iLKm0OzUbn2r8CxPwE4cODAgWPUfMqP2raFZs2hfcExGtTAgQMHDhyHOPJA2LaL8qSrvatdeTXWgAMHDhw4HuDYDCWcDfDPPTAcOHDgwPH9HO3ow2ZsIkn/ZiH88l4cOHDgwHGIIw9Is5Jcm3TNguUmzOPAgQMHjlMcm4GGWYDM20tJ6XAzHldD4MCBAweOu3X+ALOer/LLEhviAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261860158&web_id=1261860158')
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '小青年博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '看似寻常最奇崛，成如容易却艰辛。';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/javascript">
+    (function(p,u,s,h){
+        p._pcq=p._pcq||[];
+        p._pcq.push(['_currentTime',Date.now()]);
+        s=u.createElement('script');
+        s.type='text/javascript';
+        s.async=true;
+        s.src='https://cdn.pushcrew.com/js/84781173feeb9c46759523538d7dbfe0.js';
+        h=u.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s,h);
+    })(window,document);
+</script>
+
+</body>
+</html>

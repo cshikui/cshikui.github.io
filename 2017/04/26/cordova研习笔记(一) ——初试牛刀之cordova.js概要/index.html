@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>cordova研习笔记(一) —— 初试牛刀之cordova.js概要 | 小青年博客 | 看似寻常最奇崛，成如容易却艰辛。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="cordova,hybrid App">
+    <meta name="description" content="前言来新公司的第一个任务，研究hybrid App中间层实现原理，做中间层插件开发。这个任务挺有意思，也很有挑战性，之前在DCloud虽然做过5+ App开发，但是中间层的东西确实涉及不多。本系列文章属于系列开篇cordova学习笔记，本文主要是从零开始搭建一个cordova工程，并了解cordova开发的基本内容。 创建第一个AppApache Cordova是一个开源的移动开发框架。允许你用标">
+<meta name="keywords" content="cordova,hybrid App">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cordova研习笔记(一) —— 初试牛刀之cordova.js概要">
+<meta property="og:url" content="https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/index.html">
+<meta property="og:site_name" content="小青年博客">
+<meta property="og:description" content="前言来新公司的第一个任务，研究hybrid App中间层实现原理，做中间层插件开发。这个任务挺有意思，也很有挑战性，之前在DCloud虽然做过5+ App开发，但是中间层的东西确实涉及不多。本系列文章属于系列开篇cordova学习笔记，本文主要是从零开始搭建一个cordova工程，并了解cordova开发的基本内容。 创建第一个AppApache Cordova是一个开源的移动开发框架。允许你用标">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1945738-7927196c17c8bee2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1945738-78cb7f353967a07e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1945738-e718f512d81ccd41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1945738-e4a0597e40ed7d32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-05-07T12:21:31.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cordova研习笔记(一) —— 初试牛刀之cordova.js概要">
+<meta name="twitter:description" content="前言来新公司的第一个任务，研究hybrid App中间层实现原理，做中间层插件开发。这个任务挺有意思，也很有挑战性，之前在DCloud虽然做过5+ App开发，但是中间层的东西确实涉及不多。本系列文章属于系列开篇cordova学习笔记，本文主要是从零开始搭建一个cordova工程，并了解cordova开发的基本内容。 创建第一个AppApache Cordova是一个开源的移动开发框架。允许你用标">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1945738-7927196c17c8bee2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+        <link rel="alternate" type="application/atom+xml" title="小青年博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵梦欢</h5>
+          <a href="mailto:zhaomenghuan@foxmail.com" title="zhaomenghuan@foxmail.com" class="mail">zhaomenghuan@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                首页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://zhaomenghuan.github.io/content.json" target="_blank" >
+                <i class="icon icon-lg icon-th-large"></i>
+                API
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://segmentfault.com/u/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                Segmentfault
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.jianshu.com/u/de1f0b8eaf18" target="_blank" >
+                <i class="icon icon-lg icon-book"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">cordova研习笔记(一) —— 初试牛刀之cordova.js概要</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">cordova研习笔记(一) —— 初试牛刀之cordova.js概要</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-04-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-04-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/hybrid-App深入浅出研究/">hybrid App深入浅出研究</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建第一个App"><span class="post-toc-number">2.</span> <span class="post-toc-text">创建第一个App</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定义插件开发"><span class="post-toc-number">3.</span> <span class="post-toc-text">自定义插件开发</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Android插件开发指南"><span class="post-toc-number">4.</span> <span class="post-toc-text">Android插件开发指南</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">5.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-cordova研习笔记(一) ——初试牛刀之cordova.js概要"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">cordova研习笔记(一) —— 初试牛刀之cordova.js概要</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-04-26 00:00:00" datetime="2017-04-25T16:00:00.000Z"  itemprop="datePublished">2017-04-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/hybrid-App深入浅出研究/">hybrid App深入浅出研究</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>来新公司的第一个任务，研究hybrid App中间层实现原理，做中间层插件开发。这个任务挺有意思，也很有挑战性，之前在DCloud虽然做过5+ App开发，但是中间层的东西确实涉及不多。本系列文章属于系列开篇cordova学习笔记，本文主要是从零开始搭建一个cordova工程，并了解cordova开发的基本内容。</p>
+<h2 id="创建第一个App"><a href="#创建第一个App" class="headerlink" title="创建第一个App"></a><a href="http://cordova.axuer.com/docs/zh-cn/latest/guide/cli/index.html" target="_blank" rel="external">创建第一个App</a></h2><p>Apache Cordova是一个开源的移动开发框架。允许你用标准的web技术-HTML5,CSS3和JavaScript做跨平台开发。 应用在每个平台的具体执行被封装了起来，并依靠符合标准的API绑定去访问每个设备的功能，比如说：传感器、数据、网络状态等。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://upload-images.jianshu.io/upload_images/1945738-7927196c17c8bee2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="cordova应用架构" title="">
+                </div>
+                <div class="image-caption">cordova应用架构</div>
+            </figure>
+<p>Cordova官网：<a href="http://cordova.apache.org/" target="_blank" rel="external">http://cordova.apache.org/</a><br>Cordova中文网：<a href="http://cordova.axuer.com/" target="_blank" rel="external">http://cordova.axuer.com/</a><br>Cordova中文站：<a href="http://www.cordova.org.cn/" target="_blank" rel="external">http://www.cordova.org.cn/</a></p>
+<p><strong>1.安装 Cordova CLI</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g cordova</div></pre></td></tr></table></figure></p>
+<p>安装完成可以通过<code>cordova -v</code>查看版本号，本文是在V6.5.0下构建。</p>
+<p><strong>2.新建项目</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova create &lt;PATH&gt; [ID [NAME [CONFIG]]] [options]</div></pre></td></tr></table></figure></p>
+<p><strong>Create a Cordova project：</strong></p>
+<ul>
+<li>PATH —— 项目路径</li>
+<li>ID —— app 包名 - used in <widget id=""></widget></li>
+<li>NAME —— app 名称</li>
+<li>CONFIG —— 配置文件地址 json string whose key/values will be included in [PATH]/.cordova/config.json</li>
+</ul>
+<p><strong>Options：</strong></p>
+<ul>
+<li>–template=<path|npm package|git="" url=""> … use a custom template located locally, in NPM, or GitHub.</path|npm></li>
+<li>–copy-from|src=<path></path> ……………… deprecated, use –template instead.</li>
+<li>–link-to=<path></path> …………………… symlink to custom www assets without creating a copy.</li>
+</ul>
+<p><strong>Example：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova create hello-cordova io.zhaomenghuan HelloCordova</div></pre></td></tr></table></figure></p>
+<p>这将会为你的cordova应用创造必须的目录。默认情况下，cordova create命令生成基于web的应用程序的骨骼，项目的主页是 www/index.html 文件。</p>
+{% image http://upload-images.jianshu.io/upload_images/1945738-d58f8fe035702f11.png '图为创建好的项目' '' %}
+<p><strong>3.添加平台</strong></p>
+<p>所有后续命令都需要在项目目录或者项目目录的任何子目录运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd hello-cordova</div></pre></td></tr></table></figure></p>
+<p>给你的App添加目标平台。我们将会添加<code>ios</code>和<code>android</code>平台，并确保他们保存在了config.xml中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cordova platform add ios --save</div><div class="line">cordova platform add android --save</div></pre></td></tr></table></figure></p>
+<p>运行<code>add</code>或者<code>remove</code>平台的命令将会影响项目<code>platforms</code>的内容，在这个目录中每个指定平台都有一个子目录。</p>
+<blockquote>
+<p>注意：在你使用CLI创建应用的时候， 不要 修改/platforms/目录中的任何文件。当准备构建应用或者重新安装插件时这个目录通常会被重写。</p>
+</blockquote>
+<p>检查你当前平台设置状况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">cordova platform is</div><div class="line"></div><div class="line">Installed platforms:</div><div class="line">  android 6.1.2</div><div class="line">Available platforms:</div><div class="line">  amazon-fireos ~3.6.3 (deprecated)</div><div class="line">  blackberry10 ~3.8.0</div><div class="line">  browser ~4.1.0</div><div class="line">  firefoxos ~3.6.3</div><div class="line">  webos ~3.7.0</div><div class="line">  windows ~4.4.0</div><div class="line">  wp8 ~3.8.2 (deprecated)</div></pre></td></tr></table></figure></p>
+<p>安装构建先决条件：<br>要构建和运行App，你需要安装每个你需要平台的SDK。另外，当你使用浏览器开发你可以添加 browser平台，它不需要任何平台SDK。</p>
+<p>检测你是否满足构建平台的要求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cordova requirements</div><div class="line"></div><div class="line">Requirements check results for android:</div><div class="line">Java JDK: installed 1.8.0</div><div class="line">Android SDK: installed true</div><div class="line">Android target: installed android-7,android-8,android-9,android-10,android-11,android-12,android-13,android-14,android-15,android-16,android-17,android-18,android-19,android-20,android-21,android-22,android-23,android-24,android-25</div><div class="line">Gradle: installed</div></pre></td></tr></table></figure></p>
+<p>初次使用我们可能会遇到下面的报错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Error: Failed to find &apos;ANDROID_HOME&apos; environment variable. Try setting setting it manually.</div><div class="line">Failed to find &apos;android&apos; command in your &apos;PATH&apos;. Try update your &apos;PATH&apos; to include path to valid SDK directory.</div></pre></td></tr></table></figure></p>
+<p>这是因为我们没有配置环境变量：</p>
+<ul>
+<li>设置JAVA_HOME环境变量，指定为JDK安装路径</li>
+<li>设置ANDROID_HOME环境变量，指定为Android SDK安装路径</li>
+<li>添加Android SDK的tools和platform-tools目录到你的PATH</li>
+</ul>
+<p>对于android平台下的环境配置在这里不再赘述，具体可以参考：</p>
+<ul>
+<li><a href="http://cordova.axuer.com/docs/zh-cn/latest/guide/platforms/android/index.html#requirements-and-support" target="_blank" rel="external">Android平台的要求</a></li>
+<li><a href="http://cordova.axuer.com/docs/zh-cn/latest/guide/platforms/ios/index.html#requirements-and-support" target="_blank" rel="external">iOS平台的要求</a></li>
+<li><a href="http://cordova.axuer.com/docs/zh-cn/latest/guide/platforms/win8/index.html#requirements-and-support" target="_blank" rel="external">Windows平台的要求</a></li>
+</ul>
+<p><strong>4.构建App</strong></p>
+<p>默认情况下, cordova create生产基于web应用程序的骨架，项目开始页面位于www/index.html<br> 文件。任何初始化任务应该在www/js/index.js文件中的<a href="http://cordova.axuer.com/docs/zh-cn/latest/cordova/events/events.html#deviceready" target="_blank" rel="external">deviceready</a>事件的事件处理函数中。</p>
+<p>运行下面命令为所有添加的平台构建：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova build</div></pre></td></tr></table></figure></p>
+<p>你可以在每次构建中选择限制平台范围 - 这个例子中是<code>android</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova build android</div></pre></td></tr></table></figure></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://upload-images.jianshu.io/upload_images/1945738-78cb7f353967a07e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>注意：首次使用时，命令行提示 <code>Downloading https://services.gradle.org/distributions/gradle-2.14.1-all.zip</code>，是在下载对应的gradle并自动解压安装，根据网络状况，可能耗时极长，且容易报错。</p>
+<p>使用Cordova编译Android平台程序提示：Could not reserve enough space for 2097152KB object heap。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Error occurred during initialization of VM</div><div class="line">Could not reserve enough space for 2097152KB object heap</div></pre></td></tr></table></figure></p>
+<p>大体的意思是系统内存不够用，创建VM失败。试了网上好几种方法都不行，最后这个方法可以了：</p>
+<p>开始-&gt;控制面板-&gt;系统-&gt;高级设置-&gt;环境变量-&gt;系统变量<br>新建变量：<br>变量名: _JAVA_OPTIONS<br>变量值: -Xmx512M</p>
+<p><strong>5.运行App</strong></p>
+<p>我们有多种方式运行我们的App，在不同场景下使用不同的方式有助于我们快速开发和测试我们的应用。</p>
+<p>在命令行运行下面的命令，会重新构建App并可以在特定平台的模拟器上查看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova emulate android</div></pre></td></tr></table></figure></p>
+<p>你可以将你的手机插入电脑，在手机上直接测试App：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova run android</div></pre></td></tr></table></figure></p>
+<p>在进行打包操作前，我们可以通过创建一个本地服务预览app UI，使用指定的端口或缺省值为8000运行本地Web服务器www/assets。访问项目：<a href="http://HOST_IP:PORT/PLATFORM/www" target="_blank" rel="external">http://HOST_IP:PORT/PLATFORM/www</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova serve [port]</div></pre></td></tr></table></figure></p>
+<p>参考文档：</p>
+<ul>
+<li><a href="http://cordova.axuer.com/docs/zh-cn/latest/guide/platforms/android/index.html#setting-up-an-emulator" target="_blank" rel="external">设置Android模拟器</a></li>
+<li><a href="http://cordova.axuer.com/docs/zh-cn/latest/reference/cordova-cli/index.html#cordova-run-command" target="_blank" rel="external">Cordova run 命令参考文档</a></li>
+<li><a href="http://cordova.axuer.com/docs/zh-cn/latest/reference/cordova-cli/index.html#cordova-emulate-command" target="_blank" rel="external">Cordova emulate 命令参考文档</a></li>
+</ul>
+<p><strong>6.安装插件</strong></p>
+<p>cordova的强大之处在于我们可以通过安装插件，拓展我们web工程的能力，比如调用系统底层API来调用设备上的底层功能，如摄像头、相册。通过<code>cordova plugin</code>命令实现插件管理。</p>
+<p>可以在这里搜索需要的插件：<a href="http://cordova.apache.org/plugins/" target="_blank" rel="external">Cordova Plugins</a> 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cordova &#123;plugin | plugins&#125; [</div><div class="line">    add &lt;plugin-spec&gt; [..] &#123;--searchpath=&lt;directory&gt; | --noregistry | --link | --save | --browserify | --force&#125; |</div><div class="line">    &#123;remove | rm&#125; &#123;&lt;pluginid&gt; | &lt;name&gt;&#125; --save |</div><div class="line">    &#123;list | ls&#125; |</div><div class="line">    search [&lt;keyword&gt;] |</div><div class="line">    save |</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>添加插件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova plugin add &lt;plugin-spec&gt; [...]</div></pre></td></tr></table></figure></p>
+<p>移除插件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova plugin remove [...]</div></pre></td></tr></table></figure></p>
+<p><strong>7.平台为中心的工作流开发App</strong></p>
+<p>上面我们是在跨平台(CLI)的工作流进行，原则上如果我们不需要自己写原生层自定义组件，我们完全可以只在CLI上完成我们的工作，当然如果需要进一步深入了解cordova native与js的通信联系，我们需要切换到平台为中心的工作流，即将我们的cordova工程导入到原生工程。例如：我们可以使用android studio导入我们新建的cordova工程。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://upload-images.jianshu.io/upload_images/1945738-e718f512d81ccd41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="自定义插件开发"><a href="#自定义插件开发" class="headerlink" title="自定义插件开发"></a><a href="http://cordova.axuer.com/docs/zh-cn/6.x/guide/hybrid/plugins/index.html" target="_blank" rel="external">自定义插件开发</a></h2><p>官方推荐的插件遵循相同的目录结构，根目录下是<code>plugin.xml</code>配置文件，src目录下放平台原生代码，www下放js接口代码，基本配置方法和代码结构由一定规律，我们使用plugman可以生成一个插件模板，改改就可以写一个自定义插件。</p>
+<p><strong>1.安装 plugman ，使用 plugman 创建插件模板</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g plugman</div></pre></td></tr></table></figure></p>
+<p>比如这里我们创建一个nativeUI的插件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plugman create --name NativeUI --plugin_id cordova-plugin-nativeui --plugin_version 0.0.1</div></pre></td></tr></table></figure></p>
+<p>参数介绍：<br>pluginName: 插件名字：NativeUI<br>pluginID: 插件id : cordova-plugin-nativeui<br>oversion: 版本 : 0.0.1<br>directory:一个绝对或相对路径的目录，该目录将创建插件项目<br>variable NAME=VALUE: 额外的描述，如作者信息和相关描述</p>
+<p>进入插件目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd NativeUI</div></pre></td></tr></table></figure></p>
+<p>给 plugin.xml 增加Android平台<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plugman platform add --platform_name android</div></pre></td></tr></table></figure></p>
+<p>生成的插件文件结构为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">NativeUI：</div><div class="line"></div><div class="line">├── src</div><div class="line">    └── android</div><div class="line">        └── NativeUI.java</div><div class="line">├── www</div><div class="line">    └── NativeUI.js</div><div class="line">└── plugin.xml</div></pre></td></tr></table></figure></p>
+<p><strong>2.修改配置文件</strong></p>
+<p><code>plugin.xml</code>文件字段含义：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">元素</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">plugin</td>
+<td style="text-align:left">定义命名空间，ID和插件版本。应该用定义在<em><a href="http://apache.org/cordova/ns/plugins/1.0" target="_blank" rel="external">http://apache.org/cordova/ns/plugins/1.0</a></em>命名空间。plugin的ID在输入<em>cordova plugins</em>命令时在插件列表中显示。</td>
+</tr>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:left">定义插件的名字。</td>
+</tr>
+<tr>
+<td style="text-align:center">description</td>
+<td style="text-align:left">定义插件的描述信息。</td>
+</tr>
+<tr>
+<td style="text-align:center">author</td>
+<td style="text-align:left">定义插件作者的名字。</td>
+</tr>
+<tr>
+<td style="text-align:center">keywords</td>
+<td style="text-align:left">定义与插件相关的关键字。Cordova研发组建立了公开、可搜索的插件仓库，添加的关键字能在你把插件提交到仓库后帮助被发现。</td>
+</tr>
+<tr>
+<td style="text-align:center">license</td>
+<td style="text-align:left">定义插件的许可。</td>
+</tr>
+<tr>
+<td style="text-align:center">engines</td>
+<td style="text-align:left">用来定义插件支持的Cordova版本。再添加<em>engine</em>元素定义每个支持的Cordova版本。</td>
+</tr>
+<tr>
+<td style="text-align:center">js-module</td>
+<td style="text-align:left">指js文件名，而这个文件会自动以<code>&lt;script</code>&gt;标签的形式添加到Cordova项目的起始页。通过在<em>js-module</em>中列出插件，可以减少开发者的工作。</td>
+</tr>
+<tr>
+<td style="text-align:center">info</td>
+<td style="text-align:left">它是另一个除了<em>description</em>外说插件信息的地方。</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&apos;1.0&apos; encoding=&apos;utf-8&apos;?&gt;</div><div class="line">&lt;plugin id=&quot;cordova-plugin-nativeui&quot; version=&quot;0.0.1&quot; xmlns=&quot;http://apache.org/cordova/ns/plugins/1.0&quot; xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">	&lt;name&gt;NativeUI&lt;/name&gt;</div><div class="line">	&lt;js-module name=&quot;NativeUI&quot; src=&quot;www/NativeUI.js&quot;&gt;</div><div class="line">		&lt;clobbers target=&quot;agree.nativeUI&quot; /&gt;</div><div class="line">	&lt;/js-module&gt;</div><div class="line">	&lt;platform name=&quot;android&quot;&gt;</div><div class="line">		&lt;config-file parent=&quot;/*&quot; target=&quot;res/xml/config.xml&quot;&gt;</div><div class="line">			&lt;feature name=&quot;NativeUI&quot;&gt;</div><div class="line">				&lt;param name=&quot;android-package&quot; value=&quot;cn.com.agree.nativeui.NativeUI&quot; /&gt;</div><div class="line">			&lt;/feature&gt;</div><div class="line">		&lt;/config-file&gt;</div><div class="line">		&lt;config-file parent=&quot;/*&quot; target=&quot;AndroidManifest.xml&quot;&gt;&lt;/config-file&gt;</div><div class="line">		&lt;source-file src=&quot;src/android/NativeUI.java&quot; target-dir=&quot;src/cn/com/agree/nativeui&quot; /&gt;</div><div class="line">	&lt;/platform&gt;</div><div class="line">&lt;/plugin&gt;</div></pre></td></tr></table></figure>
+<p>这个配置文件有几个地方很关键，一开始没有认真看，将插件导进工程跑的时候各种问题，十分头痛，不得不重新认真看看<a href="http://cordova.axuer.com/docs/zh-cn/6.x/plugin_ref/spec.html" target="_blank" rel="external">plugin.xml文档</a>。</p>
+<ul>
+<li>id：原则上没有严格规定，参考官方插件写法，这里我也写的是<code>cordova-plugin-nativeui</code>，通过plugman创建插件模板的时候需要指定。</li>
+<li>name：插件名称。</li>
+<li>clobbers-&gt;target：用于指定插入module.exports的窗口对象下的命名空间，也就是用户调用该插件时的js层暴露的顶层对象。这个很关键，虽然可以任意指定，但是涉及到我们调用插件的属性或者方法，所以需要特别关注。plugman默认生成的是将id中的<code>-</code>转换成`.’的对象。这里需要说明的是我们可以写多个js-module，每个js-module下可以指定不同的clobbers。</li>
+<li>feature -&gt; param - &gt; value 标识了实际提供服务的Native类别名称，这里直接定位至具体类，然而上述通过plugman生成模板的时候中没有指定NativeUI的包名，会自定生成<code>cordova-plugin-nativeui.NativeUI</code>，这里我们需要改成符合自己要求的类名，如我这里使用公司的域名：<code>cn.com.agree.nativeui.NativeUI</code>。需要说明的是这里的类名可以与插件名称不同。</li>
+<li>source-file -&gt; target-dir 同理<code>target-dir</code>需要修改为： <code>src/cn/com/agree/nativeui</code>，同时需要修改平台下的native部分的代码：如：<code>package cn.com.agree.nativeui;</code></li>
+<li>platform -&gt; config-file下可以指定程序所需的权限<code>uses-permission</code>，如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;config-file target=&quot;AndroidManifest.xml&quot; parent=&quot;/*&quot;&gt;</div><div class="line">    &lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot; /&gt;</div><div class="line">&lt;/config-file&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>3.导入到平台工程中的目录结构</strong></p>
+<p>这里我们以android平台为例：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://upload-images.jianshu.io/upload_images/1945738-e4a0597e40ed7d32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>cordova.js在创建Android工程的时候，是从cordova的lib目录下Copy到<code>platforms\android\assets\www\cordova.js</code>的。同时备份到<code>platforms\android\platform_www\cordova.js</code>。下一篇文章我会试着读一下cordova.js的源码，这里对cordova.js暂不做深入探究。</p>
+<p>这里我们主要关心几个地方，我们的原生代码在src目录下，assets/www目录下是我们的web 程序。www目录下的plugins文件夹就是我们的插件js部分，cordova_plugins.js是根据plugins文件夹的内容生成的。 </p>
+<p>cordova_plugins.js的整体结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">cordova.define(&apos;cordova/plugin_list&apos;, function(require, exports, module) &#123;</div><div class="line">module.exports = [</div><div class="line">    &#123;</div><div class="line">        &quot;id&quot;: &quot;cordova-plugin-nativeui.NativeUI&quot;,</div><div class="line">        &quot;file&quot;: &quot;plugins/cordova-plugin-nativeui/www/NativeUI.js&quot;,</div><div class="line">        &quot;pluginId&quot;: &quot;cordova-plugin-nativeui&quot;,</div><div class="line">        &quot;clobbers&quot;: [</div><div class="line">            &quot;agree.nativeUI&quot;</div><div class="line">        ]</div><div class="line">    &#125;,</div><div class="line">    ...</div><div class="line">];</div><div class="line">module.exports.metadata = </div><div class="line">// TOP OF METADATA</div><div class="line">&#123;</div><div class="line">    &quot;cordova-plugin-nativeui&quot;: &quot;0.0.1&quot;,</div><div class="line">    ...</div><div class="line">&#125;;</div><div class="line">// BOTTOM OF METADATA</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="Android插件开发指南"><a href="#Android插件开发指南" class="headerlink" title="Android插件开发指南"></a><a href="http://cordova.axuer.com/docs/zh-cn/6.x/guide/platforms/android/plugin.html" target="_blank" rel="external">Android插件开发指南</a></h2><p>Android插件基于Cordova-Android，它是基于具有Javscript-to-native桥接的Android WebView构建的。 Android插件的本机部分至少包含一个扩展CordovaPlugin类的Java类，并重写其一个执行方法。</p>
+<blockquote>
+<p><strong>插件类映射</strong></p>
+</blockquote>
+<p>插件的JavaScript接口使用cordova.exec方法，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova.exec(&lt;successFunction&gt;, &lt;failFunction&gt;, &lt;service&gt;, &lt;action&gt;, [&lt;args&gt;]);</div></pre></td></tr></table></figure></p>
+<ul>
+<li>function(winParam) {}: 成功回调</li>
+<li>function(error) {}: 错误回调</li>
+<li>“service”: 原生层服务名称</li>
+<li>“action”: js层调用方法名</li>
+<li>[arguments]: js层传递到原生层的数据</li>
+</ul>
+<p>这将WebView的请求传递给Android本机端，有效地在服务类上调用action方法，并在args数组中传递其他参数。无论您将插件分发为Java文件还是作为自己的jar文件，必须在Cordova-Android应用程序的res / xml / config.xml文件中指定该插件。 有关如何使用plugin.xml文件注入此要素的详细信息，请参阅应用程序插件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;feature name=&quot;&lt;service_name&gt;&quot;&gt;</div><div class="line">    &lt;param name=&quot;android-package&quot; value=&quot;&lt;full_name_including_namespace&gt;&quot; /&gt;</div><div class="line">&lt;/feature&gt;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>插件初始化及其生命周期</strong></p>
+</blockquote>
+<p>一个插件对象的一个实例是为每个WebView的生命创建的。 插件不会被实例化，直到它们被JavaScript的调用首次引用为止，除非在config.xml中将具有onload name属性的<param>设置为“true”。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;feature name=&quot;Echo&quot;&gt;</div><div class="line">    &lt;param name=&quot;android-package&quot; value=&quot;&lt;full_name_including_namespace&gt;&quot; /&gt;</div><div class="line">    &lt;param name=&quot;onload&quot; value=&quot;true&quot; /&gt;</div><div class="line">&lt;/feature&gt;</div></pre></td></tr></table></figure></p>
+<p>插件使用 initialize 初始化启动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public void initialize(CordovaInterface cordova, CordovaWebView webView) &#123;</div><div class="line">    super.initialize(cordova, webView);</div><div class="line">    // your init code here</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>插件还可以访问Android生命周期事件，并可以通过扩展所提供的方法（onResume，onDestroy等）来处理它们。 具有长时间运行请求的插件，媒体播放，侦听器或内部状态等背景活动应实现onReset（）方法。 当WebView导航到新页面或刷新时，它会执行，这会重新加载JavaScript。</p>
+<blockquote>
+<p><strong>编写Android Java插件</strong></p>
+</blockquote>
+<p>一个JavaScript调用触发对本机端的插件请求，并且相应的Java插件在config.xml文件中正确映射，但最终的Android Java Plugin类是什么样的？ 使用JavaScript的exec函数发送到插件的任何东西都被传递到插件类的execute方法中。 </p>
+<p>插件的JavaScript不会在WebView界面的主线程中运行; 而是在WebCore线程上运行，执行方法也是如此。 如果需要与用户界面进行交互，应该使用Activity的runOnUiThread方法。</p>
+<p>如果不需要在UI线程上运行，但不希望阻止WebCore线程，则应使用<code>cordova.getThreadPool()</code>获得的<code>Cordova ExecutorService</code>执行代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">@Override</div><div class="line">public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException &#123;</div><div class="line">    if (action.equals(&quot;toast&quot;)) &#123;</div><div class="line">        this.toast(args.getString(0));</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">    return false;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Builds and shows a native Android toast with given Strings</div><div class="line"> *</div><div class="line"> * @param message The message the toast should display</div><div class="line"> */</div><div class="line">private void toast(final String message) &#123;</div><div class="line">    final CordovaInterface cordova = this.cordova;</div><div class="line">    if (message != null &amp;&amp; message.length() &gt; 0) &#123;</div><div class="line">        final int duration = Toast.LENGTH_SHORT;</div><div class="line">        Runnable runnable = new Runnable() &#123;</div><div class="line">            public void run() &#123;</div><div class="line">                Toast toast = Toast.makeText(cordova.getActivity().getApplicationContext(), message, duration);</div><div class="line">                toast.show();</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        cordova.getActivity().runOnUiThread(runnable);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>js部分的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var exec = require(&apos;cordova/exec&apos;);</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">    toast: function(message) &#123;</div><div class="line">        exec(null, null, &apos;NativeUI&apos;, &apos;toast&apos;, [message]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>callbackContext.success</code>可以将原生层字符串作为参数传递给JavaScript层的成功回调，<code>callbackContext.error</code>可以将给JavaScript层的错误回调函数传递参数。</p>
+<blockquote>
+<p><strong>添加依赖库</strong></p>
+</blockquote>
+<p>如果你的Android插件有额外的依赖关系，那么它们必须以两种方式之一列在plugin.xml中：</p>
+<ul>
+<li>首选的方法是使用<framework>标签（有关详细信息，请参阅插件规范）。以这种方式指定库可以通过Gradle的依赖管理逻辑来解决。这允许诸如gson，android-support-v4和google-play-services之类的常用库被多个插件使用而没有冲突。</framework></li>
+<li>第二个选项是使用<lib-file>标签来指定jar文件的位置（有关更多详细信息，请参阅插件规范）。 只有当您确定没有其他插件将依赖于您所引用的库（例如，该库特定于您的插件）时，才应使用此方法。 否则，如果另一个插件添加了相同的库，则可能导致插件用户造成构建错误。 值得注意的是，Cordova应用程序开发人员不一定是本地开发人员，因此本地平台构建错误可能特别令人沮丧。</lib-file></li>
+</ul>
+<blockquote>
+<p><strong>Android集成</strong></p>
+</blockquote>
+<p>Android具有Intent系统，允许进程相互通信。插件可以访问CordovaInterface对象，可以访问运行应用程序的Android Activity。 这是启动新的Android Intent所需的上下文。 CordovaInterface允许插件为结果启动Activity，并为Intent返回应用程序时设置回调插件。</p>
+<p>从Cordova 2.0开始，插件无法再直接访问上下文，并且旧的ctx成员已被弃用。 所有的ctx方法都存在于Context中，所以getContext()和getActivity()都可以返回所需的对象。</p>
+<blockquote>
+<p><strong>运行权限（Cordova-Android 5.0.0+）</strong></p>
+</blockquote>
+<p>Android 6.0 “Marshmallow” 引入了新的权限模型，用户可以根据需要启用和禁用权限。这意味着应用程序必须将这些权限更改处理为将来，这是Cordova-Android 5.0.0发行版的重点。</p>
+<p>就插件而言，可以通过调用权限方法来请求权限，该签名如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova.requestPermission(CordovaPlugin plugin, int requestCode, String permission);</div></pre></td></tr></table></figure></p>
+<p>为了减少冗长度，将此值分配给本地静态变量是标准做法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public static final String READ = Manifest.permission.READ_CONTACTS;</div></pre></td></tr></table></figure></p>
+<p>定义requestCode的标准做法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public static final int SEARCH_REQ_CODE = 0;</div></pre></td></tr></table></figure></p>
+<p>然后，在exec方法中，应该检查权限：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if(cordova.hasPermission(READ)) &#123;</div><div class="line">    search(executeArgs);</div><div class="line">&#125; else &#123;</div><div class="line">    getReadPermission(SEARCH_REQ_CODE);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在这种情况下，我们只需调用requestPermission：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protected void getReadPermission(int requestCode) &#123;</div><div class="line">    cordova.requestPermission(this, requestCode, READ);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这将调用该活动并引起提示出现要求该权限。 一旦用户拥有权限，结果必须使用onRequestPermissionResult方法处理，每个插件应该覆盖该方法。 一个例子可以在下面找到：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) throws JSONException &#123;</div><div class="line">    for(int r:grantResults) &#123;</div><div class="line">        if(r == PackageManager.PERMISSION_DENIED) &#123;</div><div class="line">            this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, PERMISSION_DENIED_ERROR));</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    switch(requestCode) &#123;</div><div class="line">        case SEARCH_REQ_CODE:</div><div class="line">            search(executeArgs);</div><div class="line">            break;</div><div class="line">        case SAVE_REQ_CODE:</div><div class="line">            save(executeArgs);</div><div class="line">            break;</div><div class="line">        case REMOVE_REQ_CODE:</div><div class="line">            remove(executeArgs);</div><div class="line">            break;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的switch语句将从提示符返回，并且根据传入的requestCode，它将调用该方法。 应该注意的是，如果执行不正确地处理权限提示可能会堆叠，并且应该避免这种情况。</p>
+<p>除了要求获得单一权限的权限之外，还可以通过定义权限数组来请求整个组的权限，如同Geolocation插件所做的那样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">String [] permissions = &#123; </div><div class="line">  Manifest.permission.ACCESS_COARSE_LOCATION,</div><div class="line">  Manifest.permission.ACCESS_FINE_LOCATION </div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>然后当请求权限时，需要完成的所有操作如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova.requestPermissions(this, 0, permissions);</div></pre></td></tr></table></figure></p>
+<p>这将请求数组中指定的权限。 提供公开访问的权限阵列是一个好主意，因为可以使用插件作为依赖关系使用，尽管这不是必需的。</p>
+<blockquote>
+<p><strong>启动其他活动</strong></p>
+</blockquote>
+<p>如果你的插件启动将Cordova活动推送到后台的活动，则需要特别考虑。 如果设备运行内存不足，Android操作系统将在后台销毁活动。在这种情况下，CordovaPlugin实例也将被销毁。 如果您的插件正在等待其启动的活动的结果，则当Cordova活动返回到前台并获得结果时，将创建一个新的插件实例。 但是，插件的状态不会自动保存或恢复，插件的CallbackContext将丢失。 CordovaPlugin可以实现两种方法来处理这种情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Called when the Activity is being destroyed (e.g. if a plugin calls out to an</div><div class="line"> * external Activity and the OS kills the CordovaActivity in the background).</div><div class="line"> * The plugin should save its state in this method only if it is awaiting the</div><div class="line"> * result of an external Activity and needs to preserve some information so as</div><div class="line"> * to handle that result; onRestoreStateForActivityResult() will only be called</div><div class="line"> * if the plugin is the recipient of an Activity result</div><div class="line"> *</div><div class="line"> * @return  Bundle containing the state of the plugin or null if state does not</div><div class="line"> *          need to be saved</div><div class="line"> */</div><div class="line">public Bundle onSaveInstanceState() &#123;&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Called when a plugin is the recipient of an Activity result after the</div><div class="line"> * CordovaActivity has been destroyed. The Bundle will be the same as the one</div><div class="line"> * the plugin returned in onSaveInstanceState()</div><div class="line"> *</div><div class="line"> * @param state             Bundle containing the state of the plugin</div><div class="line"> * @param callbackContext   Replacement Context to return the plugin result to</div><div class="line"> */</div><div class="line">public void onRestoreStateForActivityResult(Bundle state, CallbackContext callbackContext) &#123;&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>cordova 是否能够发挥出它出彩的一面还是源于我们对原生的熟练程度，只有对原生足够熟练，对cordova的运行机制足够熟悉才能做出一个相对比较令人满意的App，后面的文章我会尝试阅读cordova的源码，深入解析cordova的实现原理和插件机制，也会教大家封装一些常用的自定义组件。本文内容基本取材于官方文档，只是借助谷歌翻译以及自己在探索过程中的一些问题，做了一些增删，如果有任何问题，希望各位不吝指教。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-05-07T12:21:31.942Z" itemprop="dateUpdated">2017-05-07 20:21:31</time>
+</span><br>
+
+
+        
+        转载需标注本文原始地址：<a href="/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/" target="_blank" rel="external">https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/</a>
+        
+    </div>
+    <footer>
+        <a href="https://zhaomenghuan.github.io">
+            <img src="/img/avatar.png" alt="赵梦欢">
+            赵梦欢
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cordova/">cordova</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hybrid-App/">hybrid App</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/&title=《cordova研习笔记(一) —— 初试牛刀之cordova.js概要》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/&title=《cordova研习笔记(一) —— 初试牛刀之cordova.js概要》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《cordova研习笔记(一) —— 初试牛刀之cordova.js概要》 — 小青年博客&url=https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/05/04/cordova研习笔记(二)——cordova 6.X 源码解读（上）/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">cordova研习笔记(二) —— cordova 6.X 源码解读</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/04/12/node学习之路（二）—Node.js 连接 MongoDB/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">node学习之路（二）—— Node.js 连接 MongoDB</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢老铁~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.png" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.png" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>赵梦欢 &copy; 2015 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/&title=《cordova研习笔记(一) —— 初试牛刀之cordova.js概要》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/&title=《cordova研习笔记(一) —— 初试牛刀之cordova.js概要》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《cordova研习笔记(一) —— 初试牛刀之cordova.js概要》 — 小青年博客&url=https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADK0lEQVR42u3aQXLbMBAEQP//08oDHMkzu1SVCDVPLtsJ2NBhjB38/MTP49fz7Hdef51859layboXP9jY2Ng3YT9ePsnvJL//bMX83ZKfJu+GjY2NfSo7D6Q8Zh7lM8MMQw4bGxsbu1w4icz8BPF6g7CxsbGxE3Y7HsrHT/mmYGNjY2O3Q6Vk3JOPlvJXf8vGYWNjYx/Enh0APvPrt/Tb2NjY2B/Mno3vZweSzRbnERgpsLGxsQ9izwb6+UvnR458W/eFBDY2NvZJ7PzCTTv635M2w6A/rgFhY2NjH8duS993bEEbkPlaUbONjY2NfVt2W5rmy+z/VV4t5xv69ASGjY2NfVt2O4jPF0vCb3YlKA+zy/oHbGxs7A9m59vRRkgSVO1QaVY5Y2NjY38Puy1iZxdr8tHV60ibDbmwsbGxz2Pnf+hfNb5vh0T7o8gfQyVsbGzsm7Nn46R3RN3s4s7syISNjY19EjsvXPdXZPKgSkZLqwjExsbGPojdlgT5MnmV275uXh4k74CNjY19BntztMjDLw+89v8fFr3Y2NjYR7DbiJqF1mbMlJcKRWRiY2NjH8SeLZyEzVXB2Q6Vig8PGxsb+yD2rF7Nx/p5TZtv8b6EwMbGxv4G9qouHY3sNxVvW0tjY2Njn8HOi4HZYKgd8bcXg9pjUt2HYGNjY9+EvZm0bFrUWUTllfDTDw8bGxv7OHZxXilDrh30txs6PERhY2NjH8RuB0B5bMxK39m25puCjY2NfR47+XP/qvIgOd5sorSIZGxsbOyD2O1gaBYkebDlW9Meb6IoxcbGxr4te3+RMb9M09bGbUwWnzM2Njb2cex9VdCWvsMLN1cVGNjY2NhHs2eHh7zWbQdDbYDVJQE2Njb2bdmP8tnPq9qLO0ng1R8YNjY29kHsNgySYVB+JGhL4s0IaRaB2NjY2Hdhz0KrjaJ9ZO7fBxsbG/ts9rAujYf1114DumyWho2Njf2V7PZ65aZayMuGetSFjY2N/cXsOiqCOrmNwNk47C25jY2Njf0x7Py1rj02bK4H5RXyf76DjY2NfRB7M6DJL9m0R4t29TYysbGxsY9g/wPha/cTO68bzQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261860158&web_id=1261860158')
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '小青年博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '看似寻常最奇崛，成如容易却艰辛。';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/javascript">
+    (function(p,u,s,h){
+        p._pcq=p._pcq||[];
+        p._pcq.push(['_currentTime',Date.now()]);
+        s=u.createElement('script');
+        s.type='text/javascript';
+        s.async=true;
+        s.src='https://cdn.pushcrew.com/js/84781173feeb9c46759523538d7dbfe0.js';
+        h=u.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s,h);
+    })(window,document);
+</script>
+
+</body>
+</html>

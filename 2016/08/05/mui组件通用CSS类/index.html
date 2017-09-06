@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>mui组件通用CSS类 | 小青年博客 | 看似寻常最奇崛，成如容易却艰辛。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="mui,css">
+    <meta name="description" content="color(颜色)mui中组件以iOS 7为基础，补充部分Android特有控件，颜色值主要有以下五种：12345primary =&amp;gt; #007aff; //蓝色(blue)success =&amp;gt; #4cd964; //绿色(green)warning =&amp;gt; #f0ad4e; //黄色(yellow)danger  =&amp;gt; #dd524d; //红色(red)royal   =">
+<meta name="keywords" content="mui,css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mui组件通用CSS类">
+<meta property="og:url" content="https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/index.html">
+<meta property="og:site_name" content="小青年博客">
+<meta property="og:description" content="color(颜色)mui中组件以iOS 7为基础，补充部分Android特有控件，颜色值主要有以下五种：12345primary =&amp;gt; #007aff; //蓝色(blue)success =&amp;gt; #4cd964; //绿色(green)warning =&amp;gt; #f0ad4e; //黄色(yellow)danger  =&amp;gt; #dd524d; //红色(red)royal   =">
+<meta property="og:updated_time" content="2017-05-03T16:15:57.991Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mui组件通用CSS类">
+<meta name="twitter:description" content="color(颜色)mui中组件以iOS 7为基础，补充部分Android特有控件，颜色值主要有以下五种：12345primary =&amp;gt; #007aff; //蓝色(blue)success =&amp;gt; #4cd964; //绿色(green)warning =&amp;gt; #f0ad4e; //黄色(yellow)danger  =&amp;gt; #dd524d; //红色(red)royal   =">
+    
+        <link rel="alternate" type="application/atom+xml" title="小青年博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵梦欢</h5>
+          <a href="mailto:zhaomenghuan@foxmail.com" title="zhaomenghuan@foxmail.com" class="mail">zhaomenghuan@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                首页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://zhaomenghuan.github.io/content.json" target="_blank" >
+                <i class="icon icon-lg icon-th-large"></i>
+                API
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://segmentfault.com/u/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                Segmentfault
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.jianshu.com/u/de1f0b8eaf18" target="_blank" >
+                <i class="icon icon-lg icon-book"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">mui组件通用CSS类</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">mui组件通用CSS类</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-08-04T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2016-08-05
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MUI从入门到精通/">MUI从入门到精通</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#color-颜色"><span class="post-toc-number">1.</span> <span class="post-toc-text">color(颜色)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文字-font"><span class="post-toc-number">2.</span> <span class="post-toc-text">文字(font)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#布局-layout"><span class="post-toc-number">3.</span> <span class="post-toc-text">布局(layout)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#基本整体布局"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">基本整体布局</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#局部元素布局"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">局部元素布局</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-mui组件通用CSS类"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">mui组件通用CSS类</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-08-05 00:00:00" datetime="2016-08-04T16:00:00.000Z"  itemprop="datePublished">2016-08-05</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MUI从入门到精通/">MUI从入门到精通</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="color-颜色"><a href="#color-颜色" class="headerlink" title="color(颜色)"></a>color(颜色)</h3><p>mui中组件以iOS 7为基础，补充部分Android特有控件，颜色值主要有以下五种：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">primary =&gt; #007aff; //蓝色(blue)</div><div class="line">success =&gt; #4cd964; //绿色(green)</div><div class="line">warning =&gt; #f0ad4e; //黄色(yellow)</div><div class="line">danger  =&gt; #dd524d; //红色(red)</div><div class="line">royal   =&gt; #8a6de9; //紫色(purple)</div></pre></td></tr></table></figure></p>
+<p>注：上述primary等颜色值关键词在引用的时候可以替换成对应的颜色单词，如.mui-btn-primary等效于.mui-btn-blue;</p>
+<p><strong>badge（数字角标）</strong>：默认背景为灰色，另外mui内置了蓝色（primary/blue）、绿色(success/green)、黄色(warning/yellow)、红色(danger/red)、紫色（royal/purple）五种颜色，通过给button或者a标签添加.mui-badge-* 类添加背景颜色。如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-badge"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-badge mui-badge-primary"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-badge mui-badge-success"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-badge mui-badge-warning"</span>&gt;</span>4<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-badge mui-badge-danger"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-badge mui-badge-royal"</span>&gt;</span>6<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>button（按钮）</strong>：默认背景为白色，另外mui内置了蓝色（primary/blue）、绿色(success/green)、黄色(warning/yellow)、红色(danger/red)、紫色（royal/purple）五种颜色，通过给button或者a标签添加.mui-btn-* 类添加背景颜色。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"mui-btn"</span>&gt;</span>默认<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"mui-btn mui-btn-primary"</span>&gt;</span>蓝色<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"mui-btn mui-btn-success"</span>&gt;</span>绿色<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"mui-btn mui-btn-warning"</span>&gt;</span>黄色<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"mui-btn mui-btn-danger"</span>&gt;</span>红色<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"mui-btn mui-btn-royal"</span>&gt;</span>紫色<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>switch(开关)</strong>：默认值为绿色，可选颜色为蓝色，添加.mui-switch-blue类即可。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-switch mui-active"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-switch-handle"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-switch mui-switch-blue mui-active"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-switch-handle"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>任意元素</strong>：可以给任意元素添加.mui-bg-*类添加背景颜色，可选参数为primary/positive/negative。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-bg-primary"</span>&gt;</span>我是蓝色背景<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-bg-positive"</span>&gt;</span>我是绿色背景<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-bg-negative"</span>&gt;</span>我是红色背景<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="文字-font"><a href="#文字-font" class="headerlink" title="文字(font)"></a>文字(font)</h3><p><strong>文字位置：</strong> 可以给文字添加    .mui-text-left、.mui-text-center、.mui-text-right设置文字位置。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-text-left"</span>&gt;</span>我在左边<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-text-center"</span>&gt;</span>我在中间<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-text-right"</span>&gt;</span>我在右边<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>溢出隐藏：</strong>当文字内容超过一行或者多行时，溢出文本用省略号代替。</p>
+<p>显示单行：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"mui-ellipsis"</span>&gt;</span>我在一行内，当我超出了会显示省略号。我在一行内，当我超出了会显示省略号。我在一行内，当我超出了会显示省略号。我在一行内，当我超出了会显示省略号。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>显示两行：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"mui-ellipsis-2"</span>&gt;</span>我在两行内，当我超出了会显示省略号。我在两行内，当我超出了会显示省略号。我在两行内，当我超出了会显示省略号。我在两行内，当我超出了会显示省略号。我在两行内，当我超出了会显示省略号。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>若需要设置显示多行，通过设置-webkit-line-clamp属性，如显示三行添加style=”-webkit-line-clamp:3”:<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"mui-ellipsis-2"</span> <span class="attr">style</span>=<span class="string">"-webkit-line-clamp:3"</span>&gt;</span>我在三行内，当我超出了会显示省略号。我在三行内，当我超出了会显示省略号。我在三行内，当我超出了会显示省略号。我在三行内，当我超出了会显示省略号。我在三行内，当我超出了会显示省略号。我在三行内，当我超出了会显示省略号。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="布局-layout"><a href="#布局-layout" class="headerlink" title="布局(layout)"></a>布局(layout)</h3><h4 id="基本整体布局"><a href="#基本整体布局" class="headerlink" title="基本整体布局"></a>基本整体布局</h4><p>mui中提供了几种常见的布局系统，大家可以很方便的构建出一个手机页面，一个最简单的例子为：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">header</span> <span class="attr">class</span>=<span class="string">"mui-bar mui-bar-nav"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-action-back mui-icon mui-icon-left-nav mui-pull-left"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"mui-title"</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">footer</span> <span class="attr">class</span>=<span class="string">"mui-bar mui-bar-footer"</span>&gt;</span></div><div class="line">	底部</div><div class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-content"</span>&gt;</span></div><div class="line">	主体</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>当底部内容为选项卡时候，我们会将.mui-bar-footer替换为.mui-bar-tab：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"mui-bar mui-bar-tab"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-tab-item mui-active"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-icon mui-icon-home"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-tab-label"</span>&gt;</span>首页<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-tab-item"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-icon mui-icon-phone"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-tab-label"</span>&gt;</span>电话<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-tab-item"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-icon mui-icon-email"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-tab-label"</span>&gt;</span>邮件<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-tab-item"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-icon mui-icon-gear"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mui-tab-label"</span>&gt;</span>设置<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>在使用时需要注意一下两个细节：</p>
+<p><strong>固定栏靠前</strong>：所谓的固定栏，也就是带有.mui-bar属性的节点，都是基于fixed定位的元素；常见组件包括：顶部导航栏（.mui-bar-nav）、底部工具条(.mui-bar-footer)、底部选项卡（.mui-bar-tab）;这些元素使用时需遵循一个规则：放在.mui-content元素之前，即使是底部工具条和底部选项卡，也要放在.mui-content之前，否则固定栏会遮住部分主内容。</p>
+<p><strong>一切内容都要包裹在mui-content中</strong>：除了固定栏之外，其它内容都要包裹在.mui-content中，否则就有可能被固定栏遮罩，原因：固定栏基于Fixed定位，不受流式布局限制，普通内容依然会从top:0的位置开始布局，这样就会被固定栏遮罩，mui为了解决这个问题，定义了如下css代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">.mui-bar-nav ~ .mui-content &#123;</div><div class="line">	padding-top: 44px;</div><div class="line">&#125;</div><div class="line">.mui-bar-footer ~ .mui-content &#123;</div><div class="line">    padding-bottom: 44px;</div><div class="line">&#125;</div><div class="line">.mui-bar-tab ~ .mui-content &#123;</div><div class="line">    padding-bottom: 50px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>你当然可以通过自定义CSS的方式实现如上类似效果，但为了使用简便，建议将除固定栏之外的所有内容，全部放在.mui-content中。</p>
+<h4 id="局部元素布局"><a href="#局部元素布局" class="headerlink" title="局部元素布局"></a>局部元素布局</h4><p><strong>设置边距</strong>：可以给块元素设置.mui-content-padded类添加边距，默认为10px外边距。</p>
+<p><strong>设置元素为内联块对象</strong>：可以给元素设置.mui-inline类，将元素呈递为内联对象，但是对象的内容作为块对象呈递。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-content-padded"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-inline"</span>&gt;</span>我是A<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-inline"</span>&gt;</span>我是B<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-inline"</span>&gt;</span>我是C<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>设置元素为块元素对象</strong>：可以给元素设置元素.mui-block，将元素设置为块元素。</p>
+<p><strong>浮动</strong>：可以给元素设置.mui-pull-left或者.mui-pull-right类，从而设置浮动效果，可以使用.mui-clearfix清除浮动。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-clearfix"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-pull-left"</span>&gt;</span>我在左边<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-pull-right"</span>&gt;</span>我在右边<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>块级表格</strong>：mui中使用CSS表格的方式定义了.mui-table块级表格布局方式，会作元素为块级表格来显示。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-table"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-table-cell mui-text-center"</span>&gt;</span></div><div class="line">	    我是A</div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-table-cell mui-text-center"</span>&gt;</span></div><div class="line">	    我是B</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-table-cell mui-text-center"</span>&gt;</span></div><div class="line">        我是C</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>列表去掉默认样式</strong>：可以给ul元素设置.mui-list-unstyled类去掉ul标签在浏览器中默认的原点和内边距。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"mui-list-unstyled"</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">li</span>&gt;</span>我是第1条<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">li</span>&gt;</span>我是第2条<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  	<span class="tag">&lt;<span class="name">li</span>&gt;</span>我是第3条<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p> <strong>列表显示为内联元素</strong>：可以给ul元素设置.mui-list-inline类将li标签元素设置为内联块元素。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"mui-list-inline"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>我是第1条<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>我是第2条<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>我是第3条<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>设置元素显示与隐藏</strong>：.mui-visibility默认为设置元素可见，.mui-hidden默认为设置元素隐藏。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"loading"</span>&gt;</span></div><div class="line">	loading...</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">	setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">document</span>.getElementById(<span class="string">"loading"</span>).classList.add(<span class="string">'mui-hidden'</span>);</div><div class="line">	&#125;,<span class="number">3000</span>)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p><strong>OS环境判断多平台适配</strong>：</p>
+<p>mui会通过.mui.os.*方法判断环境，将.mui-plus，.mui-plus-stream，.mui-ios，.mui-android，.mui-wechat，.mui-ios-version，.mui-android-version，.mui-wechat-version绑定在document.body.classList中，我们可以通过这些样式类判断当前的运行判断，于是可以做出一些适配，如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-input-row mui-plus-visible"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>mui-plus-visible<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"mui-input-speech mui-input-clear"</span> <span class="attr">placeholder</span>=<span class="string">"我在web环境下隐藏5+环境下显示"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-input-row mui-plus-hidden"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>mui-plus-hidden<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"mui-input-clear"</span> <span class="attr">placeholder</span>=<span class="string">"我在web环境下显示5+环境下隐藏"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>mui中默认在plus环境下和微信环境下设置了样式几个样式：</p>
+<blockquote>
+<p>.mui-plus-visible：在plus环境下显示，非plsu环境下隐藏<br>.mui-wechat-visible：在wechat环境下显示，非wechat环境下隐藏<br>.mui-plus-hidden：在plus环境下隐藏，非plsu环境下显示<br>.mui-wechat-hidden：在wechat环境下隐藏，非wechat环境下显示</p>
+</blockquote>
+<p><strong>栅格系统布局</strong>：mui中定义了一个简单适用的栅格系统，将每一行宽度平均分为12份，每一份作为一个子栅格，每一行的内容置于.mui-row行容器中，通过.mui-col-xs-*和.mui-col-sm-*将行分成若干行。使用以下媒体查询（media query）将.mui-row像素宽度400px作为分界，.mui-row像素宽度低于400px的使用.mui-col-xs-*，当.mui-row像素宽度高于400px使用.mui-col-sm-*。.mui-row宽度若不设置，默认为屏幕像素宽度。</p>
+<p>通过给每一行中的列设置1~12的数值，相应列的宽度会随着.mui-row像素宽度变化。若一行中列的数值和大于12，多余的列所在元素会作为一个整体另起一行排列。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></span></div><div class="line">    <span class="selector-class">.mui-row</span>&#123;</div><div class="line">        <span class="attribute">height</span>: <span class="number">50px</span>;</div><div class="line">        <span class="attribute">line-height</span>: <span class="number">50px</span>;</div><div class="line">        <span class="attribute">text-align</span>: center; </div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.mui-col-sm-3</span>&#123;</div><div class="line">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaa</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.mui-col-sm-9</span>&#123;</div><div class="line">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaa</span>;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-row"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-col-xs-4 mui-col-sm-3"</span>&gt;</span></div><div class="line">        .mui-col-sm-3</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-col-xs-8 mui-col-sm-9"</span>&gt;</span></div><div class="line">        .mui-col-sm-9</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这样我们得到了两列元素，当.mui-row像素宽度低于400px时，左侧宽度为4份子栅格宽度，右侧宽度为8份子栅格宽度；当.mui-row像素宽度高于400px时，左侧宽度为4份子栅格宽度，右侧宽度为8份子栅格宽度。</p>
+<p><strong>区域滚动布局</strong>：mui中封装了一个scroll控件用于实现区域滚动，在使用区域滚动组件时候需要注意几个细节，scroll控件有固定的dom结构，需手动初始化scroll控件，需要手动设置滚动区域的位置（一般设置为top和bottom）。</p>
+<p>固定DOM结构：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-scroll-wrapper"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-scroll"</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!--这里放置真实显示的DOM内容--&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>初始化scroll控件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 常用配置项</span></div><div class="line"><span class="keyword">var</span> options = &#123;</div><div class="line">	<span class="attr">scrollY</span>: <span class="literal">true</span>, <span class="comment">//是否竖向滚动</span></div><div class="line">	scrollX: <span class="literal">false</span>, <span class="comment">//是否横向滚动</span></div><div class="line">	startX: <span class="number">0</span>, <span class="comment">//初始化时滚动至x</span></div><div class="line">	startY: <span class="number">0</span>, <span class="comment">//初始化时滚动至y</span></div><div class="line">	indicators: <span class="literal">true</span>, <span class="comment">//是否显示滚动条</span></div><div class="line">	deceleration:<span class="number">0.0006</span> <span class="comment">//阻尼系数,系数越小滑动越灵敏</span></div><div class="line">	bounce: <span class="literal">true</span>, <span class="comment">//是否启用回弹</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">eg：</div><div class="line">mui(<span class="string">'.mui-scroll-wrapper'</span>).scroll(&#123;</div><div class="line">	<span class="attr">deceleration</span>: <span class="number">0.0005</span> <span class="comment">//flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>手动设置高度：<br>一般在scroll控件最外面设置div为绝对定位，设置top,bottom,left,right值，为了方便，mui默认设置有个全屏类.mui-fullscreen。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.mui-fullscreen</span> &#123;</div><div class="line">	<span class="attribute">position</span>: absolute;</div><div class="line">	<span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">right</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">	<span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们可以在scroll控件外面添加这个类，然后手动修改top和bottom值。</p>
+<p>效果预览：<a href="https://jsbin.com/kavevi/2/edit?html,css,js,output" target="_blank" rel="external">JS Bin on jsbin.com</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-05-03T16:15:57.991Z" itemprop="dateUpdated">2017-05-04 00:15:57</time>
+</span><br>
+
+
+        
+        转载需标注本文原始地址：<a href="/2016/08/05/mui组件通用CSS类/" target="_blank" rel="external">https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/</a>
+        
+    </div>
+    <footer>
+        <a href="https://zhaomenghuan.github.io">
+            <img src="/img/avatar.png" alt="赵梦欢">
+            赵梦欢
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mui/">mui</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/&title=《mui组件通用CSS类》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/&title=《mui组件通用CSS类》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mui组件通用CSS类》 — 小青年博客&url=https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/08/16/JavaScript进阶学习（三）—基于html5 File API文件操作/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">JavaScript进阶学习（三）—— 基于html5 File API文件操作</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/08/01/mui初级入门教程（七）—基于native.js的文件系统管理功能实现/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">mui初级入门教程（七）— 基于native.js的文件系统管理功能实现</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢老铁~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.png" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.png" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>赵梦欢 &copy; 2015 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/&title=《mui组件通用CSS类》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/&title=《mui组件通用CSS类》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mui组件通用CSS类》 — 小青年博客&url=https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2016/08/05/mui组件通用CSS类/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3aQU4kMRAEQP7/aVbaExKLyaxqD6wUcxqhxnb0wa7J8ttb/Hn/+/n4/eNfPv/98zNfPX+e5TzjYx88PDy80dLzxZ0nyxn5azqv4TwaHh4e3j1echgkQ5+Xm8+YrCEZAQ8PD+9neUmJ/CwVDw8P73/nnadvw4tZGY2Hh4f3e3hJGHEurPfFd3swPJy14OHh4U3GLBpgP/v9en8PDw8Pb9RVn10FaLf+fdjx5bx4eHh4F3izK01J2b15Nfm1g+jAwMPDw7vAa4dLBt2HCG1EEoHx8PDw1rwkrs3L3/wSQHtEDaNhPDw8vAu8fBNvi9c9JqcWZx0eHh7emvdsa/9clCdRbx5hRIcTHh4e3jVevk23cWr+TLLRt+EFHh4e3g1ee9Fq0yqbXQKYXUoY3iPDw8PDK3mzKdtxZj3981x4eHh4r+TNYtnNK9hEGHXQjIeHh3eBt+mb7cvlTaBQX1PAw8PDe4jX/qTfbNbthr55ff0PCjw8PLzJfYBZaJu8oFkL7akGGx4eHt49Xg5uN+5ZWbzvbeHh4eHd4M0igzx+bZ9sy+hvRsbDw8N7CS+JHp6KdGfxcX504eHh4d3mbaLb88tqr2dF/brkoMLDw8O7wMsjgPPS86Nlv90Pfwbg4eHhXePNLkjlr2MWTOQXv/Dw8PBeyUtihbafNtvWZwV30dPDw8PDW/PaiDZf7r7RtSn38fDw8G7z2u2+LY7346wCXDw8PLyHeO/lJ29ozTBtkf3Nq8HDw8O7wNtsu+21g1lGklxcqBMXPDw8vDVvcxhsNv12ocmB8Y814OHh4V3jbTbl2f9ujpw8aMbDw8P7DbxZuTxb9KyFVtT1eHh4eJd5+aWopCzOI4b22gEeHh7ea3ht86kOBdZz1UcCHh4e3jXeUw2wWWCRB7uzgwQPDw/vUd4f8E7aT9GAEd8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261860158&web_id=1261860158')
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '小青年博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '看似寻常最奇崛，成如容易却艰辛。';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/javascript">
+    (function(p,u,s,h){
+        p._pcq=p._pcq||[];
+        p._pcq.push(['_currentTime',Date.now()]);
+        s=u.createElement('script');
+        s.type='text/javascript';
+        s.async=true;
+        s.src='https://cdn.pushcrew.com/js/84781173feeb9c46759523538d7dbfe0.js';
+        h=u.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s,h);
+    })(window,document);
+</script>
+
+</body>
+</html>

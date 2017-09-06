@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现 | 小青年博客 | 看似寻常最奇崛，成如容易却艰辛。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="IOS,Objective-C,UINavigationController,UItabbarController">
+    <meta name="description" content="前言当app中有多个控制器的时候，就需要对这些控制器进行管理，用一个控制器去管理其他多个控制器；如图所示：                                                                                                            IOS UIView 提供了两个特殊的控制器，UINavigationCont">
+<meta name="keywords" content="IOS,Objective-C,UINavigationController,UItabbarController">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现">
+<meta property="og:url" content="https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/index.html">
+<meta property="og:site_name" content="小青年博客">
+<meta property="og:description" content="前言当app中有多个控制器的时候，就需要对这些控制器进行管理，用一个控制器去管理其他多个控制器；如图所示：                                                                                                            IOS UIView 提供了两个特殊的控制器，UINavigationCont">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1945738-3be16f199bca141e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1945738-502621fb3f1db021.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1945738-a51008ed9f97d8db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1945738-c5db0f3b168e6c44.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-07-31T14:11:41.704Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现">
+<meta name="twitter:description" content="前言当app中有多个控制器的时候，就需要对这些控制器进行管理，用一个控制器去管理其他多个控制器；如图所示：                                                                                                            IOS UIView 提供了两个特殊的控制器，UINavigationCont">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1945738-3be16f199bca141e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+        <link rel="alternate" type="application/atom+xml" title="小青年博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵梦欢</h5>
+          <a href="mailto:zhaomenghuan@foxmail.com" title="zhaomenghuan@foxmail.com" class="mail">zhaomenghuan@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                首页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://zhaomenghuan.github.io/content.json" target="_blank" >
+                <i class="icon icon-lg icon-th-large"></i>
+                API
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://segmentfault.com/u/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                Segmentfault
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.jianshu.com/u/de1f0b8eaf18" target="_blank" >
+                <i class="icon icon-lg icon-book"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-07-30T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-07-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/IOS-开发笔记/">IOS 开发笔记</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UIWindow-和-UIViewController-的基本内容"><span class="post-toc-number">2.</span> <span class="post-toc-text">UIWindow 和 UIViewController 的基本内容</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UINavigationController-和-UITabBarController-的基本内容"><span class="post-toc-number">3.</span> <span class="post-toc-text">UINavigationController 和 UITabBarController 的基本内容</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#项目实战"><span class="post-toc-number">4.</span> <span class="post-toc-text">项目实战</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-07-31 00:00:00" datetime="2017-07-30T16:00:00.000Z"  itemprop="datePublished">2017-07-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/IOS-开发笔记/">IOS 开发笔记</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>当app中有多个控制器的时候，就需要对这些控制器进行管理，用一个控制器去管理其他多个控制器；如图所示：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://upload-images.jianshu.io/upload_images/1945738-3be16f199bca141e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>IOS UIView 提供了两个特殊的控制器，UINavigationController和UITabBarController去管理其它控制器。</p>
+<p>本文以下面的一个简单例子加以说明基本用法：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://upload-images.jianshu.io/upload_images/1945738-502621fb3f1db021.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="UIWindow-和-UIViewController-的基本内容"><a href="#UIWindow-和-UIViewController-的基本内容" class="headerlink" title="UIWindow 和 UIViewController 的基本内容"></a>UIWindow 和 UIViewController 的基本内容</h2><p>新建一个 Single View Application 工程，在iOS应用中，每个程序得main函数中都调用了UIApplicationMain函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">#import &quot;AppDelegate.h&quot;</div><div class="line"></div><div class="line">int main(int argc, char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>先来看看UIApplicationMain函数的原型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">UIKIT_EXTERN int UIApplicationMain(</div><div class="line">  int argc, </div><div class="line">  char *argv[], </div><div class="line">  NSString * __nullable principalClassName, </div><div class="line">  NSString * __nullable delegateClassName</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>前面的argc和argv是ISO C标准的main函数的参数，直接传递给UIApplicationMain进行相关处理，principalClassName是应用程序类的名字，该类必须继承自UIApplication类，而delegateClassName是应用程序类的代理类。如果主要nib文件（在info.plist文件中指定，key是NSMainNibFile）存在，就会在nib文件对象里寻找Application对象和连接它的delegate。此函数会根据principalClassName创建UIApplication对象，然后根据delegateClassName创建一个delegate对象，并将UIApplication对象中的delegate属性设置为delegate对象，接着会建立应用的main runloop，进行事件的处理，首先调用<code>application:didFinishLaunchingWithOptions</code>。程序正常退出时才返回（如今iOS支持后台运行，系统在必要时会强行杀死不用的进程，一般这个函数不等返回进程就终止了）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// 程序启动完成调用</div><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</div><div class="line">    // 创建Window</div><div class="line">    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];</div><div class="line">    // 设置Window的背景颜色</div><div class="line">    self.window.backgroundColor = [UIColor whiteColor];</div><div class="line">    </div><div class="line">    // 设置根控制器</div><div class="line">    ViewController *vc = [[ViewController alloc] init];</div><div class="line">    self.window.rootViewController = vc;</div><div class="line"></div><div class="line">    // 设置并显示主窗口</div><div class="line">    [self.window makeKeyAndVisible];</div><div class="line">    </div><div class="line">    return YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>UIWindow是一种特殊的UIView，通常在一个应用中只会有一个UIWindow。在ios程序启动完成后，建立的第一个视图控件就是UIWindow，接着创建一个控制器的View，最后将控制器的View添加到UIWindow上，于是控制器的View就是显示到屏幕上了。一个ios程序之所以能显示在屏幕上，完全是因为它有UIWindow，也就是说没有UIWindow就看不到任何UI界面。</p>
+<p><strong>控制器的创建：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UIViewController *vc = [UIViewController alloc] init];</div></pre></td></tr></table></figure></p>
+<p>可以用isViewLoaded方法判断一个UIViewController的view是否已经被加载；控制器的view加载完毕就会调用viewDidLoad方法。</p>
+<p><strong>将view添加到UIWindow：</strong></p>
+<ul>
+<li><p>直接将view添加到UIWindow中，并不理会view对应的控制器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)addSubView:(UIView *)view;</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过设置根控制器，自动将rootViewController的view添加到UIWindow中，负责管理rootViewController的生命周期。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property(nonatomic,retain) UIViewController *rootViewController;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>获取 RootViewController：</strong></p>
+<p>第一种方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">UIWindow *window = [UIApplication sharedApplication].keyWindow;</div><div class="line">UIViewController *rootViewController = window.rootViewController;</div></pre></td></tr></table></figure></p>
+<p>第二种方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;</div><div class="line">UIViewController *rootViewController = appdelegate.window.rootViewController;</div></pre></td></tr></table></figure></p>
+<h2 id="UINavigationController-和-UITabBarController-的基本内容"><a href="#UINavigationController-和-UITabBarController-的基本内容" class="headerlink" title="UINavigationController 和 UITabBarController 的基本内容"></a>UINavigationController 和 UITabBarController 的基本内容</h2><p>UINavigationController以栈的形式保存子控制器，使用push方法能将某个控制器压入栈，使用pop方法可以移除栈顶控制器。</p>
+<p>打开 ViewController 的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)pushViewController:(UIViewController*)viewController animated:(BOOL)animated;</div></pre></td></tr></table></figure></p>
+<p>三种移除 ViewController 的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">将栈顶的控制器移除</div><div class="line">- (UIViewController*)popViewControllerAnimated:(BOOL)animated;</div><div class="line">回到指定的子控制器</div><div class="line">- (NSArray*)popToViewController:(UIViewController*)viewController animated:(BOOL)animated;</div><div class="line">回到根控制器（栈底控制器）</div><div class="line">- (NSArray*)popToRootViewControllerAnimated:(BOOL)animated;</div></pre></td></tr></table></figure></p>
+<p><strong>初始化UINavigationController：</strong></p>
+<p>方法一：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UINavigationController *nv = [[UINavigationController alloc] init];</div></pre></td></tr></table></figure></p>
+<p>方法二：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:rootViewController];</div></pre></td></tr></table></figure></p>
+<p>UITabBarController和UINavigationController类似,UITabBarController也可以轻松地管理多个控制器,轻松完成控制器之间的切换,典型的例子就是QQ、微信等应⽤。但是UITabBarController其管理的视图一直存在,而UINavigationController在pop后会销毁掉，释放内存。UITabBarController通常作为整个程序的rootViewController，而且不能添加到别的container viewController中。</p>
+<p><strong>UITabBarController的使用步骤：</strong></p>
+<ol>
+<li>初始化UITabBarController</li>
+<li>创建子控制器（viewcontroller）</li>
+<li>把子控制器添加到UITabBarController</li>
+<li>设置UIWindow的rootViewController为UITabBarController</li>
+</ol>
+<p><strong>将子控制器添加到UITabBarController：</strong></p>
+<p>方法一：添加单个子控制器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)addChildViewController:(UIViewController*)childController;</div></pre></td></tr></table></figure></p>
+<p>方法二：添加多个子控制器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">view.viewControllers = NSArray *childController;</div></pre></td></tr></table></figure></p>
+<p><strong>UITabBarController中嵌套UINavigationController：</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://upload-images.jianshu.io/upload_images/1945738-a51008ed9f97d8db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><strong>UINavigationController中嵌套UITabBarController：</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://upload-images.jianshu.io/upload_images/1945738-c5db0f3b168e6c44.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="项目实战"><a href="#项目实战" class="headerlink" title="项目实战"></a>项目实战</h2><p>将UITabBarController的逻辑提取到一个独立的ViewController中。可以新建一个继承于UITabBarController的ViewController。</p>
+<p><strong>AppDelegate.m：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// 程序启动完成调用</div><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</div><div class="line">    // 创建Window</div><div class="line">    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];</div><div class="line">    // 设置Window的背景颜色</div><div class="line">    self.window.backgroundColor = [UIColor whiteColor];</div><div class="line">    </div><div class="line">    // 设置根控制器</div><div class="line">    ViewController *vc = [[ViewController alloc] init];</div><div class="line">    self.window.rootViewController = vc;</div><div class="line"></div><div class="line">    // 设置并显示主窗口</div><div class="line">    [self.window makeKeyAndVisible];</div><div class="line">    </div><div class="line">    return YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>ViewController.h:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@interface ViewController : UITabBarController</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure></p>
+<p><strong>ViewController.m:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    </div><div class="line">    // 创建子控制器</div><div class="line">    HomeViewController *homeVC=[[HomeViewController alloc] init];</div><div class="line">    [self setTabBarItem:homeVC.tabBarItem</div><div class="line">                  title:@&quot;首页&quot;</div><div class="line">              titleSize:13.0</div><div class="line">          titleFontName:@&quot;HeiTi SC&quot;</div><div class="line">          selectedImage:@&quot;i_tab_home_selected&quot;</div><div class="line">     selectedTitleColor:[UIColor redColor]</div><div class="line">            normalImage:@&quot;i_tab_home_normal&quot;</div><div class="line">       normalTitleColor:[UIColor grayColor]];</div><div class="line">    </div><div class="line">    BlogViewController *blogVC=[[BlogViewController alloc] init];</div><div class="line">    [self setTabBarItem:blogVC.tabBarItem</div><div class="line">                  title:@&quot;博文&quot;</div><div class="line">              titleSize:13.0</div><div class="line">          titleFontName:@&quot;HeiTi SC&quot;</div><div class="line">          selectedImage:@&quot;i_tab_blog_selected&quot;</div><div class="line">     selectedTitleColor:[UIColor redColor]</div><div class="line">            normalImage:@&quot;i_tab_blog_normal&quot;</div><div class="line">       normalTitleColor:[UIColor grayColor]];</div><div class="line">    </div><div class="line">    UINavigationController *homeNV = [[UINavigationController alloc] initWithRootViewController:homeVC];</div><div class="line">    UINavigationController *blogNV = [[UINavigationController alloc] initWithRootViewController:blogVC];</div><div class="line">    // 把子控制器添加到UITabBarController</div><div class="line">    self.viewControllers = @[homeNV, blogNV];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们通常需要对tabBarItem进行设置，可以封装一个setTabBarItem方法，只需要进行简单的配置即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">- (void)setTabBarItem:(UITabBarItem *)tabbarItem</div><div class="line">                title:(NSString *)title</div><div class="line">            titleSize:(CGFloat)size</div><div class="line">        titleFontName:(NSString *)fontName</div><div class="line">        selectedImage:(NSString *)selectedImage</div><div class="line">   selectedTitleColor:(UIColor *)selectColor</div><div class="line">          normalImage:(NSString *)unselectedImage</div><div class="line">     normalTitleColor:(UIColor *)unselectColor</div><div class="line">&#123;</div><div class="line">    </div><div class="line">    //设置图片</div><div class="line">    tabbarItem = [tabbarItem initWithTitle:title image:[[UIImage imageNamed:unselectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:selectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];</div><div class="line">    </div><div class="line">    // S未选中字体颜色</div><div class="line">    [[UITabBarItem appearance] setTitleTextAttributes:@&#123;NSForegroundColorAttributeName:unselectColor,NSFontAttributeName:[UIFont fontWithName:fontName size:size]&#125; forState:UIControlStateNormal];</div><div class="line">    </div><div class="line">    // 选中字体颜色</div><div class="line">    [[UITabBarItem appearance] setTitleTextAttributes:@&#123;NSForegroundColorAttributeName:selectColor,NSFontAttributeName:[UIFont fontWithName:fontName size:size]&#125; forState:UIControlStateSelected];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后对每个子ViewController进行自定义即可，如BlogViewController.h可以这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    </div><div class="line">    UIButton *helloBtn = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, SCREEN_WIDTH - 200, 50)];</div><div class="line">    helloBtn.backgroundColor = [UIColor redColor];</div><div class="line">    [helloBtn setTitle:@&quot;hello world&quot; forState:UIControlStateNormal];</div><div class="line">    [helloBtn addTarget:self action:@selector(showToast) forControlEvents:UIControlEventTouchUpInside];</div><div class="line">    [self.view addSubview:helloBtn];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)showToast&#123;</div><div class="line">    // 打开新ViewController</div><div class="line">    BlogDetailViewController *blogDetail = [[BlogDetailViewController alloc] init];</div><div class="line">    blogDetail.hidesBottomBarWhenPushed=YES;</div><div class="line">    [self.navigationController pushViewController:blogDetail animated:YES];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>本文源代码：<a href="https://github.com/zhaomenghuan/learn-ios/tree/master/example/UITabBarController" target="_blank" rel="external">https://github.com/zhaomenghuan/learn-ios/tree/master/example/UITabBarController</a></p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/yang198907/article/details/49807011" target="_blank" rel="external">iOS －App主流框架UINavigationController &amp;&amp; UITabBarController的简单使用</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-07-31T14:11:41.704Z" itemprop="dateUpdated">2017-07-31 22:11:41</time>
+</span><br>
+
+
+        
+        转载需标注本文原始地址：<a href="/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/" target="_blank" rel="external">https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/</a>
+        
+    </div>
+    <footer>
+        <a href="https://zhaomenghuan.github.io">
+            <img src="/img/avatar.png" alt="赵梦欢">
+            赵梦欢
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IOS/">IOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UINavigationController/">UINavigationController</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UItabbarController/">UItabbarController</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/&title=《IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/&title=《IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现》 — 小青年博客&url=https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">JavaScript 进阶之深入理解数据双向绑定</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢老铁~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.png" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.png" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>赵梦欢 &copy; 2015 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/&title=《IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/&title=《IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现》 — 小青年博客&url=https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEhUlEQVR42u3aS3KtOBAFQO9/0+7Jm3UYn1PFjUA4GTm4WKDUQPXR11d8ff/vuv41eT4Z+fpLktGun7/5woQJEyZMj2TKh04+LnlX8nc7vfx7WlZMmDBhwvQOpnxK+yevQ4T8+WRRk3DkekaYMGHChOmvMSVb9X56s42/DVwwYcKECROmBKJIID9cep4tDCZMmDBh+gtM7XCzEm37X0mQ0YYOH6+FY8KECROmhzHNXvmOvz8SoWDChAkTpscwfZdXGxy0pdvZ8aBZmbiYNSZMmDBhOpYp3yDzEup1qfSu+CX/khbxxycxYcKECdOxTJuS6OwATdtobEuxG6xfFhITJkyYMB3FlKSIs2M6+Ufkd/bhSJ6cFxETJkyYMGE6hGk2sVmqnBd527Q5X8IiiMGECRMmTK9gyhuTedk3T4M3uG1BuQ5fMGHChAnTi5jyImz7zB5xFli0pWRMmDBhwvQ+piSh3aSsnysZt0Xb/I03TBITJkyYMD2GKR+oPZQzCwg2oUZ7MChaGEyYMGHC9CKmtn0424CT5uiM4N4CcdT1xYQJEyZMD2bK87s2BU1GaxdgExDkx4xWaTAmTJgwYTqQqS2t7g/N5HdmDdd2ZEyYMGHC9CamNkFtR8iP9bTjzErVdWsWEyZMmDAdyJQM1BZnZ2POUuJ25LqdiQkTJkyYDmdqW5JtITjfevOEtj3cMwtrMGHChAnTO5jyIWaF1/1b8sXLQ4r6eUyYMGHCdCzT5tBMAnHXtt2GETn0JoDAhAkTJkzPZ8objfnz7crsi79tGbouDWPChAkTpgOZZltjPu22NDwbOW9etu3bf3cwYcKECdMrmGbF0DYF3Rdhk6XdF3mjpBcTJkyYMD2e6boMev1x9x67aZPefMwEOlpaTJgwYcJ0LFP+sjbVzD9olqa25eP9cSVMmDBhwnQW0yyJ3WzD+QZ/b4q7OmCECRMmTJhewbQpts6aoG2aOvvOPC3/8V2YMGHChOlYpiStzRPUPHHNR9g3TTfN1KKpiQkTJkyYHszUbrqbRmC7Gdcb9iLZ/mUETJgwYcJ0LNNdE8jzxJx7M+a9iTEmTJgwYTqRqU0I72pbtsd98m9Lpp2XnjFhwoQJ0+lM7YcmocOs1Ds7iJMHEy0NJkyYMGF6B1OeQOZYm2S4bZS2S9suYfHPmDBhwoTpkUztxPJNtz2akzc+722s1t+JCRMmTJiOYtokqEmgkIQCs827DVNmzdevNoLAhAkTJkwPZtqXcWep7yz4aI/1tC1VTJgwYcL0DqYWaLadt0lvzrFpcM5quZgwYcKE6Sym7/LaFHbzxPiu1mM7zo9zwYQJEyZMxzLNUsrNQZkb+q5l6jsbfxi4YMKECROmRzK1x1/abfsTbcj8iOr1nSLgwIQJEyZMhzNtNuwNyqxv2IYLm1QZEyZMmDD9Nab9pt7CzZjaX3+5gwkTJkyY/gzT9+i6nnZeeN2UmFeBBSZMmDBhOpwpL5XODsHMgDZN000SvqqFY8KECROmhzG1RdKkRDs7lLNpf+aUbfiCCRMmTJiOZfoPuVi/UDBBkCkAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261860158&web_id=1261860158')
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '小青年博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '看似寻常最奇崛，成如容易却艰辛。';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/javascript">
+    (function(p,u,s,h){
+        p._pcq=p._pcq||[];
+        p._pcq.push(['_currentTime',Date.now()]);
+        s=u.createElement('script');
+        s.type='text/javascript';
+        s.async=true;
+        s.src='https://cdn.pushcrew.com/js/84781173feeb9c46759523538d7dbfe0.js';
+        h=u.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s,h);
+    })(window,document);
+</script>
+
+</body>
+</html>

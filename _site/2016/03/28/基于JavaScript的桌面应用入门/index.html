@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>基于JavaScript的桌面应用入门 | 小青年博客 | 看似寻常最奇崛，成如容易却艰辛。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="vue.js,electron,markdown">
+    <meta name="description" content="写在前面为了让自己的博客体验更好，也方便自己平时发布，打算从零开始打造一个自己的博客文章发布平台。当然在这个过程中肯定会用到一些很优秀的第三方插件，这样一方面可以减少自己的工作量，一方面可以学习一下其他优秀的工具。 简介electron————使用web技术构建跨平台桌面应用程序Electron是一个原本为 Atom 编辑器设计的，跨平台的应用外壳（Application Shell），它将 Ch">
+<meta name="keywords" content="vue.js,electron,markdown">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于JavaScript的桌面应用入门">
+<meta property="og:url" content="https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/index.html">
+<meta property="og:site_name" content="小青年博客">
+<meta property="og:description" content="写在前面为了让自己的博客体验更好，也方便自己平时发布，打算从零开始打造一个自己的博客文章发布平台。当然在这个过程中肯定会用到一些很优秀的第三方插件，这样一方面可以减少自己的工作量，一方面可以学习一下其他优秀的工具。 简介electron————使用web技术构建跨平台桌面应用程序Electron是一个原本为 Atom 编辑器设计的，跨平台的应用外壳（Application Shell），它将 Ch">
+<meta property="og:image" content="http://i.imgur.com/HOUIHKT.png">
+<meta property="og:image" content="http://i.imgur.com/ID7XGfj.png">
+<meta property="og:image" content="http://i.imgur.com/24Tz4NJ.png">
+<meta property="og:updated_time" content="2017-05-07T12:40:03.284Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于JavaScript的桌面应用入门">
+<meta name="twitter:description" content="写在前面为了让自己的博客体验更好，也方便自己平时发布，打算从零开始打造一个自己的博客文章发布平台。当然在这个过程中肯定会用到一些很优秀的第三方插件，这样一方面可以减少自己的工作量，一方面可以学习一下其他优秀的工具。 简介electron————使用web技术构建跨平台桌面应用程序Electron是一个原本为 Atom 编辑器设计的，跨平台的应用外壳（Application Shell），它将 Ch">
+<meta name="twitter:image" content="http://i.imgur.com/HOUIHKT.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小青年博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵梦欢</h5>
+          <a href="mailto:zhaomenghuan@foxmail.com" title="zhaomenghuan@foxmail.com" class="mail">zhaomenghuan@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                首页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://zhaomenghuan.github.io/content.json" target="_blank" >
+                <i class="icon icon-lg icon-th-large"></i>
+                API
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://segmentfault.com/u/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                Segmentfault
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.jianshu.com/u/de1f0b8eaf18" target="_blank" >
+                <i class="icon icon-lg icon-book"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">基于JavaScript的桌面应用入门</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">基于JavaScript的桌面应用入门</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-03-27T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2016-03-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/node学习之路/">node学习之路</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在前面"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-number">2.</span> <span class="post-toc-text">简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#electron————使用web技术构建跨平台桌面应用程序"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">electron————使用web技术构建跨平台桌面应用程序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#markdown————一种最流行的博客书写语法"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">markdown————一种最流行的博客书写语法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue-js————数据驱动的组件，为现代化的-Web-界面而生"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">Vue.js————数据驱动的组件，为现代化的 Web 界面而生</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#marked-js————一个高效的markdown语法解析器"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">marked.js————一个高效的markdown语法解析器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#项目实战"><span class="post-toc-number">3.</span> <span class="post-toc-text">项目实战</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-又见hello-word！"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">1.又见hello word！</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-使用vue-js-marked-js实现markdown编辑器"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">2.使用vue.js+marked.js实现markdown编辑器</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-基于JavaScript的桌面应用入门"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于JavaScript的桌面应用入门</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-03-28 00:00:00" datetime="2016-03-27T16:00:00.000Z"  itemprop="datePublished">2016-03-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/node学习之路/">node学习之路</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>为了让自己的博客体验更好，也方便自己平时发布，打算从零开始打造一个自己的博客文章发布平台。当然在这个过程中肯定会用到一些很优秀的第三方插件，这样一方面可以减少自己的工作量，一方面可以学习一下其他优秀的工具。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="electron————使用web技术构建跨平台桌面应用程序"><a href="#electron————使用web技术构建跨平台桌面应用程序" class="headerlink" title="electron————使用web技术构建跨平台桌面应用程序"></a>electron————使用web技术构建跨平台桌面应用程序</h3><p>Electron是一个原本为 Atom 编辑器设计的，跨平台的应用外壳（Application Shell），它将 Chromium 和 Node.js 的事件循环整合到了一起，同时提供了一些与原生系统交互的 API。</p>
+<p>一个开源的跨平台的桌面应用构建框架，与<a href="http://nwjs.io/" target="_blank" rel="external">node-webkit</a>（简称nw.js）类似，具体对比可以参见知乎上的一个讨论——<a href="http://www.zhihu.com/question/38854224?sort=created" target="_blank" rel="external">用Nodejs开发桌面应用。NW.js 和 Electron 各有什么优缺点，你选择哪个？</a>。由于我自己对web相对熟悉一下，所以选择这张基于web的方式构建桌面平台应用，进行对比后我选择了electron。</p>
+<ul>
+<li>英文官网：<em><a href="http://electron.atom.io/" target="_blank" rel="external">http://electron.atom.io/</a></em></li>
+<li>github地址: <em><a href="https://github.com/atom/electron" target="_blank" rel="external">https://github.com/atom/electron</a></em></li>
+<li>中文文档：<em><a href="https://github.com/atom/electron/tree/5efb88e7eaf1797053d5bcef0b8ac3a1e76c61bf/docs-translations/zh-CN" target="_blank" rel="external">docs-translations/zh-CN</a></em></li>
+</ul>
+<h3 id="markdown————一种最流行的博客书写语法"><a href="#markdown————一种最流行的博客书写语法" class="headerlink" title="markdown————一种最流行的博客书写语法"></a>markdown————一种最流行的博客书写语法</h3><p><strong>markdown</strong>拥有简单的语法和众多开源的插件和使用者，markdown写博客无疑是一种不错的选择，同时可以让博客整体风格统一，而且让大家更加熟悉和适应。</p>
+<p>使用语法：</p>
+<ul>
+<li><a href="http://ibruce.info/2013/11/26/markdown/" target="_blank" rel="external">markdown简明语法</a></li>
+<li><a href="http://www.jianshu.com/p/q81RER/" target="_blank" rel="external">献给写作者的 Markdown 新手指南</a></li>
+<li><a href="http://wowubuntu.com/markdown/" target="_blank" rel="external">Markdown 语法说明 (简体中文版)</a></li>
+</ul>
+<h3 id="Vue-js————数据驱动的组件，为现代化的-Web-界面而生"><a href="#Vue-js————数据驱动的组件，为现代化的-Web-界面而生" class="headerlink" title="Vue.js————数据驱动的组件，为现代化的 Web 界面而生"></a>Vue.js————数据驱动的组件，为现代化的 Web 界面而生</h3><ul>
+<li>中文官网 <em><a href="http://cn.vuejs.org/" target="_blank" rel="external">http://cn.vuejs.org/</a></em></li>
+<li>Markdown 编辑器 Example：<em><a href="http://cn.vuejs.org/examples/" target="_blank" rel="external">http://cn.vuejs.org/examples/</a></em></li>
+</ul>
+<p>本例子中用到了一个非常强大的markdown语法解析器<strong>marked.js</strong>。</p>
+<h3 id="marked-js————一个高效的markdown语法解析器"><a href="#marked-js————一个高效的markdown语法解析器" class="headerlink" title="marked.js————一个高效的markdown语法解析器"></a>marked.js————一个高效的markdown语法解析器</h3><ul>
+<li>github地址: <em><a href="https://github.com/chjj/marked" target="_blank" rel="external">https://github.com/chjj/marked</a></em></li>
+</ul>
+<h2 id="项目实战"><a href="#项目实战" class="headerlink" title="项目实战"></a>项目实战</h2><h3 id="1-又见hello-word！"><a href="#1-又见hello-word！" class="headerlink" title="1.又见hello word！"></a>1.又见hello word！</h3><p>下载electron，<em><a href="https://github.com/atom/electron/releases/" target="_blank" rel="external">https://github.com/atom/electron/releases/</a></em></p>
+<p>electron是绿色软件，下载下打开<strong>electron.exe</strong>即可使用。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://i.imgur.com/HOUIHKT.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如果打开后看到这个界面说明下载运行成功。</p>
+<p>你可以下载<a href="https://github.com/atom/electron-quick-start" target="_blank" rel="external">electron-quick-start</a>查看演示工程或者看下载<strong>electron</strong>时根目录下的的resources下的default_app工程。这里我们选择自己写一个工程，下面书写helloworld：</p>
+<p> Electron 应用的目录结构如下：</p>
+<ul>
+<li>app/</li>
+<li>├── package.json</li>
+<li>├── main.js</li>
+<li>└── index.html</li>
+</ul>
+<p>新建一个app文件夹 将这三个文件都放在里面，package.json 的格式和 Node 模块中的完全一致。你应用的启动脚本（的路径）需要在 app/package.json 中的main属性中指定。package.json的内容:<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"Hello WorLd"</span>,</div><div class="line">  <span class="attr">"version"</span> : <span class="string">"0.1.0"</span>,</div><div class="line">  <span class="attr">"main"</span>: <span class="string">"main.js"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>app/main.js是我们应用的入口。它负责创建主窗口和处理系统事件。 main.js 应该如下所示：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"></div><div class="line"><span class="comment">//应用的控制模块</span></div><div class="line"><span class="keyword">const</span> electron = <span class="built_in">require</span>(<span class="string">'electron'</span>);</div><div class="line"><span class="keyword">const</span> app = electron.app;</div><div class="line"><span class="comment">//创建原生浏览器窗口的模块</span></div><div class="line"><span class="keyword">const</span> BrowserWindow = electron.BrowserWindow;</div><div class="line"><span class="keyword">let</span> mainWindow;</div><div class="line"></div><div class="line"><span class="comment">//初始化并准备创建浏览器窗口</span></div><div class="line">app.on(<span class="string">'ready'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="comment">//创建浏览器窗口</span></div><div class="line">  mainWindow = <span class="keyword">new</span> BrowserWindow(&#123;<span class="attr">width</span>: <span class="number">800</span>, <span class="attr">height</span>: <span class="number">600</span>&#125;);</div><div class="line">  <span class="comment">//载入布局文件</span></div><div class="line">  mainWindow.loadURL(<span class="string">'file://'</span> + __dirname + <span class="string">'/index.html'</span>);</div><div class="line">  <span class="comment">//打开开发调试工具</span></div><div class="line">  <span class="comment">//mainWindow.webContents.openDevTools();</span></div><div class="line">  <span class="comment">//窗口关闭时触发</span></div><div class="line">  mainWindow.on(<span class="string">'closed'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    mainWindow = <span class="literal">null</span>;</div><div class="line">  &#125;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//当所有窗口都关闭的时候退出应用</span></div><div class="line">app.on(<span class="string">'window-all-closed'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (process.platform !== <span class="string">'darwin'</span>) &#123;</div><div class="line">    app.quit();</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>app/index.html是一个简单的 HTML 页面：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></div><div class="line">		<span class="selector-tag">body</span> &#123;</div><div class="line">		  <span class="attribute">color</span>: <span class="number">#45828E</span>;</div><div class="line">		  <span class="attribute">background-color</span>: <span class="number">#A5ECFA</span>;</div><div class="line">		  <span class="attribute">font-family</span>: <span class="string">'Helvetica Neue'</span>, <span class="string">'Open Sans'</span>, Helvetica, Arial, sans-serif;</div><div class="line">		  <span class="attribute">padding</span>: <span class="number">0</span>;</div><div class="line">		  <span class="attribute">margin</span>: <span class="number">0</span>;</div><div class="line">		&#125;</div><div class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>最终演示效果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://i.imgur.com/ID7XGfj.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="2-使用vue-js-marked-js实现markdown编辑器"><a href="#2-使用vue-js-marked-js实现markdown编辑器" class="headerlink" title="2.使用vue.js+marked.js实现markdown编辑器"></a>2.使用vue.js+marked.js实现markdown编辑器</h3><p>应用的目录结构如下：</p>
+<ul>
+<li>app/</li>
+<li>├── package.json</li>
+<li>├── main.js</li>
+<li>├── index.html</li>
+<li>└── app/<ul>
+<li>├── css/<br>├ markdown.css<br>├ app.css</li>
+<li>├── js/<br>├ vue.js<br>└ marked.min.js</li>
+</ul>
+</li>
+</ul>
+<p><strong>index.html</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"app/css/markdown.css"</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"app/css/app.css"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"editor"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">textarea</span> <span class="attr">v-model</span>=<span class="string">"editorInput"</span> <span class="attr">debounce</span>=<span class="string">"300"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">v-html</span>=<span class="string">"editorInput | marked"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"app/lib/js/vue.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"app/lib/js/marked.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="comment">/* eslint-disable */</span></div><div class="line">  <span class="comment">// 初始化</span></div><div class="line">  <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>: <span class="string">'#editor'</span>,</div><div class="line">    <span class="attr">data</span>: &#123;</div><div class="line">      <span class="attr">editorInput</span>: <span class="string">'# hello'</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">filters</span>: &#123;</div><div class="line">      <span class="attr">marked</span>: marked</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>app.css</strong><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">html</span>, <span class="selector-tag">body</span>, <span class="selector-id">#editor</span> &#123;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">font-family</span>: <span class="string">'Helvetica Neue'</span>, Arial, sans-serif;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">textarea</span>, <span class="selector-id">#editor</span> <span class="selector-tag">div</span> &#123;</div><div class="line">  <span class="attribute">display</span>: inline-block;</div><div class="line">  <span class="attribute">width</span>: <span class="number">49%</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">vertical-align</span>: top;</div><div class="line">  <span class="attribute">-webkit-box-sizing</span>: border-box;</div><div class="line">  <span class="attribute">-moz-box-sizing</span>: border-box;</div><div class="line">  <span class="attribute">box-sizing</span>: border-box;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">20px</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">textarea</span>&#123;</div><div class="line">  <span class="attribute">border</span>: none;</div><div class="line">  <span class="attribute">border-right</span>: <span class="number">1px</span> solid <span class="number">#ccc</span>;</div><div class="line">  <span class="attribute">resize</span>: none;</div><div class="line">  <span class="attribute">outline</span>: none;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#f6f6f6</span>;</div><div class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">font-family</span>: <span class="string">'Monaco'</span>, courier, monospace;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">20px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>效果图：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://i.imgur.com/24Tz4NJ.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-05-07T12:40:03.284Z" itemprop="dateUpdated">2017-05-07 20:40:03</time>
+</span><br>
+
+
+        
+        转载需标注本文原始地址：<a href="/2016/03/28/基于JavaScript的桌面应用入门/" target="_blank" rel="external">https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/</a>
+        
+    </div>
+    <footer>
+        <a href="https://zhaomenghuan.github.io">
+            <img src="/img/avatar.png" alt="赵梦欢">
+            赵梦欢
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/electron/">electron</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/markdown/">markdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-js/">vue.js</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/&title=《基于JavaScript的桌面应用入门》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/&title=《基于JavaScript的桌面应用入门》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于JavaScript的桌面应用入门》 — 小青年博客&url=https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/04/01/走近github王国，git入门教程/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">走近github王国，git入门教程</h4>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢老铁~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.png" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.png" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>赵梦欢 &copy; 2015 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/&title=《基于JavaScript的桌面应用入门》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/&title=《基于JavaScript的桌面应用入门》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于JavaScript的桌面应用入门》 — 小青年博客&url=https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2016/03/28/基于JavaScript的桌面应用入门/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACyUlEQVR42u3aQXIbMQwEQP//08k1VZbWMwDp6NA6uWR5xeaBoAf4+opff/55Je98f799Zv6cAy88PDy8xdKfH518wffPPP9V8tt8I148DQ8PD+8a7/mL80XnB/3+ydFm4eHh4X0A73mheRnIr8vtNR0PDw/v03h5MZgd60kYgYeHh/cJvDZCzQOL9jObwBcPDw/vd3h5F+lzfr7S38PDw8Nbd9XPXm1nDba8GLx4Mh4eHt4FXn7gtk2s2RKTcYF8nXh4eHj3eG0s25aQzeBpspIozMXDw8M7xHs+Rtuhq/xpbfkZxrV4eHh413iz+CC/ap8aGkgijLf/K+Dh4eEd4s1a9QksKSd5qHG4s4eHh4d3iDeLEtqjvA0pZlv8w2QZHh4e3po3a2u1MetmQCFvs73t7+Hh4eEd4m3C2TZ6aGPZtkn24rvw8PDwLvDaK/LsuG+3oGhxJSUEDw8P7xovHyB4fmc2rDBDrsIIPDw8vDUv/4c//7J8NCHf6KRcFaNXeHh4eCWvPaDbI7tthu034m1JwMPDw7vA2zT728M9v47nV/AXn8fDw8O7wGvjg7bxnwfB+aW8mCPDw8PDu8ZrR6DyOCBfRHJZn0W6eHh4ePd4ebsruezmy21T52QTo5QaDw8Pb8FrQ4c8kM0jhnwL2qYdHh4e3g3eZrBpH+nOwoiiSODh4eFd480GAvIrb15CZrC61uHh4eEd4uVjBJuBqk0xaDcXDw8P7zavbUTlRWUYvI5GHPDw8PDu8WYDVTPwbOgqv/q/+C0eHh7eBd6BqrJ4QhtttMNeeHh4ePd4STFoh6tmgUIbW0QRMx4eHt41XnsoJ+2rzchUG238UBjw8PDw/isvvyjnowOz8YJoI/Dw8PA+gLcZJjj75Kh44OHh4V3j5cNPSTNsD25baKvJCDw8PLzJWV0Uj9mlOV968skDPT08PDy8Ce8vJhV9grCqpxQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261860158&web_id=1261860158')
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '小青年博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '看似寻常最奇崛，成如容易却艰辛。';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/javascript">
+    (function(p,u,s,h){
+        p._pcq=p._pcq||[];
+        p._pcq.push(['_currentTime',Date.now()]);
+        s=u.createElement('script');
+        s.type='text/javascript';
+        s.async=true;
+        s.src='https://cdn.pushcrew.com/js/84781173feeb9c46759523538d7dbfe0.js';
+        h=u.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s,h);
+    })(window,document);
+</script>
+
+</body>
+</html>

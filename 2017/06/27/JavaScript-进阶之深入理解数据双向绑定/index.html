@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>JavaScript 进阶之深入理解数据双向绑定 | 小青年博客 | 看似寻常最奇崛，成如容易却艰辛。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="JavaScript,MVVM">
+    <meta name="description" content="前言谈起当前前端最热门的 js 框架，必少不了 Vue、React、Angular，对于大多数人来说，我们更多的是在使用框架，对于框架解决痛点背后使用的基本原理往往关注不多，近期在研读 Vue.js 源码，也在写源码解读的系列文章。和多数源码解读的文章不同的是，我会尝试从一个初级前端的角度入手，由浅入深去讲解源码实现思路和基本的语法知识，通过一些基础事例一步步去实现一些小功能。 本场 Chat 是">
+<meta name="keywords" content="JavaScript,MVVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 进阶之深入理解数据双向绑定">
+<meta property="og:url" content="https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/index.html">
+<meta property="og:site_name" content="小青年博客">
+<meta property="og:description" content="前言谈起当前前端最热门的 js 框架，必少不了 Vue、React、Angular，对于大多数人来说，我们更多的是在使用框架，对于框架解决痛点背后使用的基本原理往往关注不多，近期在研读 Vue.js 源码，也在写源码解读的系列文章。和多数源码解读的文章不同的是，我会尝试从一个初级前端的角度入手，由浅入深去讲解源码实现思路和基本的语法知识，通过一些基础事例一步步去实现一些小功能。 本场 Chat 是">
+<meta property="og:image" content="http://oo1uw74rb.bkt.clouddn.com/String-based-Template.png">
+<meta property="og:updated_time" content="2017-07-31T14:07:47.055Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 进阶之深入理解数据双向绑定">
+<meta name="twitter:description" content="前言谈起当前前端最热门的 js 框架，必少不了 Vue、React、Angular，对于大多数人来说，我们更多的是在使用框架，对于框架解决痛点背后使用的基本原理往往关注不多，近期在研读 Vue.js 源码，也在写源码解读的系列文章。和多数源码解读的文章不同的是，我会尝试从一个初级前端的角度入手，由浅入深去讲解源码实现思路和基本的语法知识，通过一些基础事例一步步去实现一些小功能。 本场 Chat 是">
+<meta name="twitter:image" content="http://oo1uw74rb.bkt.clouddn.com/String-based-Template.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小青年博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵梦欢</h5>
+          <a href="mailto:zhaomenghuan@foxmail.com" title="zhaomenghuan@foxmail.com" class="mail">zhaomenghuan@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                首页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://zhaomenghuan.github.io/content.json" target="_blank" >
+                <i class="icon icon-lg icon-th-large"></i>
+                API
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://segmentfault.com/u/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                Segmentfault
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.jianshu.com/u/de1f0b8eaf18" target="_blank" >
+                <i class="icon icon-lg icon-book"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">JavaScript 进阶之深入理解数据双向绑定</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">JavaScript 进阶之深入理解数据双向绑定</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-26T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-06-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/JavaScript进阶学习/">JavaScript进阶学习</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模板引擎实现原理"><span class="post-toc-number">2.</span> <span class="post-toc-text">模板引擎实现原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#String-based-templating"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">String-based templating</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Dom-based-templating"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Dom-based templating</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#数据双向绑定实现原理"><span class="post-toc-number">3.</span> <span class="post-toc-text">数据双向绑定实现原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引子"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">引子</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Object-defineProperty"><span class="post-toc-number">3.1.1.</span> <span class="post-toc-text">Object.defineProperty()</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Object-getOwnPropertyDescriptor"><span class="post-toc-number">3.1.2.</span> <span class="post-toc-text">Object.getOwnPropertyDescriptor() </span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue源码分析"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">Vue源码分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#监听对象变动"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">监听对象变动</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#监听数组变动"><span class="post-toc-number">3.2.2.</span> <span class="post-toc-text">监听数组变动</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#发布-订阅模式"><span class="post-toc-number">3.2.3.</span> <span class="post-toc-text">发布-订阅模式</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#模板编译"><span class="post-toc-number">3.2.4.</span> <span class="post-toc-text">模板编译</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MVVM实例"><span class="post-toc-number">3.2.5.</span> <span class="post-toc-text">MVVM实例</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文档"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考文档</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#说明"><span class="post-toc-number">5.</span> <span class="post-toc-text">说明</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-JavaScript-进阶之深入理解数据双向绑定"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">JavaScript 进阶之深入理解数据双向绑定</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-27 00:00:00" datetime="2017-06-26T16:00:00.000Z"  itemprop="datePublished">2017-06-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/JavaScript进阶学习/">JavaScript进阶学习</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>谈起当前前端最热门的 js 框架，必少不了 Vue、React、Angular，对于大多数人来说，我们更多的是在使用框架，对于框架解决痛点背后使用的基本原理往往关注不多，近期在研读 Vue.js 源码，也在写源码解读的系列文章。和多数源码解读的文章不同的是，我会尝试从一个初级前端的角度入手，由浅入深去讲解源码实现思路和基本的语法知识，通过一些基础事例一步步去实现一些小功能。</p>
+<p>本场 Chat 是系列 Chat 的开篇，我会首先讲解一下数据双向绑定的基本原理，介绍对比一下三大框架的不同实现方式，同时会一步步完成一个简单的mvvm示例。读源码不是目的，只是一种学习的方式，目的是在读源码的过程中提升自己，学习基本原理，拓展编码的思维方式。</p>
+<h2 id="模板引擎实现原理"><a href="#模板引擎实现原理" class="headerlink" title="模板引擎实现原理"></a>模板引擎实现原理</h2><p>对于页面渲染，一般分为服务器端渲染和浏览器端渲染。一般来说服务器端吐html页面的方式渲染速度更快、更利于SEO，但是浏览器端渲染更利于提高开发效率和减少维护成本，是一种相关舒服的前后端协作模式，后端提供接口，前端做视图和交互逻辑。前端通过Ajax请求数据然后拼接html字符串或者使用js模板引擎、数据驱动的框架如Vue进行页面渲染。</p>
+<p>在ES6和Vue这类框架出现以前，前端绑定数据的方式是动态拼接html字符串和js模板引擎。模板引擎起到数据和视图分离的作用，模板对应视图，关注如何展示数据，在模板外头准备的数据， 关注那些数据可以被展示。模板引擎的工作原理可以简单地分成两个步骤：模板解析 / 编译（Parse / Compile）和数据渲染（Render）两部分组成，当今主流的前端模板有三种方式：</p>
+<ul>
+<li>String-based templating (基于字符串的parse和compile过程)</li>
+<li>Dom-based templating (基于Dom的link或compile过程)</li>
+<li>Living templating (基于字符串的parse 和 基于dom的compile过程)</li>
+</ul>
+<h3 id="String-based-templating"><a href="#String-based-templating" class="headerlink" title="String-based templating"></a>String-based templating</h3><p>基于字符串的模板引擎，本质上依然是字符串拼接的形式，只是一般的库做了封装和优化，提供了更多方便的语法简化了我们的工作。基本原理如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://oo1uw74rb.bkt.clouddn.com/String-based-Template.png" alt="String-based-Template" title="">
+                </div>
+                <div class="image-caption">String-based-Template</div>
+            </figure>
+<p>典型的库：</p>
+<ul>
+<li><a href="https://github.com/aui/art-template" target="_blank" rel="external">art-template</a></li>
+<li><a href="https://github.com/janl/mustache.js" target="_blank" rel="external">mustache.js</a></li>
+<li><a href="https://github.com/olado/doT" target="_blank" rel="external">doT</a></li>
+</ul>
+<p>之前的一篇文章中我介绍了js模板引擎的实现思路，感兴趣的朋友可以看看这里：<a href="https://segmentfault.com/a/1190000005804719" target="_blank" rel="external">JavaScript进阶学习（一）—— 基于正则表达式的简单js模板引擎实现</a>。这篇文章中我们利用正则表达式实现了一个简单的js模板引擎，利用正则匹配查找出模板中<code>{{}}</code>之间的内容，然后替换为模型中的数据，从而实现视图的渲染。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">var template = function(tpl, data) &#123;</div><div class="line">  var re = /&#123;&#123;(.+?)&#125;&#125;/g,</div><div class="line">    cursor = 0,</div><div class="line">    reExp = /(^( )?(var|if|for|else|switch|case|break|&#123;|&#125;|;))(.*)?/g,	</div><div class="line">    code = &apos;var r=[];\n&apos;;</div><div class="line"></div><div class="line">  // 解析html</div><div class="line">  function parsehtml(line) &#123;</div><div class="line">    // 单双引号转义，换行符替换为空格,去掉前后的空格</div><div class="line">    line = line.replace(/(&apos;|&quot;)/g, &apos;\\$1&apos;).replace(/\n/g, &apos; &apos;).replace(/(^\s+)|(\s+$)/g,&quot;&quot;);</div><div class="line">    code +=&apos;r.push(&quot;&apos; + line + &apos;&quot;);\n&apos;;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  // 解析js代码		</div><div class="line">  function parsejs(line) &#123;   </div><div class="line">    // 去掉前后的空格</div><div class="line">    line = line.replace(/(^\s+)|(\s+$)/g,&quot;&quot;);</div><div class="line">    code += line.match(reExp)? line + &apos;\n&apos; : &apos;r.push(&apos; + &apos;this.&apos; + line + &apos;);\n&apos;;</div><div class="line">  &#125;	</div><div class="line">    </div><div class="line">  // 编译模板</div><div class="line">  while((match = re.exec(tpl))!== null) &#123;</div><div class="line">    // 开始标签  &#123;&#123; 前的内容和结束标签 &#125;&#125; 后的内容</div><div class="line">    parsehtml(tpl.slice(cursor, match.index));</div><div class="line">    // 开始标签  &#123;&#123; 和 结束标签 &#125;&#125; 之间的内容</div><div class="line">    parsejs(match[1]);</div><div class="line">    // 每一次匹配完成移动指针</div><div class="line">    cursor = match.index + match[0].length;</div><div class="line">  &#125;</div><div class="line">  // 最后一次匹配完的内容</div><div class="line">  parsehtml(tpl.substr(cursor, tpl.length - cursor));</div><div class="line">  code += &apos;return r.join(&quot;&quot;);&apos;;</div><div class="line">  return new Function(code.replace(/[\r\t\n]/g, &apos;&apos;)).apply(data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>源代码：<a href="http://jsrun.net/yaYKp/embedded/all/light/" target="_blank" rel="external">http://jsrun.net/yaYKp/embedded/all/light/</a></strong></p>
+<p>现在ES6支持了模板字符串，我们可以用比较简单的代码就可以实现类似的功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">const template = data =&gt; `</div><div class="line">  &lt;p&gt;name: $&#123;data.name&#125;&lt;/p&gt;</div><div class="line">  &lt;p&gt;age: $&#123;data.profile.age&#125;&lt;/p&gt;</div><div class="line">  &lt;ul&gt;</div><div class="line">    $&#123;data.skills.map(skill =&gt; `</div><div class="line">      &lt;li&gt;$&#123;skill&#125;&lt;/li&gt;</div><div class="line">    `).join(&apos;&apos;)&#125;</div><div class="line">  &lt;/ul&gt;`</div><div class="line"></div><div class="line">const data = &#123;</div><div class="line">  name: &apos;zhaomenghuan&apos;,</div><div class="line">  profile: &#123; age: 24 &#125;,</div><div class="line">  skills: [&apos;html5&apos;, &apos;javascript&apos;, &apos;android&apos;]</div><div class="line">&#125;</div><div class="line"></div><div class="line">document.body.innerHTML = template(data)</div></pre></td></tr></table></figure></p>
+<h3 id="Dom-based-templating"><a href="#Dom-based-templating" class="headerlink" title="Dom-based templating"></a>Dom-based templating</h3>{% image http://oo1uw74rb.bkt.clouddn.com/Dom-based-Template.png 'Dom-based-Template' '' %}
+<p>Dom-based templating 则是从DOM的角度去实现数据的渲染，我们通过遍历DOM树，提取属性与DOM内容，然后将数据写入到DOM树中，从而实现页面渲染。一个简单的例子如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">function MVVM(opt) &#123;</div><div class="line">  this.dom = document.querySelector(opt.el);</div><div class="line">  this.data = opt.data || &#123;&#125;;</div><div class="line">  this.renderDom(this.dom);</div><div class="line">&#125;</div><div class="line"></div><div class="line">MVVM.prototype = &#123;</div><div class="line">  init: &#123;</div><div class="line">    sTag: &apos;&#123;&#123;&apos;,</div><div class="line">    eTag: &apos;&#125;&#125;&apos;</div><div class="line">  &#125;,</div><div class="line">  render: function (node) &#123;</div><div class="line">    var self = this;</div><div class="line">    var sTag = self.init.sTag;</div><div class="line">    var eTag = self.init.eTag;</div><div class="line"></div><div class="line">    var matchs = node.textContent.split(sTag);</div><div class="line">    if (matchs.length)&#123;</div><div class="line">      var ret = &apos;&apos;;</div><div class="line">      for (var i = 0; i &lt; matchs.length; i++) &#123;</div><div class="line">        var match = matchs[i].split(eTag);</div><div class="line">        if (match.length == 1) &#123;</div><div class="line">            ret += matchs[i];</div><div class="line">        &#125; else &#123;</div><div class="line">            ret = self.data[match[0]];</div><div class="line">        &#125;</div><div class="line">        node.textContent = ret;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  renderDom: function(dom) &#123;</div><div class="line">    var self = this;</div><div class="line"></div><div class="line">    var attrs = dom.attributes;</div><div class="line">    var nodes = dom.childNodes;</div><div class="line"></div><div class="line">    Array.prototype.forEach.call(attrs, function(item) &#123;</div><div class="line">      self.render(item);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    Array.prototype.forEach.call(nodes, function(item) &#123;</div><div class="line">      if (item.nodeType === 1) &#123;</div><div class="line">        return self.renderDom(item);</div><div class="line">      &#125;</div><div class="line">      self.render(item);</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var app = new MVVM(&#123;</div><div class="line">  el: &apos;#app&apos;,</div><div class="line">  data: &#123;</div><div class="line">    name: &apos;zhaomenghuan&apos;,</div><div class="line">    age: &apos;24&apos;,</div><div class="line">    color: &apos;red&apos;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><strong>源代码：<a href="http://jsrun.net/faYKp/embedded/all/light/" target="_blank" rel="external">http://jsrun.net/faYKp/embedded/all/light/</a></strong></p>
+<p>页面渲染的函数 renderDom 是直接遍历DOM树，而不是遍历html字符串。遍历DOM树节点属性（attributes）和子节点（childNodes），然后调用渲染函数render。当DOM树子节点的类型是元素时，递归调用遍历DOM树的方法。根据DOM树节点类型一直遍历子节点，直到文本节点。</p>
+<p>render的函数作用是提取<code>{{}}</code>中的关键词，然后使用数据模型中的数据进行替换。我们通过textContent获取Node节点的nodeValue，然后使用字符串的split方法对nodeValue进行分割，提取<code>{{}}</code>中的关键词然后替换为数据模型中的值。</p>
+<blockquote>
+<p><strong>DOM 的相关基础</strong></p>
+</blockquote>
+<p><strong>注：元素类型对应NodeType</strong><br>|  元素类型  |  NodeType |<br>|:———:|:———:|<br>| 元素         |    1      |<br>| 属性         |    2      |<br>| 文本         |    3      |<br>| 注释         |    8      |<br>| 文档         |    9      |</p>
+<p>childNodes 属性返回包含被选节点的子节点的 NodeList。childNodes包含的不仅仅只有html节点，所有属性，文本、注释等节点都包含在childNodes里面。children只返回元素如input, span, script, div等，不会返回TextNode，注释。</p>
+<h2 id="数据双向绑定实现原理"><a href="#数据双向绑定实现原理" class="headerlink" title="数据双向绑定实现原理"></a>数据双向绑定实现原理</h2><p>js模板引擎可以认为是一个基于MVC的结构，我们通过建立模板作为视图，然后通过引擎函数作为控制器实现数据和视图的绑定，从而实现实现数据在页面渲染，但是当数据模型发生变化时，视图不能自动更新；当视图数据发生变化时，模型数据不能实现更新，这个时候双向数据绑定应运而生。检测视图数据更新实现数据绑定的方法有很多种，目前主要分为三个流派，Angular使用的是脏检查，只在特定的事件下才会触发视图刷新，Vue使用的是Getter/Setter机制，而React则是通过 Virtual DOM 算法检查DOM的变动的刷新机制。</p>
+<p>本文限于篇幅和内容在此只探讨一下 Vue.js 数据绑定的实现，对于 angular 和 react 后续再做说明，读者也可以自行阅读源码。Vue 监听数据变化的机制是把一个普通 JavaScript 对象传给 Vue 实例的 data 选项，Vue 将遍历此对象所有的属性，并使用 Object.defineProperty 把这些属性全部转为 getter/setter。Vue 2.x 对 Virtual DOM 进行了支持，这部分内容后续我们再做探讨。</p>
+<h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><p>为了更好的理解Vue中视图和数据更新的机制，我们先看一个简单的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">var o = &#123;</div><div class="line">  a: 0 </div><div class="line">&#125;</div><div class="line">Object.defineProperty(o, &quot;b&quot;, &#123; </div><div class="line">  get: function () &#123; </div><div class="line">    return this.a + 1; </div><div class="line">  &#125;,</div><div class="line">  set: function (value) &#123; </div><div class="line">    this.a = value / 2; </div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">console.log(o.a); // &quot;0&quot;</div><div class="line">console.log(o.b); // &quot;1&quot;</div><div class="line"></div><div class="line">// 更新o.a</div><div class="line">o.a = 5;</div><div class="line">console.log(o.a); // &quot;5&quot;</div><div class="line">console.log(o.b); // &quot;6&quot;</div><div class="line"></div><div class="line">// 更新o.b</div><div class="line">o.b = 10; </div><div class="line">console.log(o.a); // &quot;5&quot;</div><div class="line">console.log(o.b); // &quot;6&quot;</div></pre></td></tr></table></figure></p>
+<p>这里我们可以看出对象o的b属性的值依赖于a属性的值，同时b属性值的变化又可以改变a属性的值，这个过程相关的属性值的变化都会影响其他相关的值进行更新。反过来我们看看如果不使用Object.defineProperty()方法，上述的问题通过直接给对象属性赋值的方法实现，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var o = &#123;</div><div class="line">  a: 0</div><div class="line">&#125;	</div><div class="line">o.b = o.a + 1;</div><div class="line">console.log(o.a); // &quot;0&quot;</div><div class="line">console.log(o.b); // &quot;1&quot;</div><div class="line"></div><div class="line">// 更新o.a</div><div class="line">o.a = 5;</div><div class="line">o.b = o.a + 1;</div><div class="line">console.log(o.a); // &quot;5&quot;</div><div class="line">console.log(o.b); // &quot;6&quot;</div><div class="line"></div><div class="line">// 更新o.b</div><div class="line">o.b = 10; </div><div class="line">o.a = o.b / 2;</div><div class="line">o.b = o.a + 1;</div><div class="line">console.log(o.a); // &quot;5&quot;</div><div class="line">console.log(o.b); // &quot;6&quot;</div></pre></td></tr></table></figure></p>
+<p>很显然使用<code>Object.defineProperty()</code>方法可以更方便的监听一个对象的变化。当我们的视图和数据任何一方发生变化的时候，我们希望能够通知对方也更新，这就是所谓的数据双向绑定。既然明白这个道理我们就可以看看Vue源码中相关的处理细节。</p>
+<h4 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty()"></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="external">Object.defineProperty()</a></h4><blockquote>
+<p>Object.defineProperty()方法可以直接在一个对象上定义一个新属性，或者修改一个已经存在的属性， 并返回这个对象。<br>语法：Object.defineProperty(obj, prop, descriptor)</p>
+</blockquote>
+<p><strong>参数：</strong></p>
+<ul>
+<li>obj：需要定义属性的对象。</li>
+<li>prop：需被定义或修改的属性名。</li>
+<li>descriptor：需被定义或修改的属性的描述符。</li>
+</ul>
+<p><strong>返回值：</strong>返回传入函数的对象，即第一个参数obj</p>
+<p>该方法重点是描述，对象里目前存在的属性描述符有两种主要形式：<strong>数据描述符</strong>和<strong>存取描述符</strong>。<strong>数据描述符</strong>是一个拥有可写或不可写值的属性。<strong>存取描述符</strong>是由一对 getter-setter 函数功能来描述的属性。描述符必须是两种形式之一；不能同时是两者。</p>
+<p><strong>数据描述符</strong>和<strong>存取描述符</strong>均具有以下可选键值：</p>
+<ul>
+<li><strong>configurable</strong>：当且仅当该属性的 configurable 为 true 时，该属性才能够被改变，也能够被删除。默认为 false。</li>
+<li><strong>enumerable</strong>：当且仅当该属性的 enumerable 为 true 时，该属性才能够出现在对象的枚举属性中。默认为 false。</li>
+</ul>
+<p><strong>数据描述符</strong>同时具有以下可选键值：</p>
+<ul>
+<li><strong>value</strong>：该属性对应的值。可以是任何有效的 JavaScript 值（数值，对象，函数等）。默认为 undefined。</li>
+<li><strong>writable</strong>：当且仅当仅当该属性的writable为 true 时，该属性才能被赋值运算符改变。默认为 false。</li>
+</ul>
+<p><strong>存取描述符</strong>同时具有以下可选键值：</p>
+<ul>
+<li><strong>get</strong>：一个给属性提供 getter 的方法，如果没有 getter 则为 undefined。该方法返回值被用作属性值。默认为undefined。</li>
+<li><strong>set</strong>：一个给属性提供 setter 的方法，如果没有 setter 则为 undefined。该方法将接受唯一参数，并将该参数的新值分配给该属性。默认为undefined。</li>
+</ul>
+<p>我们可以通过Object.defineProperty()方法精确添加或修改对象的属性。比如，直接赋值创建的属性默认情况是可以枚举的，但是我们可以通过Object.defineProperty()方法设置enumerable属性为false为不可枚举。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;</div><div class="line">  a: 0,</div><div class="line">  b: 1</div><div class="line">&#125;</div><div class="line">for (var prop in obj) &#123;</div><div class="line">  console.log(`obj.$&#123;prop&#125; = $&#123;obj[prop]&#125;`);</div><div class="line">&#125;</div><div class="line"></div><div class="line">结果：</div><div class="line">&quot;obj.a = 0&quot;</div><div class="line">&quot;obj.b = 1&quot;</div></pre></td></tr></table></figure></p>
+<p>我们通过Object.defineProperty()修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;</div><div class="line">  a: 0,</div><div class="line">  b: 1</div><div class="line">&#125;</div><div class="line">Object.defineProperty(obj, &apos;b&apos;, &#123;</div><div class="line">  enumerable: false</div><div class="line">&#125;)</div><div class="line">for (var prop in obj) &#123;</div><div class="line">  console.log(`obj.$&#123;prop&#125; = $&#123;obj[prop]&#125;`);</div><div class="line">&#125;</div><div class="line"></div><div class="line">结果：</div><div class="line">&quot;obj.a = 0&quot;</div></pre></td></tr></table></figure></p>
+<p>这里需要说明的是我们使用Object.defineProperty()默认情况下是enumerable属性为false，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;</div><div class="line">  a: 0</div><div class="line">&#125;</div><div class="line">Object.defineProperty(obj, &apos;b&apos;, &#123;</div><div class="line">  value: 1</div><div class="line">&#125;)</div><div class="line">for (var prop in obj) &#123;</div><div class="line">  console.log(`obj.$&#123;prop&#125; = $&#123;obj[prop]&#125;`);</div><div class="line">&#125;</div><div class="line"></div><div class="line">结果：</div><div class="line">&quot;obj.a = 0&quot;</div></pre></td></tr></table></figure></p>
+<p>其他描述属性使用方法类似，不做赘述。Vue源码<code>core/util/lang.js</code>S中定义了这样一个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Define a property.</div><div class="line"> */</div><div class="line">export function def (obj: Object, key: string, val: any, enumerable?: boolean) &#123;</div><div class="line">  Object.defineProperty(obj, key, &#123;</div><div class="line">    value: val,</div><div class="line">    enumerable: !!enumerable,</div><div class="line">    writable: true,</div><div class="line">    configurable: true</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Object-getOwnPropertyDescriptor"><a href="#Object-getOwnPropertyDescriptor" class="headerlink" title="Object.getOwnPropertyDescriptor() "></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor" target="_blank" rel="external">Object.getOwnPropertyDescriptor() </a></h4><blockquote>
+<p>Object.getOwnPropertyDescriptor() 返回指定对象上一个自有属性对应的属性描述符。（自有属性指的是直接赋予该对象的属性，不需要从原型链上进行查找的属性）<br> 语法：Object.getOwnPropertyDescriptor(obj, prop)</p>
+</blockquote>
+<p><strong>参数：</strong></p>
+<ul>
+<li>obj：在该对象上查看属性</li>
+<li>prop：一个属性名称，该属性的属性描述符将被返回</li>
+</ul>
+<p><strong>返回值：</strong>如果指定的属性存在于对象上，则返回其属性描述符（property descriptor），否则返回 undefined。可以访问“属性描述符”内容，例如前面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var o = &#123;</div><div class="line">  a: 0 </div><div class="line">&#125;</div><div class="line">			</div><div class="line">Object.defineProperty(o, &quot;b&quot;, &#123; </div><div class="line">  get: function () &#123; </div><div class="line">    return this.a + 1; </div><div class="line">  &#125;,</div><div class="line">  set: function (value) &#123; </div><div class="line">    this.a = value / 2; </div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">			</div><div class="line">var des = Object.getOwnPropertyDescriptor(o,&apos;b&apos;);</div><div class="line">console.log(des);</div><div class="line">console.log(des.get);</div></pre></td></tr></table></figure>
+<h3 id="Vue源码分析"><a href="#Vue源码分析" class="headerlink" title="Vue源码分析"></a>Vue源码分析</h3><p>本次我们主要分析一下Vue 数据绑定的源码，这里我直接将 <a href="https://github.com/vuejs/vue/blob/v1.0.28/src/observer/index.js" target="_blank" rel="external">Vue.js 1.0.28</a> 版本的代码稍作删减拿过来进行，2.x 的代码基于 flow 静态类型检查器书写的，代码除了编码风格在整体结构上基本没有太大改动，所以依然基于 1.x 进行分析，对于存在差异的部分加以说明。</p>
+{% image ./1497679116104.png 'Alt text' '' %}
+<h4 id="监听对象变动"><a href="#监听对象变动" class="headerlink" title="监听对象变动"></a>监听对象变动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">// 观察者构造函数</div><div class="line">function Observer (value) &#123;</div><div class="line">  this.value = value</div><div class="line">  this.walk(value)</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 递归调用，为对象绑定getter/setter</div><div class="line">Observer.prototype.walk = function (obj) &#123;</div><div class="line">  var keys = Object.keys(obj)</div><div class="line">  for (var i = 0, l = keys.length; i &lt; l; i++) &#123;</div><div class="line">    this.convert(keys[i], obj[keys[i]])</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 将属性转换为getter/setter</div><div class="line">Observer.prototype.convert = function (key, val) &#123;</div><div class="line">  defineReactive(this.value, key, val)</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 创建数据观察者实例</div><div class="line">function observe (value) &#123;</div><div class="line">  // 当值不存在或者不是对象类型时，不需要继续深入监听</div><div class="line">  if (!value || typeof value !== &apos;object&apos;) &#123;</div><div class="line">    return</div><div class="line">  &#125;</div><div class="line">  return new Observer(value)</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 定义对象属性的getter/setter</div><div class="line">function defineReactive (obj, key, val) &#123;</div><div class="line">  var property = Object.getOwnPropertyDescriptor(obj, key)</div><div class="line">  if (property &amp;&amp; property.configurable === false) &#123;</div><div class="line">    return</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // 保存对象属性预先定义的getter/setter</div><div class="line">  var getter = property &amp;&amp; property.get</div><div class="line">  var setter = property &amp;&amp; property.set</div><div class="line"></div><div class="line">  var childOb = observe(val)</div><div class="line">  Object.defineProperty(obj, key, &#123;</div><div class="line">    enumerable: true,</div><div class="line">    configurable: true,</div><div class="line">    get: function reactiveGetter () &#123;</div><div class="line">      var value = getter ? getter.call(obj) : val</div><div class="line">      console.log(&quot;访问：&quot;+key)</div><div class="line">      return value</div><div class="line">    &#125;,</div><div class="line">    set: function reactiveSetter (newVal) &#123;</div><div class="line">      var value = getter ? getter.call(obj) : val</div><div class="line">      if (newVal === value) &#123;</div><div class="line">        return</div><div class="line">      &#125;</div><div class="line">      if (setter) &#123;</div><div class="line">        setter.call(obj, newVal)</div><div class="line">      &#125; else &#123;</div><div class="line">        val = newVal</div><div class="line">      &#125;</div><div class="line">	  // 对新值进行监听</div><div class="line">      childOb = observe(newVal)</div><div class="line">      console.log(&apos;更新：&apos; + key + &apos; = &apos; + newVal)</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>定义一个对象作为数据模型，并监听这个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">let data = &#123;</div><div class="line">  user: &#123;</div><div class="line">    name: &apos;zhaomenghuan&apos;,</div><div class="line">    age: &apos;24&apos;</div><div class="line">  &#125;,</div><div class="line">  address: &#123;</div><div class="line">    city: &apos;beijing&apos;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">observe(data)</div><div class="line"></div><div class="line">console.log(data.user.name) </div><div class="line">// 访问：user </div><div class="line">// 访问：name</div><div class="line"></div><div class="line">data.user.name = &apos;ZHAO MENGHUAN&apos;</div><div class="line">// 访问：user</div><div class="line">// 更新：name = ZHAO MENGHUAN</div></pre></td></tr></table></figure></p>
+<p>效果如下：<br>{% image http://oo1uw74rb.bkt.clouddn.com/mvvm-1.gif '' '' %}</p>
+<h4 id="监听数组变动"><a href="#监听数组变动" class="headerlink" title="监听数组变动"></a>监听数组变动</h4><p>上面我们通过Object.defineProperty把对象的属性全部转为 getter/setter 从而实现监听对象的变动，但是对于数组对象无法通过Object.defineProperty实现监听。Vue 包含一组观察数组的变异方法，所以它们也将会触发视图更新。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">const arrayProto = Array.prototype</div><div class="line">const arrayMethods = Object.create(arrayProto)</div><div class="line"></div><div class="line">function def(obj, key, val, enumerable) &#123;</div><div class="line">  Object.defineProperty(obj, key, &#123;</div><div class="line">    value: val,</div><div class="line">    enumerable: !!enumerable,</div><div class="line">    writable: true,</div><div class="line">    configurable: true</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 数组的变异方法</div><div class="line">;[</div><div class="line">  &apos;push&apos;,</div><div class="line">  &apos;pop&apos;,</div><div class="line">  &apos;shift&apos;,</div><div class="line">  &apos;unshift&apos;,</div><div class="line">  &apos;splice&apos;,</div><div class="line">  &apos;sort&apos;,</div><div class="line">  &apos;reverse&apos;</div><div class="line">]</div><div class="line">.forEach(function (method) &#123;</div><div class="line">  // 缓存数组原始方法</div><div class="line">  var original = arrayProto[method]</div><div class="line">  def(arrayMethods, method, function mutator () &#123;</div><div class="line">    var i = arguments.length</div><div class="line">    var args = new Array(i)</div><div class="line">    while (i--) &#123;</div><div class="line">      args[i] = arguments[i]</div><div class="line">    &#125;</div><div class="line">    console.log(&apos;数组变动&apos;)</div><div class="line">    return original.apply(this, args)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>Vue.js 1.x 在Array.prototype原型对象上添加了<code>$set</code> 和 <code>$remove</code>方法，在2.X后移除了，使用全局 API <code>Vue.set</code> 和 <code>Vue.delete</code>代替了，后续我们再分析。</p>
+<p>定义一个数组作为数据模型，并对这个数组调用变异的七个方法实现监听。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let skills = [&apos;JavaScript&apos;, &apos;Node.js&apos;, &apos;html5&apos;]</div><div class="line">// 原型指针指向具有变异方法的数组对象</div><div class="line">skills.__proto__ = arrayMethods</div><div class="line"></div><div class="line">skills.push(&apos;java&apos;)</div><div class="line">// 数组变动</div><div class="line">skills.pop()</div><div class="line">// 数组变动</div></pre></td></tr></table></figure>
+<p>效果如下：<br>{% image http://oo1uw74rb.bkt.clouddn.com/mvvm-2.gif '' '' %}</p>
+<p>我们将需要监听的数组的原型指针指向我们定义的数组对象，这样我们的数组在调用上面七个数组的变异方法时，能够监听到变动从而实现对数组进行跟踪。</p>
+<p>对于<code>__proto__</code>属性，在ES2015中正式被加入到规范中，标准明确规定，只有浏览器必须部署这个属性，其他运行环境不一定需要部署，所以 Vue 是先进行了判断，当<code>__proto__</code>属性存在时将原型指针<code>__proto__</code>指向具有变异方法的数组对象，不存在时直接将具有变异方法挂在需要追踪的对象上。</p>
+<p>我们可以在上面Observer观察者构造函数中添加对数组的监听，源码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">const hasProto = &apos;__proto__&apos; in &#123;&#125;</div><div class="line">const arrayKeys = Object.getOwnPropertyNames(arrayMethods)</div><div class="line"></div><div class="line">// 观察者构造函数</div><div class="line">function Observer (value) &#123;</div><div class="line">  this.value = value</div><div class="line">  if (Array.isArray(value)) &#123;</div><div class="line">    var augment = hasProto</div><div class="line">      ? protoAugment</div><div class="line">      : copyAugment</div><div class="line">    augment(value, arrayMethods, arrayKeys)</div><div class="line">    this.observeArray(value)</div><div class="line">  &#125; else &#123;</div><div class="line">    this.walk(value)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 观察数组的每一项</div><div class="line">Observer.prototype.observeArray = function (items) &#123;</div><div class="line">  for (var i = 0, l = items.length; i &lt; l; i++) &#123;</div><div class="line">    observe(items[i])</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 将目标对象/数组的原型指针__proto__指向src</div><div class="line">function protoAugment (target, src) &#123;</div><div class="line">  target.__proto__ = src</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 将具有变异方法挂在需要追踪的对象上</div><div class="line">function copyAugment (target, src, keys) &#123;</div><div class="line">  for (var i = 0, l = keys.length; i &lt; l; i++) &#123;</div><div class="line">    var key = keys[i]</div><div class="line">    def(target, key, src[key])</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>原型链</strong></p>
+</blockquote>
+<p>对于不了解原型链的朋友可以看一下我这里画的一个基本关系图：<br>{% image ./1498395838385.png 'Alt text' '' %}</p>
+<ul>
+<li>原型对象是构造函数的prototype属性，是所有实例化对象共享属性和方法的原型对象；</li>
+<li>实例化对象通过new构造函数得到，都继承了原型对象的属性和方法；</li>
+<li>原型对象中有个隐式的constructor，指向了构造函数本身。</li>
+</ul>
+<blockquote>
+<p><strong>Object.create</strong></p>
+</blockquote>
+<p>Object.create 使用指定的原型对象和其属性创建了一个新的对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const arrayProto = Array.prototype</div><div class="line">const arrayMethods = Object.create(arrayProto)</div></pre></td></tr></table></figure></p>
+<p>这一步是通过 Object.create 创建了一个原型对象为Array.prototype的空对象。然后通过Object.defineProperty方法对这个对象定义几个变异的数组方法。有些新手可能会直接修改 Array.prototype 上的方法，这是很危险的行为，这样在引入的时候会全局影响Array 对象的方法，而使用Object.create实质上是完全了一份拷贝，新生成的arrayMethods对象的原型指针<code>__proto__</code>指向了Array.prototype，修改arrayMethods 对象不会影响Array.prototype。</p>
+<p>基于这种原理，我们通常会使用Object.create 实现类式继承。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">// 实现继承</div><div class="line">var extend = function(Child, Parent) &#123;</div><div class="line">    // 拷贝Parent原型对象</div><div class="line">    Child.prototype = Object.create(Parent.prototype);</div><div class="line">    // 将Child构造函数赋值给Child的原型对象</div><div class="line">    Child.prototype.constructor = Child;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 实例</div><div class="line">var Parent = function () &#123;</div><div class="line">    this.name = &apos;Parent&apos;;</div><div class="line">&#125;</div><div class="line">Parent.prototype.getName = function () &#123;</div><div class="line">    return this.name;</div><div class="line">&#125;</div><div class="line">var Child = function () &#123;</div><div class="line">    this.name = &apos;Child&apos;;</div><div class="line">&#125;</div><div class="line">extend(Child, Parent);</div><div class="line">var child = new Child();</div><div class="line">console.log(child.getName())</div></pre></td></tr></table></figure></p>
+<h4 id="发布-订阅模式"><a href="#发布-订阅模式" class="headerlink" title="发布-订阅模式"></a>发布-订阅模式</h4><p>在上面一部分我们通过Object.defineProperty把对象的属性全部转为 getter/setter 以及 数组变异方法实现了对数据模型变动的监听，在数据变动的时候，我们通过console.log打印出来提示了，但是对于框架而言，我们相关的逻辑如果直接写在那些地方，自然是不够优雅和灵活的，这个时候就需要引入常用的设计模式去实现，vue.js采用了发布-订阅模式。发布-订阅模式主要是为了达到一种“高内聚、低耦合”的效果。</p>
+<p>Vue的Watcher订阅者作为Observer和Compile之间通信的桥梁，能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数，从而更新视图。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 观察者对象</div><div class="line"> */</div><div class="line">function Watcher(vm, expOrFn, cb) &#123;</div><div class="line">    this.vm = vm</div><div class="line">    this.cb = cb</div><div class="line">    this.depIds = &#123;&#125;</div><div class="line">    if (typeof expOrFn === &apos;function&apos;) &#123;</div><div class="line">        this.getter = expOrFn</div><div class="line">    &#125; else &#123;</div><div class="line">        this.getter = this.parseExpression(expOrFn)</div><div class="line">    &#125;</div><div class="line">    this.value = this.get()</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 收集依赖</div><div class="line"> */</div><div class="line">Watcher.prototype.get = function () &#123;</div><div class="line">    // 当前订阅者(Watcher)读取被订阅数据的最新更新后的值时，通知订阅者管理员收集当前订阅者</div><div class="line">    Dep.target = this</div><div class="line">    // 触发getter，将自身添加到dep中</div><div class="line">    const value = this.getter.call(this.vm, this.vm)</div><div class="line">    // 依赖收集完成，置空，用于下一个Watcher使用</div><div class="line">    Dep.target = null</div><div class="line">    return value</div><div class="line">&#125;</div><div class="line"></div><div class="line">Watcher.prototype.addDep = function (dep) &#123;</div><div class="line">    if (!this.depIds.hasOwnProperty(dep.id)) &#123;</div><div class="line">        dep.addSub(this)</div><div class="line">        this.depIds[dep.id] = dep</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 依赖变动更新</div><div class="line"> *</div><div class="line"> * @param &#123;Boolean&#125; shallow</div><div class="line"> */</div><div class="line">Watcher.prototype.update = function () &#123;</div><div class="line">    this.run()</div><div class="line">&#125;</div><div class="line"></div><div class="line">Watcher.prototype.run = function () &#123;</div><div class="line">    var value = this.get()</div><div class="line">    if (value !== this.value) &#123;</div><div class="line">        var oldValue = this.value</div><div class="line">        this.value = value</div><div class="line">        // 将newVal, oldVal挂载到MVVM实例上</div><div class="line">        this.cb.call(this.vm, value, oldValue)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Watcher.prototype.parseExpression = function (exp) &#123;</div><div class="line">    if (/[^\w.$]/.test(exp)) &#123;</div><div class="line">        return</div><div class="line">    &#125;</div><div class="line">    var exps = exp.split(&apos;.&apos;)</div><div class="line">    </div><div class="line">    return function(obj) &#123;</div><div class="line">        for (var i = 0, len = exps.length; i &lt; len; i++) &#123;</div><div class="line">            if (!obj) return</div><div class="line">            obj = obj[exps[i]]</div><div class="line">        &#125;</div><div class="line">        return obj</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Dep 是一个数据结构，其本质是维护了一个watcher队列，负责添加watcher，更新watcher，移除watcher，通知watcher更新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">let uid = 0</div><div class="line"></div><div class="line">function Dep() &#123;</div><div class="line">    this.id = uid++</div><div class="line">    this.subs = []</div><div class="line">&#125;</div><div class="line"></div><div class="line">Dep.target = null</div><div class="line"></div><div class="line">/**</div><div class="line"> * 添加一个订阅者</div><div class="line"> *</div><div class="line"> * @param &#123;Directive&#125; sub</div><div class="line"> */</div><div class="line">Dep.prototype.addSub = function (sub) &#123;</div><div class="line">    this.subs.push(sub)</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 移除一个订阅者</div><div class="line"> *</div><div class="line"> * @param &#123;Directive&#125; sub</div><div class="line"> */</div><div class="line">Dep.prototype.removeSub = function (sub) &#123;</div><div class="line">    let index = this.subs.indexOf(sub);</div><div class="line">    if (index !== -1) &#123;</div><div class="line">        this.subs.splice(index, 1);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 将自身作为依赖添加到目标watcher</div><div class="line"> */</div><div class="line">Dep.prototype.depend = function () &#123;</div><div class="line">    Dep.target.addDep(this)</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 通知数据变更</div><div class="line"> */</div><div class="line">Dep.prototype.notify = function () &#123;</div><div class="line">    var subs = toArray(this.subs)</div><div class="line">    // stablize the subscriber list first</div><div class="line">    for (var i = 0, l = subs.length; i &lt; l; i++) &#123;</div><div class="line">        // 执行订阅者的update更新函数</div><div class="line">        subs[i].update()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="模板编译"><a href="#模板编译" class="headerlink" title="模板编译"></a>模板编译</h4><p>compile主要做的事情是解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div></pre></td><td class="code"><pre><div class="line">function Compile(el, value) &#123;</div><div class="line">    this.$vm = value</div><div class="line">    this.$el = this.isElementNode(el) ? el : document.querySelector(el)</div><div class="line">    if (this.$el) &#123;</div><div class="line">        this.compileElement(this.$el)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Compile.prototype.compileElement = function (el) &#123;</div><div class="line">    let self = this</div><div class="line">    let childNodes = el.childNodes</div><div class="line"></div><div class="line">    ;[].slice.call(childNodes).forEach(node =&gt; &#123;</div><div class="line">        let text = node.textContent</div><div class="line">        let reg = /\&#123;\&#123;((?:.|\n)+?)\&#125;\&#125;/</div><div class="line">        // 处理element节点</div><div class="line">        if (self.isElementNode(node)) &#123;</div><div class="line">            self.compile(node)</div><div class="line">        &#125; else if (self.isTextNode(node) &amp;&amp; reg.test(text)) &#123; // 处理text节点</div><div class="line">            self.compileText(node, RegExp.$1.trim())</div><div class="line">        &#125;</div><div class="line">        // 解析子节点包含的指令</div><div class="line">        if (node.childNodes &amp;&amp; node.childNodes.length) &#123;</div><div class="line">            self.compileElement(node)</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">Compile.prototype.compile = function (node) &#123;</div><div class="line">    let nodeAttrs = node.attributes</div><div class="line">    let self = this</div><div class="line"></div><div class="line">    ;[].slice.call(nodeAttrs).forEach(attr =&gt; &#123;</div><div class="line">        var attrName = attr.name</div><div class="line">        if (self.isDirective(attrName)) &#123;</div><div class="line">            let exp = attr.value</div><div class="line">            let dir = attrName.substring(2)</div><div class="line">            if (self.isEventDirective(dir)) &#123;</div><div class="line">                compileUtil.eventHandler(node, self.$vm, exp, dir)</div><div class="line">            &#125; else &#123;</div><div class="line">                compileUtil[dir] &amp;&amp; compileUtil[dir](node, self.$vm, exp)</div><div class="line">            &#125;</div><div class="line">            node.removeAttribute(attrName)</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">Compile.prototype.compileText = function (node, exp) &#123;</div><div class="line">    compileUtil.text(node, this.$vm, exp);</div><div class="line">&#125;</div><div class="line"></div><div class="line">Compile.prototype.isDirective = function (attr) &#123;</div><div class="line">    return attr.indexOf(&apos;v-&apos;) === 0</div><div class="line">&#125;</div><div class="line"></div><div class="line">Compile.prototype.isEventDirective = function (dir) &#123;</div><div class="line">    return dir.indexOf(&apos;on&apos;) === 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Compile.prototype.isElementNode = function (node) &#123;</div><div class="line">    return node.nodeType === 1</div><div class="line">&#125;</div><div class="line"></div><div class="line">Compile.prototype.isTextNode = function (node) &#123;</div><div class="line">    return node.nodeType === 3</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 指令处理集合</div><div class="line">var compileUtil = &#123;</div><div class="line">    text: function (node, vm, exp) &#123;</div><div class="line">        this.bind(node, vm, exp, &apos;text&apos;)</div><div class="line">    &#125;,</div><div class="line">    html: function (node, vm, exp) &#123;</div><div class="line">        this.bind(node, vm, exp, &apos;html&apos;)</div><div class="line">    &#125;,</div><div class="line">    model: function (node, vm, exp) &#123;</div><div class="line">        this.bind(node, vm, exp, &apos;model&apos;)</div><div class="line"></div><div class="line">        let self = this, val = this._getVMVal(vm, exp)</div><div class="line">        node.addEventListener(&apos;input&apos;, function (e) &#123;</div><div class="line">            var newValue = e.target.value</div><div class="line">            if (val === newValue) &#123;</div><div class="line">                return</div><div class="line">            &#125;</div><div class="line">            self._setVMVal(vm, exp, newValue)</div><div class="line">            val = newValue</div><div class="line">        &#125;);</div><div class="line">    &#125;,</div><div class="line">    bind: function (node, vm, exp, dir) &#123;</div><div class="line">        var updaterFn = updater[dir + &apos;Updater&apos;]</div><div class="line">        updaterFn &amp;&amp; updaterFn(node, this._getVMVal(vm, exp))</div><div class="line">        new Watcher(vm, exp, function (value, oldValue) &#123;</div><div class="line">            updaterFn &amp;&amp; updaterFn(node, value, oldValue)</div><div class="line">        &#125;)</div><div class="line">    &#125;,</div><div class="line">    eventHandler: function (node, vm, exp, dir) &#123;</div><div class="line">        var eventType = dir.split(&apos;:&apos;)[1],</div><div class="line">            fn = vm.$options.methods &amp;&amp; vm.$options.methods[exp];</div><div class="line"></div><div class="line">        if (eventType &amp;&amp; fn) &#123;</div><div class="line">            node.addEventListener(eventType, fn.bind(vm), false);</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    _getVMVal: function (vm, exp) &#123;</div><div class="line">        var val = vm</div><div class="line">        exp = exp.split(&apos;.&apos;)</div><div class="line">        exp.forEach(function (k) &#123;</div><div class="line">            val = val[k]</div><div class="line">        &#125;)</div><div class="line">        return val</div><div class="line">    &#125;,</div><div class="line">    _setVMVal: function (vm, exp, value) &#123;</div><div class="line">        var val = vm;</div><div class="line">        exp = exp.split(&apos;.&apos;)</div><div class="line">        exp.forEach(function (k, i) &#123;</div><div class="line">            // 非最后一个key，更新val的值</div><div class="line">            if (i &lt; exp.length - 1) &#123;</div><div class="line">                val = val[k]</div><div class="line">            &#125; else &#123;</div><div class="line">                val[k] = value</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var updater = &#123;</div><div class="line">    textUpdater: function (node, value) &#123;</div><div class="line">        node.textContent = typeof value == &apos;undefined&apos; ? &apos;&apos; : value</div><div class="line">    &#125;,</div><div class="line">    htmlUpdater: function (node, value) &#123;</div><div class="line">        node.innerHTML = typeof value == &apos;undefined&apos; ? &apos;&apos; : value</div><div class="line">    &#125;,</div><div class="line">    modelUpdater: function (node, value, oldValue) &#123;</div><div class="line">        node.value = typeof value == &apos;undefined&apos; ? &apos;&apos; : value</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这种实现和我们讲到的Dom-based templating类似，只是更加完备，具有自定义指令的功能。在遍历节点属性和文本节点的时候，可以编译具备<code>{{}}</code>表达式或<code>v-xxx</code>的属性值的节点，并且通过添加 <code>new Watcher()</code>及绑定事件函数，监听数据的变动从而对视图实现双向绑定。</p>
+<h4 id="MVVM实例"><a href="#MVVM实例" class="headerlink" title="MVVM实例"></a>MVVM实例</h4><p>在数据绑定初始化的时候，我们需要通过<code>new Observer()</code>来监听数据模型变化，通过<code>new Compile()</code>来解析编译模板指令，并利用Watcher搭起Observer和Compile之间的通信桥梁。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @class 双向绑定类 MVVM</div><div class="line"> * @param &#123;[type]&#125; options [description]</div><div class="line"> */</div><div class="line">function MVVM(options) &#123;</div><div class="line">    this.$options = options || &#123;&#125;</div><div class="line">    // 简化了对data的处理</div><div class="line">    let data = this._data = this.$options.data</div><div class="line">    // 监听数据</div><div class="line">    observe(data)</div><div class="line">    new Compile(options.el || document.body, this)</div><div class="line">&#125;</div><div class="line"></div><div class="line">MVVM.prototype.$watch = function (expOrFn, cb) &#123;</div><div class="line">    new Watcher(this, expOrFn, cb)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>为了能够直接通过实例化对象操作数据模型，我们需要为MVVM实例添加一个数据模型代理的方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">MVVM.prototype._proxy = function (key) &#123;</div><div class="line">    Object.defineProperty(this, key, &#123;</div><div class="line">        configurable: true,</div><div class="line">        enumerable: true,</div><div class="line">        get: () =&gt; this._data[key],</div><div class="line">        set: (val) =&gt; &#123;</div><div class="line">            this._data[key] = val</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>至此我们可以通过一个小例子来说明本文的内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;app&quot;&gt;</div><div class="line">    &lt;h3&gt;&#123;&#123;user.name&#125;&#125;&lt;/h3&gt;</div><div class="line">    &lt;input type=&quot;text&quot; v-model=&quot;modelValue&quot;&gt;</div><div class="line">    &lt;p&gt;&#123;&#123;modelValue&#125;&#125;&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    let vm = new MVVM(&#123;</div><div class="line">        el: &apos;#app&apos;,</div><div class="line">        data: &#123;</div><div class="line">            modelValue: &apos;&apos;,</div><div class="line">            user: &#123;</div><div class="line">                name: &apos;zhaomenghuan&apos;,</div><div class="line">                age: &apos;24&apos;</div><div class="line">            &#125;,</div><div class="line">            address: &#123;</div><div class="line">                city: &apos;beijing&apos;</div><div class="line">            &#125;,</div><div class="line">            skills: [&apos;JavaScript&apos;, &apos;Node.js&apos;, &apos;html5&apos;]</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">	</div><div class="line">	vm.$watch(&apos;modelValue&apos;, val =&gt; console.log(`watch modelValue ：$&#123;val&#125;`))</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>本文目的不是为了造一个轮子，而是在学习优秀框架实现的过程中去提升自己，搞清楚框架发展的前因后果，由浅及深去学习基础，本文参考了网上很多优秀博主的文章，由于时间关系，有些内容没有做深入探讨，觉得还是有些遗憾，在后续的学习中会更多的独立思考，提出更多自己的想法。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://leeluolee.github.io/2014/10/10/template-engine/" target="_blank" rel="external">前端模板技术面面观</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty" target="_blank" rel="external">Object.defineProperty()</a></li>
+<li><a href="http://jiongks.name/blog/vue-code-review/" target="_blank" rel="external">Vue.js 源码学习笔记</a></li>
+<li><a href="https://github.com/youngwind/blog" target="_blank" rel="external">vue早期源码学习系列</a></li>
+<li><a href="https://github.com/georgebbbb/fakeVue" target="_blank" rel="external">解析最简单的observer和watcher</a></li>
+<li><a href="https://github.com/DMQ/mvvm" target="_blank" rel="external">剖析Vue实现原理 - 如何实现双向绑定mvvm</a></li>
+</ul>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><blockquote>
+<p>本文的完整代码及图片可以在这里下载：<strong><a href="https://github.com/zhaomenghuan/learn-javascript" target="_blank" rel="external">learn-javascript/mvvm</a></strong></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-07-31T14:07:47.055Z" itemprop="dateUpdated">2017-07-31 22:07:47</time>
+</span><br>
+
+
+        
+        转载需标注本文原始地址：<a href="/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/" target="_blank" rel="external">https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/</a>
+        
+    </div>
+    <footer>
+        <a href="https://zhaomenghuan.github.io">
+            <img src="/img/avatar.png" alt="赵梦欢">
+            赵梦欢
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVVM/">MVVM</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/&title=《JavaScript 进阶之深入理解数据双向绑定》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/&title=《JavaScript 进阶之深入理解数据双向绑定》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JavaScript 进阶之深入理解数据双向绑定》 — 小青年博客&url=https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/05/17/从0到1搭建webpack2-vue2自定义模板详细教程/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">从0到1搭建webpack2+vue2自定义模板详细教程</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢老铁~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.png" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.png" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>赵梦欢 &copy; 2015 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/&title=《JavaScript 进阶之深入理解数据双向绑定》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/&title=《JavaScript 进阶之深入理解数据双向绑定》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JavaScript 进阶之深入理解数据双向绑定》 — 小青年博客&url=https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKUlEQVR42u3awY6jMBAEUP7/p7PXlXZJqtxEAudxGkUE/DyHTnf5OOLr9c/19+dnd+ZPTt74/s7jGxc2Njb2Q9ivt9cZpl3K2Wa9X3Ry59mqPmwZNjY29nbs/JUJfu3ztVW1W4ONjY2N3cLeF5IcjI2NjY19bQGbj43W5jzJFmNjY2P/JjsZKk1KTlvwJiOqi2dp2NjY2Ldnt0Xozn9/Jd/GxsbGvjH7VV5JUUmKX9ta5N+KFNjY2NgbsfMC0B67bBuMb0QCH8IMbGxs7I3YyWhmHie0pHwYNFo5NjY29sPZ7RHJJEBti80asj0qtPgIbGxs7Nuz5zHtWpywhm9HSx+ejI2Njb0Fe3JQJi8qbUMy2e7kadjY2Ni7sq9dbhLBttHCWiD9n3ViY2Njb8dux+vtIKkNaNuNzteAjY2NvR/7GyVnEgbkzc9aC3RavbGxsbE3YucFIC9+bVTQRgIXFDBsbGzsLdjtT/wcmZexyVDpaC9sbGzsjdj5gL4te8XIvtyU9p93+kZsbGzsLdht87AWBieMtjmZHBLCxsbG3oPd/sTPG4B5c9I2GMXgCRsbG3sj9nzklAye2talHXjVwQA2Njb2RuzkxQmvbVomTcgFgTE2Njb2duy2dLVjnfaeSYQcvQUbGxt7O3YyylkbErUz+TY8zhuV04gXGxsbeyN23jbko/ZrN3RybKhOtrGxsbEfy14b6LSlq42Nr30vNjY29t7stoDND/e00UJSJr9et7GxsbFvxn6/iPZH/+KgZ3AEpx5yYWNjY2/ETr68VtKSJbYBQDtmSgonNjY29h7spGzkx27yp81j5klJw8bGxv4d9tq456piEw2JlooxNjY29n7s/ADNZJTfHtaZHxiKQgJsbGzsx7Jf5ZUMj5Kh0uRp7ZGgI0+GsbGxsR/Izq98ADQ5lDNhty0NNjY29k7sSaSaNyf5puRDqyR+xsbGxv4d9mTokxePSZAwL5nY2NjY2PPC046H1g5iRhuHjY2N/fPsJILND3S2oUL7LWxsbOxfYK+Fu9dGBe3GtSvBxsbG3pU9GdC0EcJaVDx5+wX5NjY2NvZ92X8AO2yQbLIib6gAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261860158&web_id=1261860158')
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '小青年博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '看似寻常最奇崛，成如容易却艰辛。';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/javascript">
+    (function(p,u,s,h){
+        p._pcq=p._pcq||[];
+        p._pcq.push(['_currentTime',Date.now()]);
+        s=u.createElement('script');
+        s.type='text/javascript';
+        s.async=true;
+        s.src='https://cdn.pushcrew.com/js/84781173feeb9c46759523538d7dbfe0.js';
+        h=u.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s,h);
+    })(window,document);
+</script>
+
+</body>
+</html>

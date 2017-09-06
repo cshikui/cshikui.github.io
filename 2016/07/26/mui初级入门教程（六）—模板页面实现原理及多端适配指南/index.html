@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>mui初级入门教程（六）— 模板页面实现原理及多端适配指南 | 小青年博客 | 看似寻常最奇崛，成如容易却艰辛。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="mui,webview,template,os,多端适配">
+    <meta name="description" content="写在前面自从来公司实习，每天都淹没在问题中，一直没有抽出空写写文章，今天轮到我完善文档和总结，就想着抽空把文档中的内容写写，但是文档限于篇幅，而且不能话唠，自然博客是最好的方式去分享。哈哈，废话不多说，将整理的内容贴出来，稍作解释，方便大家查阅。 template(模板页面)hello mui示例App中无等待窗体切换的实现是基于模板页面，点击一个链接，不显示雪花等待框，立即打开一个“正在加载…”">
+<meta name="keywords" content="mui,webview,template,os,多端适配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mui初级入门教程（六）— 模板页面实现原理及多端适配指南">
+<meta property="og:url" content="https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/index.html">
+<meta property="og:site_name" content="小青年博客">
+<meta property="og:description" content="写在前面自从来公司实习，每天都淹没在问题中，一直没有抽出空写写文章，今天轮到我完善文档和总结，就想着抽空把文档中的内容写写，但是文档限于篇幅，而且不能话唠，自然博客是最好的方式去分享。哈哈，废话不多说，将整理的内容贴出来，稍作解释，方便大家查阅。 template(模板页面)hello mui示例App中无等待窗体切换的实现是基于模板页面，点击一个链接，不显示雪花等待框，立即打开一个“正在加载…”">
+<meta property="og:updated_time" content="2017-05-03T16:15:37.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mui初级入门教程（六）— 模板页面实现原理及多端适配指南">
+<meta name="twitter:description" content="写在前面自从来公司实习，每天都淹没在问题中，一直没有抽出空写写文章，今天轮到我完善文档和总结，就想着抽空把文档中的内容写写，但是文档限于篇幅，而且不能话唠，自然博客是最好的方式去分享。哈哈，废话不多说，将整理的内容贴出来，稍作解释，方便大家查阅。 template(模板页面)hello mui示例App中无等待窗体切换的实现是基于模板页面，点击一个链接，不显示雪花等待框，立即打开一个“正在加载…”">
+    
+        <link rel="alternate" type="application/atom+xml" title="小青年博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">赵梦欢</h5>
+          <a href="mailto:zhaomenghuan@foxmail.com" title="zhaomenghuan@foxmail.com" class="mail">zhaomenghuan@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                首页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://zhaomenghuan.github.io/content.json" target="_blank" >
+                <i class="icon icon-lg icon-th-large"></i>
+                API
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                GitHub
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://segmentfault.com/u/zhaomenghuan" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                Segmentfault
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.jianshu.com/u/de1f0b8eaf18" target="_blank" >
+                <i class="icon icon-lg icon-book"></i>
+                简书
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">mui初级入门教程（六）— 模板页面实现原理及多端适配指南</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">mui初级入门教程（六）— 模板页面实现原理及多端适配指南</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-07-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2016-07-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MUI从入门到精通/">MUI从入门到精通</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#写在前面"><span class="post-toc-number">1.</span> <span class="post-toc-text">写在前面</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#template-模板页面"><span class="post-toc-number">2.</span> <span class="post-toc-text">template(模板页面)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现思路"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">实现思路</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#运行环境判断"><span class="post-toc-number">3.</span> <span class="post-toc-text">运行环境判断</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多端发布注意事项"><span class="post-toc-number">4.</span> <span class="post-toc-text">多端发布注意事项</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考文章"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考文章</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">6.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-mui初级入门教程（六）—模板页面实现原理及多端适配指南"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">mui初级入门教程（六）— 模板页面实现原理及多端适配指南</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-07-26 00:00:00" datetime="2016-07-25T16:00:00.000Z"  itemprop="datePublished">2016-07-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/MUI从入门到精通/">MUI从入门到精通</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>自从来公司实习，每天都淹没在问题中，一直没有抽出空写写文章，今天轮到我完善文档和总结，就想着抽空把文档中的内容写写，但是文档限于篇幅，而且不能话唠，自然博客是最好的方式去分享。哈哈，废话不多说，将整理的内容贴出来，稍作解释，方便大家查阅。</p>
+<h2 id="template-模板页面"><a href="#template-模板页面" class="headerlink" title="template(模板页面)"></a>template(模板页面)</h2><p>hello mui示例App中无等待窗体切换的实现是基于模板页面，点击一个链接，不显示雪花等待框，立即打开一个“正在加载…”的页面，之后真实内容快速填充“正在加载…”区域。这种模板页面适用了通用性较强的页面，我们不必要为每个页面创建父子webview，而是将公用的父页面提取出来作为模板页面，同时在页面为加载前可以显示个性化加载页面，可以极大的提升用户体验。模板父页面预加载，点击后立即显示，不用展示雪花等待框，也不会出现白屏现象；共用子页面，有效控制webview数量，避免切页时频繁创建、销毁webview。</p>
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>这里我们以列表到详情页的情况为例说明，详情页html结构：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"mui-table-view"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"mui-table-view-cell"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-navigate-right"</span> <span class="attr">href</span>=<span class="string">"list1.html"</span>&gt;</span></div><div class="line">            Item 1</div><div class="line">        <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"mui-table-view-cell"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-navigate-right"</span> <span class="attr">href</span>=<span class="string">"list2.html"</span>&gt;</span></div><div class="line">             Item 2</div><div class="line">        <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"mui-table-view-cell"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"mui-navigate-right"</span> <span class="attr">href</span>=<span class="string">"list3.html"</span>&gt;</span></div><div class="line">             Item 3</div><div class="line">        <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>1.预加载一个模板父页面，用以当页面还没有加载出来的时候展示加载动画，以及作为公用子页面的头部，原理相当于tabbar webview模式的父页面；预加载或者创建一个公用子页面，同时将这个子页面填充到模板父页面;<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 预加载模板父页面</span></div><div class="line"><span class="keyword">var</span> template = mui.preload(&#123;</div><div class="line">    <span class="attr">url</span>:<span class="string">'template.html'</span>,</div><div class="line">    <span class="attr">id</span>:<span class="string">'template'</span>,</div><div class="line">    <span class="attr">styles</span>:&#123;</div><div class="line">        <span class="attr">popGesture</span>:<span class="string">"hide"</span></div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 预加载公用子页面</span></div><div class="line"><span class="keyword">var</span> subWebview = mui.preload(&#123;</div><div class="line">    <span class="attr">url</span>:<span class="string">''</span>,</div><div class="line">    <span class="attr">id</span>:<span class="string">'sub_template'</span>,</div><div class="line">    <span class="attr">styles</span>:&#123;</div><div class="line">        <span class="attr">top</span>: <span class="string">'45px'</span>,</div><div class="line">    	<span class="attr">bottom</span>: <span class="string">'0px'</span></div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 将子页面填充到父页面</span></div><div class="line">template.append(subWebview);</div></pre></td></tr></table></figure></p>
+<p>2.点击列表链接时，直接显示模板父页面，并动态修改模板父页面的标题；共用子页面通过loadURL方法加载对应目标页面；<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">mui(<span class="string">'.mui-table-view'</span>).on(<span class="string">'tap'</span>,<span class="string">'li a'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;	</div><div class="line">	<span class="keyword">var</span> self = <span class="keyword">this</span>;</div><div class="line">	<span class="comment">// 修改共用父模板的标题</span></div><div class="line">	mui.fire(template, <span class="string">'updateHeader'</span>, &#123;</div><div class="line">		<span class="attr">title</span>: self.innerText,</div><div class="line">		<span class="attr">href</span>: self.href</div><div class="line">	&#125;);</div><div class="line">	<span class="comment">// 加载子页面地址</span></div><div class="line">	<span class="keyword">if</span>(subWebview.getURL()==self.href)&#123;</div><div class="line">	    subWebview.show();</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">	    subWebview.loadURL(self.href);</div><div class="line">	    <span class="comment">// 子页面加载完成显示</span></div><div class="line">		subWebview.addEventListener(<span class="string">'loaded'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		        subWebview.show();  </div><div class="line">		    &#125;,<span class="number">50</span>);</div><div class="line">		&#125;);	</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// 显示模板父页面</span></div><div class="line">	template.show(<span class="string">'slide-in-right'</span>, <span class="number">150</span>);			</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>3.模板父页面接收参数和返回列表页的处理方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> titleElem = <span class="built_in">document</span>.getElementById(<span class="string">"title"</span>);</div><div class="line"><span class="keyword">var</span> contentWebview = <span class="literal">null</span>,self = <span class="literal">null</span>;</div><div class="line"></div><div class="line">mui.plusReady(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	self = plus.webview.currentWebview();</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 自定义事件接收参数修改模板父页面头部</span></div><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"updateHeader"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> title = e.detail.title;</div><div class="line">	<span class="keyword">var</span> href = e.detail.target;</div><div class="line">	<span class="keyword">var</span> aniShow = e.detail.aniShow;</div><div class="line">	</div><div class="line">	titleElem.innerHTML = title;</div><div class="line">	titleElem.className = <span class="string">"mui-title mui-fadein"</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">if</span>(mui.os.android&amp;&amp;aniShow&amp;&amp;<span class="built_in">parseFloat</span>(mui.os.version)&gt;=<span class="number">4.4</span>)&#123;</div><div class="line">		<span class="keyword">if</span>(contentWebview==<span class="literal">null</span>)&#123;</div><div class="line">			contentWebview = self.children()[<span class="number">0</span>];</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span> (contentWebview.getURL() != href) &#123;</div><div class="line">			contentWebview.loadURL(href);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			contentWebview.show();</div><div class="line">		&#125;</div><div class="line">		setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">			self.show(aniShow);</div><div class="line">		&#125;,<span class="number">10</span>);</div><div class="line">	&#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 返回事件（隐藏模板父页面，并在窗体动画结束后，隐藏共用子页面）</span></div><div class="line">mui.back = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	self.hide(<span class="string">'auto'</span>);</div><div class="line">	setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">		titleElem.className = <span class="string">'mui-title mui-fadeout'</span>;</div><div class="line">		titleElem.innerText = <span class="string">''</span>;</div><div class="line">		<span class="keyword">if</span>(contentWebview==<span class="literal">null</span>)&#123;</div><div class="line">			contentWebview = self.children()[<span class="number">0</span>];</div><div class="line">		&#125;</div><div class="line">		contentWebview.hide(<span class="string">"none"</span>);</div><div class="line">	&#125;, <span class="number">350</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另外需要说明的是，我们这种方式是创建两个webview作为视图容器实现，在web环境下webview的方法不能执行，hello mui里面为每个详情页面创建一个头部，但是我们会发现在app环境下执行并没有出现这个头部，这是以为在hello mui演示demo中的app.css中有这么一段代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">.mui-plus.mui-android header.mui-bar&#123;</div><div class="line">	display: none;</div><div class="line">&#125;</div><div class="line">.mui-plus.mui-android .mui-bar-nav~.mui-content&#123;</div><div class="line">	padding: 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由于iOS系统性能已经足够好，转场切换不会白屏，hello mui演示demo中iOS没有使用模板页面。当我们引入mui.js文件，在5+环境执行，mui.js会自动将<code>.mui-plus</code>及<code>.mui-plus-android</code>类添加到body上，我们可以通过这个方法进行环境判断，是否显示某些内容。</p>
+<h2 id="运行环境判断"><a href="#运行环境判断" class="headerlink" title="运行环境判断"></a>运行环境判断</h2><p>如果是写文档，写到上面自然就戛然而止，但是写文章，希望把这个相关的问题顺便多聊几句，因为一旦有人遇到相关的问题，多说了几句就说不定解决的。</p>
+<p>说到系统判断，这里不得不说一下<a href="http://dev.dcloud.net.cn/mui/util/#os" target="_blank" rel="external">mui.os</a>这个工具方法，mui通过封装html5中的<code>navigator.userAgent</code>API进行判断系统和版本号：</p>
+<ul>
+<li>5+环境下判断方法：<ul>
+<li>mui.os.plus 返回是否在5+基座中运行<br>等效于：<code>navigator.userAgent.indexOf(&quot;Html5Plus&quot;)&gt;-1</code></li>
+<li>mui.os.stream 返回是否为流应用<br>等效于：<code>navigator.userAgent.indexOf(&quot;StreamApp&quot;)&gt;-1</code></li>
+</ul>
+</li>
+<li>Android环境下判断方法：<ul>
+<li>mui.os.android 返回是否为安卓手机<br>等效于：<code>navigator.userAgent.indexOf(&quot;Android&quot;)&gt;-1</code></li>
+<li>mui.os.isBadAndroid android非Chrome环境<br>等效于：<code>!(/Chrome\/\d/.test(window.navigator.appVersion))</code></li>
+<li>mui.os.version 安卓版本<br>等效于：<code>navigator.userAgent.match(/(Android);?[\s\/]+([\d.]+)?/)[2]</code></li>
+</ul>
+</li>
+<li>IOS环境下判断方法：<ul>
+<li>mui.os.ios 返回是否为苹果设备<br>等效于：<code>navigator.userAgent.indexOf(&quot;iPhone&quot;)&gt;-1&amp;&amp;navigator.userAgent.indexOf(&quot;iPad&quot;)&gt;-1</code></li>
+<li>mui.os.iphone  返回是否为苹果手机<br>等效于：<code>navigator.userAgent.indexOf(&quot;iPhone&quot;)&gt;-1</code></li>
+<li>mui.os.ipad 返回是否为ipad<br>等效于：<code>navigator.userAgent.indexOf(&quot;iPad&quot;)&gt;-1</code></li>
+<li>mui.os.version 返回手机版本号<br>等效于：<code>navigator.userAgent.match(/(iPhone\sOS)\s([\d_]+)/).[2].replace(/_/g, &#39;.&#39;)||navigator.userAgent.match(/(iPad\sOS)\s([\d_]+)/).[2].replace(/_/g, &#39;.&#39;)</code></li>
+</ul>
+</li>
+<li>微信环境下判断方法：<ul>
+<li>mui.os.wechat 返回是否为微信端<br>等效于：<code>navigator.userAgent.indexOf(&quot;MicroMessenger&quot;)&gt;-1</code></li>
+<li>mui.os.wechat.version 返回微信版本<br>等效于：<code>navigator.userAgent.match(/(MicroMessenger)\/([\d\.]+)/i)[2].replace(/_/g, &#39;.&#39;)</code></li>
+</ul>
+</li>
+</ul>
+<p>这里我们可以通过<code>mui.os.*</code>方法进行判断，但是很多时候我们需要更简单的方法去判断，比如我们希望某一部分内容只在5+环境下显示，有些内容只在非5+环境下执行，或者有些内容只在微信环境下使用，使用<code>mui.os.*</code>有时候显得还是不够方便，那这里就说一个更简单的方法，就是我们上面讲到的通过设置class类的CSS方法。</p>
+<p>读<a href="https://github.com/dcloudio/mui" target="_blank" rel="external">mui源码</a>我们能够知道，mui中定义<code>mui.os.*</code>系列方法，同时通过<code>mui.os.*</code>方法判断环境，将<code>.mui-plus</code>，<code>.mui-plus-stream</code>，<code>.mui-ios</code>，<code>.mui-android</code>，<code>.mui-wechat</code>，<code>mui-ios-version</code>，<code>mui-android-version</code>，<code>mui-wechat-version</code>绑定在<code>document.body.classList</code>中，我们可以通过这些样式类判断当前的运行判断，于是可以做出一些适配。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">.mui-plus-visible,</div><div class="line">.mui-wechat-visible&#123;</div><div class="line">    display: none!important;</div><div class="line">&#125;</div><div class="line">.mui-plus-hidden,</div><div class="line">.mui-wechat-hidden&#123;</div><div class="line">    display: block!important;</div><div class="line">&#125;</div><div class="line">.mui-plus .mui-plus-visible,</div><div class="line">.mui-wechat .mui-wechat-visible&#123;</div><div class="line">	display: block!important;</div><div class="line">&#125;</div><div class="line">.mui-plus .mui-tab-item.mui-plus-visible,</div><div class="line">.mui-wechat .mui-tab-item.mui-wechat-visible&#123;</div><div class="line">    display: table-cell!important;</div><div class="line">&#125;</div><div class="line">.mui-plus .mui-plus-hidden,</div><div class="line">.mui-wechat .mui-wechat-hidden&#123;</div><div class="line">    display: none!important;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当我们知道这些类的时候，在做适配的时候可以解决很多小问题，如下面这个例子：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-input-row mui-plus-visible"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">label</span>&gt;</span>mui-plus-visible<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"mui-input-speech mui-input-clear"</span> <span class="attr">placeholder</span>=<span class="string">"我在web环境下隐藏5+环境下显示"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mui-input-row mui-plus-hidden"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">label</span>&gt;</span>mui-plus-hidden<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"mui-input-clear"</span> <span class="attr">placeholder</span>=<span class="string">"我在web环境下显示5+环境下隐藏"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>我们可以使用<code>.mui-plus-visible</code>将只能在5+环境下正常使用的内容在web环境下隐藏，反过来我们可以使用 <code>.mui-plus-hidden</code>将在web中正常显示的内容在5+环境下隐藏。在5+环境下我们使用增强版的语音输入，在普通web环境下使用h5的普通输入框。</p>
+<p>开发一次，多端发布，我想这种很多人希望看到的，目前mui中很多组件已经实现在多平台自动切换到合适的模式，使用最合适的姿势，但是对于业务要求各不相同的开发者，想要实现多端发布，不是简单的一两句的问题，还是得熟悉各个平台的差异化，同时对于h5，mui，html5+中的实现方法的差异要所有了解的前提下，才能够做到真正的多端发布。</p>
+<h2 id="多端发布注意事项"><a href="#多端发布注意事项" class="headerlink" title="多端发布注意事项"></a>多端发布注意事项</h2><p>上面讲解了多端发布的时候系统及版本判断的方法，但是依然没有说明区别所在，估计很多人看了依然是懵逼状态。为解决HTML5在低端Android机上的性能缺陷，mui引入了原生加速，在普通浏览器端5+的一些方法不再适用，所以做多端发布的时候必须先明白哪一些方法可以使用，哪一些不能使用。因此如果不是APP端，需要将5+的方法全部替换成h5的方法。</p>
+<p>mui中最关键的5+模块是webview控件，因此mui若要发挥其全部能力，凡是涉及到webview窗体的内容在非5+环境不能使用，涉及功能点包括：</p>
+<ul>
+<li>webview模式窗体动画</li>
+<li>创建子窗口（除了为解决区域滚动的常见双webview场景，还涉及webview模式的选项卡等多webview场景）</li>
+<li>webview模式的侧滑菜单（也有div方式侧滑菜单）</li>
+<li>webview模式的tab选项卡（也有div方式选项卡）</li>
+<li>nativeUI，如原生的警告框、确认框、popover、actionsheet、toast。这些也有HTML5的实现。</li>
+<li>预加载</li>
+<li>页面传值（拓展参数及自定义事件）</li>
+</ul>
+<p>对于这部分的内容，解决方法也有很多，如果mui提供了iframe模式的父子页面（主要兼容上拉加载下拉刷新），div模式的、侧滑菜单、选项卡、弹出框，页面传值也可以使用url传参或localStorage等本地存储的方法。在<a href="https://segmentfault.com/a/1190000005340854" target="_blank" rel="external">mui初级入门教程（二）— html5+ webview 底部栏用法详解</a>一文中我也给出了iframe兼容webview模式tabbar的解决方法。</p>
+<p>对于第三方插件，html5+中的方法可以优雅降级处理，采用h5的相关标准去实现，比如dcloud官方给出了一个定位的例子，查看这里<a href="https://github.com/dcloudio/plusto" target="_blank" rel="external">plusto</a>，plusto是为实现多端发布的一个开源JS库，该库可以根据平台实现API的自动转换，比如在5+ App环境下，将浏览器默认定位升级为5+原生定位，实现一套代码平滑迁移至多个平台。在微信中有jssdk同样可以调用系统的一些功能，大家可以自行判断。</p>
+<p>或许有些人喜欢使用一些构建工具，对于多端发布使用构建工具确实会很方便，但是对于小白用户来说，可能会遇到更多问题，DCloud的mui及Hello mui示例是使用grunt构建的，grunt相关配置也都开源，感兴趣的朋友可以自行构建，后面有时间再整理一篇相关的文章加以说明。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a href="http://ask.dcloud.net.cn/article/106" target="_blank" rel="external">hello mui中的无等待窗体切换是如何实现的</a></li>
+<li><a href="http://ask.dcloud.net.cn/article/113" target="_blank" rel="external">mui适用场景说明，能不能在普通浏览器里使用，能否用于wap网站</a></li>
+<li><a href="http://ask.dcloud.net.cn/article/591" target="_blank" rel="external">多端发布开发指南</a></li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这篇文章基本都是copy相关的文档，加以增删，乃成此文。好久不写文，大神勿喷！</p>
+<p>最后放上demo地址：</p>
+<blockquote>
+<p>mui-demo：<a href="https://github.com/zhaomenghuan/mui-demo" target="_blank" rel="external">https://github.com/zhaomenghuan/mui-demo</a></p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-05-03T16:15:37.347Z" itemprop="dateUpdated">2017-05-04 00:15:37</time>
+</span><br>
+
+
+        
+        转载需标注本文原始地址：<a href="/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/" target="_blank" rel="external">https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/</a>
+        
+    </div>
+    <footer>
+        <a href="https://zhaomenghuan.github.io">
+            <img src="/img/avatar.png" alt="赵梦欢">
+            赵梦欢
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mui/">mui</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/os/">os</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/template/">template</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webview/">webview</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多端适配/">多端适配</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/&title=《mui初级入门教程（六）— 模板页面实现原理及多端适配指南》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/&title=《mui初级入门教程（六）— 模板页面实现原理及多端适配指南》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mui初级入门教程（六）— 模板页面实现原理及多端适配指南》 — 小青年博客&url=https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2016/07/28/HTML5+APP页面传参详解/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">HTML5+ APP页面传参详解</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2016/07/03/JavaScript进阶学习（二）—基于原型链继承的js工具库的实现方法/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">JavaScript进阶学习（二）—— 基于原型链继承的js工具库的实现方法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        感谢老铁~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.png" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.png" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>赵梦欢 &copy; 2015 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/&title=《mui初级入门教程（六）— 模板页面实现原理及多端适配指南》 — 小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/&title=《mui初级入门教程（六）— 模板页面实现原理及多端适配指南》 — 小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mui初级入门教程（六）— 模板页面实现原理及多端适配指南》 — 小青年博客&url=https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/2016/07/26/mui初级入门教程（六）—模板页面实现原理及多端适配指南/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD7ElEQVR42u3aSW7cQBAEwPn/p23AJxv2NLMqeyQfgqeBwKU7KKBYy+sVHz9+He/+/vtx/vvfdztfdb5/sobXJw4cOHDgwBFstXn8uw2/uyqHTujPK8z3iAMHDhw47nKcF5TQTJdyZppCJGuIPiBw4MCBA8cXckwTuek556uSj4PkdeLAgQMHjv+Hoykm3iVI7okDBw4cOL6XI0+0dmW7/J59mfKLaqU4cODAgWOWPS0Lhf/n7w/Od+DAgQMHjjjE7gbX8iRqF9Sb0uHDXnDgwIEDR82RjxQ0baRbRcZdk2laUsSBAwcOHA3HLinKS2z50vOw3YxNPKwHBw4cOHDUHE3w27WLds2t6RBDVTrEgQMHDhw1Rz7i1hAk50/RkxXuxvJw4MCBA8eOI3/kLoVrQAeNoluBHAcOHDhw3MmJXruBgz6puzXokL+YQTkSBw4cOHBc5dglTnkxsQnY04CaoFdfBzhw4MCB48iRl952G9sttG9N5WkqDhw4cOBoOHbhMynPJQFyN1oxbVMNAi0OHDhw4Kg5+sfsguXuW2AKnf+OaqU4cODAgSPgmDZvku2NRwfiQYc8oO4+EXDgwIEDR8+RbHU3LpBTRouLRxOmryraBg4cOHDgqDnyReSbbzZ5odg33SkOHDhw4LjEsUvqPnftuQg4vWoAhAMHDhw4LnE0SVfSFpref1cEnA5nREI4cODAgSPm2G1muo0+GCeFy6b1hQMHDhw4bnH0JbzdGEG/nl3LKlo5Dhw4cOAoVt4kYNM2z64t1JQap8kkDhw4cOC4xTENb7vAmbyA/Kp+5W8DLQ4cOHDgWHFMRwTubj4JvXmzKn9hD503HDhw4MDRPvFaGW7XBNoV9aaFv7xZhQMHDhw47nIkzaRdeW4X2qdDEnmgHX994MCBAweOoprXDK4lv3dp4Rl92gYbzxLiwIEDB44hxy7cNkB9AfFuUocDBw4cOG5x9KlaXiicHmfKXRL4QIkDBw4cOAqOPEQlIwXTTHFKmYxNTFf+x5k4cODAgeMSxyDPi5O36Yaj5cajcsmZOHDgwIHjcxzNaFoexnZDBlOOBggHDhw4cPQct1K1ptSYs/YvbPA/ggMHDhw4VhxNE2gaFKepYJLO7VLNt0A4cODAgaPm2AWnfol5QtXQ30r8cODAgQPHlGM3rJYnUdPmU3KHpj328LJx4MCBA8cljmlQ7FO4JLQnaV6+7WidOHDgwIHjmziagJpsY1oi3DWuBpVCHDhw4MDxAY48qduVGm+9jOpTAAcOHDhwXOLYpUzT+5yhp8/dheeHF4YDBw4cOGqOaV6za00l1+623TSulkA4cODAgePfd/gJd12v8kBlED0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261860158&web_id=1261860158')
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '小青年博客！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '看似寻常最奇崛，成如容易却艰辛。';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+<script type="text/javascript">
+    (function(p,u,s,h){
+        p._pcq=p._pcq||[];
+        p._pcq.push(['_currentTime',Date.now()]);
+        s=u.createElement('script');
+        s.type='text/javascript';
+        s.async=true;
+        s.src='https://cdn.pushcrew.com/js/84781173feeb9c46759523538d7dbfe0.js';
+        h=u.getElementsByTagName('script')[0];
+        h.parentNode.insertBefore(s,h);
+    })(window,document);
+</script>
+
+</body>
+</html>

@@ -1,839 +1,903 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    
-
-    
-
-    
-
-
-
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="关于前端与设计、黑客与画家 | 陈仕奎，Web & Mobile Lover，Front-End Engineer，UX Designer | 这里是 @Kui 陈仕奎 的个人博客，与你一起发现更大的世界。">
+    <meta name="keywords"  content="陈仕奎, Kui, laokui, malone, 邮差, 陈仕奎的博客, Kui Blog, 博客, 个人网站, 互联网, 前端, 设计, 产品, Kui, Lynn, 我是摩羯座">
+    <meta name="theme-color" content="#000000">
     
+    <title>陈仕奎的博客 | Kui Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
     
-    
-    <title>小青年博客 | 看似寻常最奇崛，成如容易却艰辛。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="undefined">
-    <meta name="description" content="小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小青年博客">
-<meta property="og:url" content="https://zhaomenghuan.github.io/index.html">
-<meta property="og:site_name" content="小青年博客">
-<meta property="og:description" content="小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小青年博客">
-<meta name="twitter:description" content="小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。">
-    
-        <link rel="alternate" type="application/atom+xml" title="小青年博客" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu"  >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">赵梦欢</h5>
-          <a href="mailto:zhaomenghuan@foxmail.com" title="zhaomenghuan@foxmail.com" class="mail">zhaomenghuan@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
-        
-            <li class="waves-block waves-effect active">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                首页
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                归档
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                标签
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/categories"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                分类
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://zhaomenghuan.github.io/content.json" target="_blank" >
-                <i class="icon icon-lg icon-th-large"></i>
-                API
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/zhaomenghuan" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                GitHub
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://segmentfault.com/u/zhaomenghuan" target="_blank" >
-                <i class="icon icon-lg icon-link"></i>
-                Segmentfault
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="http://www.jianshu.com/u/de1f0b8eaf18" target="_blank" >
-                <i class="icon icon-lg icon-book"></i>
-                简书
-              </a>
-            </li>
-        
-      </ul>
-    </div>
-  </div>
-</aside>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">小青年博客</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Kui Blog</a>
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header index-header">
 
-    <div class="container fade-scale">
-        <h1 class="title">小青年博客</h1>
-        <h5 class="subtitle">
-            
-                看似寻常最奇崛，成如容易却艰辛。
-            
-        </h5>
-    </div>
-
-    
-
-
-</header>
-
-<div class="container body-wrap">
-
-    <ul class="post-list">
-    
-        <li class="post-list-item fade">
-            <article id="post-IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-07-31 00:00:00" datetime="2017-07-30T16:00:00.000Z"  itemprop="datePublished">2017-07-31</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/IOS-开发笔记/">IOS 开发笔记</a></li></ul>
-
-
-
-        
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/">IOS 学习笔记之基于 UITabBarController 的主流 APP 底部导航栏实现</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言当app中有多个控制器的时候，就需要对这些控制器进行管理，用一个控制器去管理其他多个控制器；如图所示：
-
-                
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
                     
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
                     
-                
-                
-            
-IOS UIView 提供了两个特殊的控制器，UINavigationC...
-    
-
-        <a href="/2017/07/31/IOS-学习笔记之基于-UITabBarController-的主流-APP-底部导航栏实现/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
+                    <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IOS/">IOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UINavigationController/">UINavigationController</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UItabbarController/">UItabbarController</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-JavaScript-进阶之深入理解数据双向绑定"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-06-27 00:00:00" datetime="2017-06-26T16:00:00.000Z"  itemprop="datePublished">2017-06-27</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/JavaScript进阶学习/">JavaScript进阶学习</a></li></ul>
-
-
-
-        
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/">JavaScript 进阶之深入理解数据双向绑定</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言谈起当前前端最热门的 js 框架，必少不了 Vue、React、Angular，对于大多数人来说，我们更多的是在使用框架，对于框架解决痛点背后使用的基本原理往往关注不多，近期在研读 Vue.js 源码，也在写源码解读的系列文章。和多数源码解读的文章不同的是，我会尝试从一个初级前端的角度入手，由浅入深去讲解源码实现思路和基本的语法知识，通过一些基础事例一步步去实现一些小功能。
-本场 Cha...
-    
-
-        <a href="/2017/06/27/JavaScript-进阶之深入理解数据双向绑定/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVVM/">MVVM</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-从0到1搭建webpack2-vue2自定义模板详细教程"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-05-17 16:53:48" datetime="2017-05-17T08:53:48.000Z"  itemprop="datePublished">2017-05-17</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/vue-js-node-js全栈开发/">vue.js+node.js全栈开发</a></li></ul>
-
-
-
-        
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/05/17/从0到1搭建webpack2-vue2自定义模板详细教程/">从0到1搭建webpack2+vue2自定义模板详细教程</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言webpack2和vue2已经不是新鲜东西了，满大街的文章在讲解webpack和vue，但是很多内容写的不是很详细，对于很多个性化配置还是需要自己过一遍文档。Vue官方提供了多个vue-templates，基于vue-cli用的最多，不过对于很多人来说，vue-cli 的配置还是过于复杂，对于我们了解细节实现不是很好，所以想自己从零开始搭建一个模板工程，也顺便重新认识一下webpack和...
-    
-
-        <a href="/2017/05/17/从0到1搭建webpack2-vue2自定义模板详细教程/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-cli/">vue-cli</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-js/">vue.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Linux CentOS7 搭建node服务详细教程"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-05-12 14:44:18" datetime="2017-05-12T06:44:18.000Z"  itemprop="datePublished">2017-05-12</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/node学习之路/">node学习之路</a></li></ul>
-
-
-
-        
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/05/12/Linux CentOS7 搭建node服务详细教程/">Linux CentOS7 搭建node服务详细教程</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言近期在准备搭建一个vue.js+node.js全栈开发的社区，之前由于没有云服务器搭建经验，这篇文章做一下相关的记录，后续再深入学习研究。本文不局限于只是流水账式的记录，会顺便说明一下Linux的相关内容。
-登录Linux云服务器至于购买云服务的过程在此不做赘述，各大云服务提供商都有相关的说明文档。当我们买好了云主机，可以通过控制面板登录，也可以使用密码从本地登录。
-Linux或Mac ...
-    
-
-        <a href="/2017/05/12/Linux CentOS7 搭建node服务详细教程/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS7/">CentOS7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-cordova研习笔记(二)——cordova 6.X 源码解读（上）"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-05-04 00:00:00" datetime="2017-05-03T16:00:00.000Z"  itemprop="datePublished">2017-05-04</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/hybrid-App深入浅出研究/">hybrid App深入浅出研究</a></li></ul>
-
-
-
-        
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/05/04/cordova研习笔记(二)——cordova 6.X 源码解读（上）/">cordova研习笔记(二) —— cordova 6.X 源码解读</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言cordova(PhoneGap) 是一个优秀的经典的中间件框架，网上对其源代码解读的文章确实不多，本系列文章试着解读一下，以便对cordova 框架的原理理解得更深入。本文源码为cordova android版本6.1.2。
-源码结构我们使用IDE的代码折叠功能先从整体上把握代码结构。123456/** 版权申明及注释部分*/;(function() &#123;  ...&#125;...
-    
-
-        <a href="/2017/05/04/cordova研习笔记(二)——cordova 6.X 源码解读（上）/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cordova/">cordova</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hybrid-App/">hybrid App</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-cordova研习笔记(一) ——初试牛刀之cordova.js概要"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-04-26 00:00:00" datetime="2017-04-25T16:00:00.000Z"  itemprop="datePublished">2017-04-26</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/hybrid-App深入浅出研究/">hybrid App深入浅出研究</a></li></ul>
-
-
-
-        
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/">cordova研习笔记(一) —— 初试牛刀之cordova.js概要</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言来新公司的第一个任务，研究hybrid App中间层实现原理，做中间层插件开发。这个任务挺有意思，也很有挑战性，之前在DCloud虽然做过5+ App开发，但是中间层的东西确实涉及不多。本系列文章属于系列开篇cordova学习笔记，本文主要是从零开始搭建一个cordova工程，并了解cordova开发的基本内容。
-创建第一个AppApache Cordova是一个开源的移动开发框架。允许...
-    
-
-        <a href="/2017/04/26/cordova研习笔记(一) ——初试牛刀之cordova.js概要/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cordova/">cordova</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hybrid-App/">hybrid App</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-node学习之路（二）—Node.js 连接 MongoDB"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-04-12 00:00:00" datetime="2017-04-11T16:00:00.000Z"  itemprop="datePublished">2017-04-12</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/node学习之路/">node学习之路</a></li></ul>
-
-
-
-        
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/04/12/node学习之路（二）—Node.js 连接 MongoDB/">node学习之路（二）—— Node.js 连接 MongoDB</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言之前对于node的学习，一直只是停留在一种帮前端打辅助的层面，没有深入去研究，是时候需要改变一下了，近来找工作诸多不顺心（找个两情相悦的真不容易啊~），多数对前端有后端语言经验和工作年限有要求，对于我这个应届生真心不是一般的尴尬，所以先继续深入学习一下node咯，本文主要记录一下学习MongoDB数据库相关的内容（属于比较流水账的文章），弥补一下自己的知识空白。这两天收到两个offer心...
-    
-
-        <a href="/2017/04/12/node学习之路（二）—Node.js 连接 MongoDB/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Angular系列学习笔记（二）—基于gulp构建Angular单页面应用"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-04-01 00:00:00" datetime="2017-03-31T16:00:00.000Z"  itemprop="datePublished">2017-04-01</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Angular系列学习笔记/">Angular系列学习笔记</a></li></ul>
-
-
-
-        
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/04/01/Angular系列学习笔记（二）—基于gulp构建Angular单页面应用/">Angular系列学习笔记（二）—— 基于gulp构建Angular单页面应用</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言构建打包工具之前一直是使用 webpack（歪脖帕克，毕竟尤大推荐的工具），由于公司这边是使用gulp，为了和公司同步，私下还是要学习学习，毕竟懂点万一需要和老大交流也不至于说有啥问题，这篇文章将会以零基础的角度去写一下基于gulp搭建angular的工程，借这个机会顺便重构一下自己的博客。
-gulp基础入门在开工之前确保自己已经安装了node环境，没有安装的自行安装好node，安装的时...
-    
-
-        <a href="/2017/04/01/Angular系列学习笔记（二）—基于gulp构建Angular单页面应用/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular-material/">angular-material</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular-ui-router/">angular-ui-router</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gulp/">gulp</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Angular系列学习笔记（一）—聊聊angular的模块化"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-03-06 00:00:00" datetime="2017-03-05T16:00:00.000Z"  itemprop="datePublished">2017-03-06</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Angular系列学习笔记/">Angular系列学习笔记</a></li></ul>
-
-
-
-        
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017/03/06/Angular系列学习笔记（一）—聊聊angular的模块化/">Angular系列学习笔记（一）—— 聊聊angular的模块化</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言近来换工作了，由于团队技术需要，不得不从vue.js迁移到angular.js，不过这也是一个学习angular的机会，顺便也将这两个框架做一些对比，为了方便其他小伙伴，将学习过程中的内容记录下来。由开始的不太习惯到现在也能够习惯angular的写法，着实在思维上有很大的改变，所以这个系列的文章会记录一下自己的学习过程，本文会由浅及深一步步去解读vue.js和angular.js的区别。...
-    
-
-        <a href="/2017/03/06/Angular系列学习笔记（一）—聊聊angular的模块化/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scope/">$scope</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/service/">service</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-js/">vue.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/依赖注入/">依赖注入</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模块化/">模块化</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-npm 常用命令详解"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2016-11-15 00:00:00" datetime="2016-11-14T16:00:00.000Z"  itemprop="datePublished">2016-11-15</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/node学习之路/">node学习之路</a></li></ul>
-
-
-
-        
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/11/15/npm 常用命令详解/">npm 常用命令详解</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言在查看npm 命令参数的时候搜到白树的这篇文章，觉得很详细，自己后续也可能会继续看，干脆整理一下转载到自己博客，只为了方便学习，如需转载用作商业用途，请联系作者本人。本文原始地址: http://www.cnblogs.com/PeunZhang/p/5553574.html。
-
-今年上半年在学习gulp的使用，对npm的掌握是必不可少的，经常到npm官网查询文档让我感到不爽，还不如整理...
-    
-
-        <a href="/2016/11/15/npm 常用命令详解/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-    </ul>
-
-    
-<nav id="page-nav">
-    <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
-    </div>
+    <!-- /.container -->
 </nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
 
 
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Kui Blog</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">一生想做浪漫极客</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2017/07/12/upgrading-eleme-to-pwa/">
+        <h2 class="post-title">
+            饿了么的 PWA 升级实践
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Upgrading Ele.me to Progressive Web App
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  很荣幸在今年 2 月到 5 月的时间里，以顾问的身份加入饿了么，参与 PWA 的相关工作。这篇文章其实最初是在以英文写作发表在 medium 上的：Upgrading Ele.me to Progressive Web Apps，获得了一定的关注。所以也决定改写为中文版本再次分享出来，希望能对你有所帮助 ;) 
+本文首发于 CSDN 与《程序员》2017 年 7 月刊，同步发布于 饿了...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Hux on July 12, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/06/24/you-are-slaves/">
+        <h2 class="post-title">
+            他是狗，你们便是苟奴隶
+        </h2>
+        
+        <h3 class="post-subtitle">
+            
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  在知乎被删帖，我理解知乎。
+你说你们做不了什么，我也理解你们。
+
+只是，总要有人，还敢说点反对的声音吧？  
+只是，不想让这一切，看起来都变得如此理所应当吧？
+
+你说，你们也抗争了
+那就站出来，让我们相信，你们还在吧？
+
+
+我甚至都不需要写出 LGL 三个顶天立地的大字，你们便知道我今天要说什么了。
+骂狗官、骂体制、骂 D，骂的人已经够多了。我故是可以再骂，却也深知自己甚至连让他们听到...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Hux on June 24, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/02/09/nextgen-web-pwa/">
+        <h2 class="post-title">
+            下一代 Web 应用模型 —— Progressive Web App
+        </h2>
+        
+        <h3 class="post-subtitle">
+            The Next Generation Application Model For The Web - Progressive Web App
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  今年 9 月份的时候，《程序员》杂志社就邀请我写一篇关于 PWA 的文章。后来花式拖稿，拖过了 10 月的 QCon，11 月的 GDG DevFest，终于在 12 月把这篇长文熬了出来。几次分享的不成熟，这次的结构算是比较满意了。「 可能是目前中文世界里对 PWA 最全面详细的长文了」，希望你能喜欢。
+本文首发于 CSDN 与《程序员》2017 年 2 月刊，同步发布于 Hux B...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Hux on February 9, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/11/20/sw-101-gdgdf/">
+        <h2 class="post-title">
+            Service Worker 101「GDG DevFest 2016 北京」
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Slides: Service Worker 101, Working Offline and Instant Loading (GDG DevFest 2016 Beijing)
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  下滑这里查看更多内容
+
+
+TLDR; It covers lots of cool stuff about Service Worker!
+
+Watching Fullscreen → 
+
+
+    
+    Scanning on mobile
+
+
+Demo Code → 
+
+
+  Hello World of Service Worker
+  Make your own Offli...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Hux on November 20, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/10/20/pwa-qcon2016/">
+        <h2 class="post-title">
+            Progressive Web Apps，复兴序章「QCon 上海 2016」
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Slides: Progressive Web Apps, Make Web Great Again. (QCon Shanghai 2016)
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  下滑这里查看更多内容
+
+
+Watching Fullscreen →
+
+Watching Video →
+
+
+    
+    Scanning on mobile
+
+
+Catalog
+
+
+  The State Of Web
+  Rethinking Hybridzation
+  PWA 101
+    
+      Definition
+      Add To HomeScree...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Hux on October 20, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/06/05/pwa-in-my-pov/">
+        <h2 class="post-title">
+            Progressive Web App 之我见
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Slides: Progressive Web App, in my points of view
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  下滑这里查看更多内容
+
+
+Watching Fullscreen →
+
+
+    
+    Scanning on mobile
+
+
+Catalog
+
+
+  WHAT is Progressive Web App?
+  1 - Installability
+  2 - App Shell
+  3 - Offline
+    
+      SERVICE WORKER!
+    
+  
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Hux on June 5, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2016/02/01/React-vs-Angular2/">
+        <h2 class="post-title">
+            React vs Angular 2：冰与火之歌「译」
+        </h2>
+        
+        <h3 class="post-subtitle">
+            React versus Angular 2: There Will Be Blood
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  这篇文章转载自我在知乎专栏「前端外刊评论」上发表的文章。
+
+
+Angular 2 已经发布 Beta 版，而且似乎很有信心在 2016 年成为热门框架。是时候进行一场巅峰对决了，我们来看看它如何与 React 这个 2015 年的新宠抗衡。
+
+免责声明：我之前很喜欢使用 Angular 1，不过在 2015 年转到了 React。最近我也在 Pluralsight 上发布了一门关于 R...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Hux on February 1, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/12/28/css-sucks-2015/">
+        <h2 class="post-title">
+            都 2015 年了，CSS 怎么还是这么糟糕
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Slides: CSS Still Sucks 2015
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  下滑这里查看更多内容
+
+
+Watching Fullscreen →
+
+
+
+你也可以通过扫描二维码在手机上观看
+
+
+这个 Web Slides 开源在我的 Github 上，欢迎你帮助我完善这个展示文稿，你可以给我提 issue，可以 fork &amp; pull request。如果它能帮助到你了，希望你还能不吝啬 star 一下这个项目
+
+Catalog
+
+
+  Document...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Hux on December 28, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/12/15/ios9-safari-web/">
+        <h2 class="post-title">
+            iOS 9，为前端世界都带来了些什么？「译」
+        </h2>
+        
+        <h3 class="post-subtitle">
+            iOS 9, Safari and the Web: 3D Touch, new Responsive Web Design, Native integration and HTML5 APIs
+        </h3>
+        
+        <div class="post-content-preview">
+            2015 年 9 月，Apple 重磅发布了全新的 iPhone 6s/6s Plus、iPad Pro 与全新的操作系统 watchOS 2 与 tvOS 9（是的，这货居然是第 9 版），加上已经发布的 iOS 9，它们都为前端世界带来了哪些变化呢？作为一个 web 开发者，是时候站在我们的角度来说一说了！
+
+
+  注！ 该译文存在大量英文术语，笔者将默认读者知晓 ES6、viewpor...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Hux on December 15, 2015
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2015/10/28/how-designer-learn-fe/">
+        <h2 class="post-title">
+            「知乎」设计师如何学习前端？
+        </h2>
+        
+        <h3 class="post-subtitle">
+            How designers learn front-end development?
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  这篇文章转载自我在知乎上的回答，也被刊登于优秀网页设计等多个网站上 ;)
+
+
+笔者的经历在知乎就可以看到，大学专业是数字媒体艺术，大一实习过动效设计师，大二拿到了人生第一个大公司 offer 是阿里的交互设计，后来转岗到淘宝旅行的前端团队，现在在微信电影票做前端研发。
+
+也是走过了不少野路子，不过还好有小右哥 @尤雨溪 这样艺术/设计转前端的大神在前面做典范，也证明这条路是玩的通的 ;...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Hux on October 28, 2015
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    
+    <li class="next">
+        <a href="/page2">Older Posts &rarr;</a>
+    </li>
+    
+</ul>
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#知乎" title="知乎" rel="7">
+                                    知乎
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#Android" title="Android" rel="2">
+                                    Android
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#交互设计" title="交互设计" rel="4">
+                                    交互设计
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#阿里巴巴" title="阿里巴巴" rel="3">
+                                    阿里巴巴
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#前端开发" title="前端开发" rel="13">
+                                    前端开发
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#职业病" title="职业病" rel="3">
+                                    职业病
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#生活" title="生活" rel="2">
+                                    生活
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#hUX 随想录" title="hUX 随想录" rel="2">
+                                    hUX 随想录
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#UX Design" title="UX Design" rel="3">
+                                    UX Design
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#OS" title="OS" rel="2">
+                                    OS
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#JavaScript" title="JavaScript" rel="10">
+                                    JavaScript
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#译文" title="译文" rel="2">
+                                    译文
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#PWA" title="PWA" rel="5">
+                                    PWA
+                                </a>
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <img src="/img/avatar-hux.jpg" />
+                        
+                        
+                            <p>写写代码，做做设计，<br>离开世界之前，一切都是过程</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                            <li>
+                                <a href="https://twitter.com/malone">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.zhihu.com/people/malone">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="http://weibo.com/malone">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/malone">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://mida.re/">乱序</a></li>
+                    
+                        <li><a href="http://qianduan.guru/">前端外刊评论</a></li>
+                    
+                        <li><a href="http://lingyu.wang/">天镶的博客</a></li>
+                    
+                        <li><a href="http://hmqk1995.github.io">Luke 的自留地</a></li>
+                    
+                        <li><a href="http://ebnbin.com/">Ebn's Blog</a></li>
+                    
+                        <li><a href="http://blog.smdcn.net">SmdCn's Blog</a></li>
+                    
+                        <li><a href="http://xieminis.me/">解旻的博客</a></li>
+                    
+                        <li><a href="http://dhong.co">DHong Say</a></li>
+                    
+                        <li><a href="http://ingf.github.io/">尹峰以为</a></li>
+                    
+                        <li><a href="http://wepiaofei.github.io/blog/">前端神盾局</a></li>
+                    
+                </ul>
+                
+    		</div>
+        
+	</div>
 </div>
 
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/malone">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/malone">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/malone">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
 
 
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p>
-            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
-            <span>赵梦欢 &copy; 2015 - 2017</span>
-        </p>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/malone">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Kui Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
     </div>
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
 
 
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zhaomenghuan.github.io/&title=小青年博客&pic=https://zhaomenghuan.github.io/img/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zhaomenghuan.github.io/&title=小青年博客&source=小青年,小青年博客,前端开发,android,技术宅,菜鸟教程,一个神奇的博客。" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zhaomenghuan.github.io/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=小青年博客&url=https://zhaomenghuan.github.io/&via=https://zhaomenghuan.github.io" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zhaomenghuan.github.io/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAB0klEQVR42u3aQW6EMAwF0N7/0tNtpTbwbZMIVS8rBCN4mYXl2P76itfn11o9Xd25/v3DCxcXd8z9XK6fv6nSV29I3rncEi4u7kHuKmIkxCScXYe5xICLi/tm7uppTsHFxf1P3BzXu4OLi/s2bnL4SVKcamVj41kNFxd3wM0/sO96S30XFxe3xf2MV36kqQavP76Fi4t7hDs/5Fx/+DoBapZTcXFxN3OTpkh19wmrOcCBi4t7hJuPXuVJSX5wSsJlc1IMFxd3wO0FqWT31VBVSHFwcXE3c6vpRXUbeXk0b7vi4uLu5lYHIJLUJwlnzb8MFxf3OHfSdu11Qsvvx8XFPc6tNk3z0mpegrm5xsXFPchNoKOBiaCkUjj84OLiHuHmpYpek7XHvZkTwcXF3cbtlTV7T6t90pv6Li4u7jZuPgxxfX9SKk02vxzZxMXF3cCdt1QfKIPGJVdcXNwz3F6ZIwl2eTm1OSeCi4u7jVtNOPK2R96GeSolwsXFfZabB69eYErKH4XWCy4u7kFur5Ca12WrB6SbsgguLu5ruPmg1TzkLb+Li4v7Mm71uteGeTjFwcXFHXAnoac6xjEZ/MLFxT3D7Q1D5AlQEi4fbqjg4uL2ud/PCmzDTUEqcQAAAABJRU5ErkJggg==" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<!-- async load function -->
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
-
-lazyScripts.push('//s95.cnzz.com/z_stat.php?id=1261860158&web_id=1261860158')
-
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
 </script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-
-
-
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
 
 
+<!-- Google Analytics -->
 
 <script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '小青年博客！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '看似寻常最奇崛，成如容易却艰辛。';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = '';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
 </script>
 
 
 
-<script type="text/javascript">
-    (function(p,u,s,h){
-        p._pcq=p._pcq||[];
-        p._pcq.push(['_currentTime',Date.now()]);
-        s=u.createElement('script');
-        s.type='text/javascript';
-        s.async=true;
-        s.src='https://cdn.pushcrew.com/js/84781173feeb9c46759523538d7dbfe0.js';
-        h=u.getElementsByTagName('script')[0];
-        h.parentNode.insertBefore(s,h);
-    })(window,document);
-</script>
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
+
 </html>
